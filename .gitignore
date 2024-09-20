@@ -46,6 +46,7 @@ utils/qsort/test_qsort
 
 # tags files
 TAGS
+src/tags
 
 # Hidden files usually should not be tracked
 ^\.
