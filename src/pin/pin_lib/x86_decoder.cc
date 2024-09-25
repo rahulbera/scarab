@@ -1790,7 +1790,11 @@ void init_pin_opcode_convert(void) {
   iclass_to_scarab_map[XED_ICLASS_VPSUBW]      = {OP_IADD, 2, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VPTERNLOGD]  = {OP_LOGIC, 4, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VPTERNLOGQ]  = {OP_LOGIC, 8, -1, NONE};
-  iclass_to_scarab_map[XED_ICLASS_VPTEST]      = {OP_LOGIC, -1, 1, NONE};
+  iclass_to_scarab_map[XED_ICLASS_VPTEST]      = {OP_FCMP, -1, 1, NONE};
+  iclass_to_scarab_map[XED_ICLASS_VPTESTMB]      = {OP_FCMP, 1, 1, NONE};
+  iclass_to_scarab_map[XED_ICLASS_VPTESTMD]      = {OP_FCMP, 2, 1, NONE};
+  iclass_to_scarab_map[XED_ICLASS_VPTESTMQ]      = {OP_FCMP, 8, 1, NONE};
+  iclass_to_scarab_map[XED_ICLASS_VPTESTMW]      = {OP_FCMP, 4, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VPUNPCKHBW]  = {OP_MOV, 1, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VPUNPCKHDQ]  = {OP_MOV, 4, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VPUNPCKHQDQ] = {OP_MOV, 8, -1, NONE};
