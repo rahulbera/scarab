@@ -24,6 +24,9 @@ rollups/
 # Doxygen output
 ^doc/doxygen
 
+# Dependencies
+extras/
+
 # binaries/compilation results
 build/
 *.pdf

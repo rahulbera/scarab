@@ -69,10 +69,12 @@ my $rc = 0;
 
 print("Running McPat...\n");
 my $mcpat_design_opt = (-r $mcpat_design_filename) ? "-load_design" : "-dump_design";
+print("Command: cd $dir && $MCPAT_EXEC $mcpat_design_opt -infile $dir/$file_tag"."mcpat_infile.xml > $dir/$file_tag"."mcpat.out \n");
 $rc = system("cd $dir && $MCPAT_EXEC $mcpat_design_opt -infile $dir/$file_tag"."mcpat_infile.xml > $dir/$file_tag"."mcpat.out");
 die "Error running McPAT: $MCPAT_EXEC $mcpat_design_opt -infile $dir/$file_tag"."mcpat_infile.xml > $dir/$file_tag"."mcpat.out\n" if $rc;
 
 print("Running CACTI...\n");
+print("Command: cd $dir && $CACTI_EXEC -infile $dir/$file_tag"."cacti_infile.cfg > $dir/$file_tag"."cacti_dram.out\n");
 $rc = system("cd $dir && $CACTI_EXEC -infile $dir/$file_tag"."cacti_infile.cfg > $dir/$file_tag"."cacti_dram.out");
 die "Error running CACTI\n" if $rc;
 
