@@ -106,6 +106,12 @@ class Scarab:
       assert socket_path is not None
       self.socket_path = os.path.abspath(socket_path)
 
+  def __create_simdir(self):
+    if not os.path.exists(args.simdir):
+      os.makedirs(args.simdir)
+    else:
+      print("Using existing simdir")
+      
   def __copy_params_file_to_simdir(self):
     if args.params:
       shutil.copy2(args.params, args.simdir + "/PARAMS.in") 
@@ -131,6 +137,7 @@ class Scarab:
     return self.cmd
 
   def launch(self):
+    self.__create_simdir()
     self.__copy_params_file_to_simdir()
     self.__get_scarab_command()
     

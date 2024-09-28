@@ -695,8 +695,7 @@ void oldest_first_sched(Op* op) {
     uns32      fu_id = fu->fu_id;
 
     // check if this op can be executed by this FU
-    if(get_fu_type(op->table_info->op_type, op->table_info->is_simd) &
-       fu->type) {
+    if(can_fu_exec_op(op, fu)) {
       Op* s_op = node->sd.ops[fu_id];
       if(!s_op) {  // nobody has been scheduled to this FU yet
         DEBUG(node->proc_id,
@@ -1011,8 +1010,7 @@ int64 find_emptiest_rs(Op* op) {
       Func_Unit* fu = rs->connected_fus[i];
 
       // This FU can execute this op
-      if(get_fu_type(op->table_info->op_type, op->table_info->is_simd) &
-         fu->type) {
+      if(can_fu_exec_op(op, fu)) {
         // Find the emptiest RS
         int32 num_empty_slots = rs->size - rs->rs_op_count;
         if(num_empty_slots != 0) {

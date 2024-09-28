@@ -143,6 +143,18 @@ DEF_PARAM(rs_connections, RS_CONNECTIONS, char*, string, "xF", )
  * exec_ports for more info.*/
 DEF_PARAM(fu_types, FU_TYPES, char*, string, "0, 0, 0, 0", )
 
+/* A bitvector where a set bit means that FU can only take load uops.
+ * Note: make sure the selected FU is already connected to IMEM or FMEM ops,
+ * otherwise this will throw an error.
+ * 0 means a mem FU can take both load and store*/
+DEF_PARAM(fu_only_load, FU_ONLY_LOAD, uns, uns, 0, )
+
+/* A bitvector where a set bit means that FU can only take store uops.
+ * Note: make sure the selected FU is already connected to IMEM or FMEM ops,
+ * otherwise this will throw an error.
+ * 0 means a mem FU can take both load and store*/
+DEF_PARAM(fu_only_store, FU_ONLY_STORE, uns, uns, 0, )
+
 /********FRONT END STAGE
  * LATENCIES****************************************************/
 DEF_PARAM(decode_cycles, DECODE_CYCLES, uns, uns, 1, )

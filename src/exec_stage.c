@@ -239,7 +239,7 @@ void update_exec_stage(Stage_Data* src_sd) {
             unsstr64(op->op_num));
     ASSERT(
       exec->proc_id,
-      get_fu_type(op->table_info->op_type, op->table_info->is_simd) & fu->type);
+      can_fu_exec_op(op, fu));
     exec_cycle      = cycle_count + MAX2(latency, -latency);
     op->sched_cycle = cycle_count;
 

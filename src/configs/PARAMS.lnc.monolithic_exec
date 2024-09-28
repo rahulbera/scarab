@@ -92,9 +92,9 @@
 --issue_width                   8
 
 --rs_fill_width                 0
---rs_sizes                      114 97 62                           
+--rs_sizes                      273
                                 # {FP&VEC}-RS, INT-RS, MEM-RS
---rs_connections                x000F x03F0 xFC00
+--rs_connections                0
 # ====RBERA====
 # 16 FUs in total
 # First 4 -> generic ops + fp + vector ops
@@ -103,10 +103,9 @@
 # Refer: https://www.intel.com/content/www/us/en/content-details/824430/2024-intel-tech-tour-next-gen-p-core-the-lion-cove-microarchitecture.html
 # Also refer src/configs/BINDINGS.lnc.xlsx to check how to create bindigs
 # Refer the respective manuals in src/configs/ to find the bindings in real processors
+# TODO: restrict load and store ops
 # =============
---fu_types                      x03FFB8001FFDC000 x03FF78001FFBC000 x03FFB8001FFDC000 x03FF78001FFBC000 x000003F760001FBB x000001D7E0000EBF x000003F760001FBB x000001D7E0000EBF x000003F760001FBB x000001D7E0000EBF x0000040800002040 x0000040800002040 x0000040800002040 x0000040800002040 x0000040800002040 x0000040800002040
---fu_only_load                  7168
---fu_only_store                 57344
+--fu_types                      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
 # Load/store queue
 --load_queue_entries            240

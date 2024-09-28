@@ -194,6 +194,8 @@ void init_exec_ports_fu_list(uns proc_id, Func_Unit* fu) {
                                     next_type;  // zero means all ops
     check_fu_type |= fu[i].type;  // accumulating all types from all FUs to make
                                   // sure every op is covered
+    fu[i].memtype = FU_LD_ST;   // by default a FU can take both load and store
+                                // if a memop is mapped to it
     ASSERTM(proc_id, tmp, "Found less FU_TYPES than expected\n");
     fu[i].proc_id = proc_id;
     ASSERTM(proc_id, i < 99999,
@@ -207,6 +209,44 @@ void init_exec_ports_fu_list(uns proc_id, Func_Unit* fu) {
   ASSERTM(proc_id, check_fu_type == N_BIT_MASK(FU_TYPE_WIDTH),
           "FU types do not cover all possible ops");
   free(fu_types_copy);
+
+  // RBERA: configure load-only FUs
+  if(FU_ONLY_LOAD) {
+    for(i = 0; i < NUM_FUS; ++i) {
+      // nothing to do if the bit is not set
+      if(!UNS_TESTBIT(FU_ONLY_LOAD, i)) {
+        continue;
+      }
+      // check if can take MEM op anyway
+      Flag can_take_memop = UNS_TESTBIT(fu[i].type, OP_IMEM) |
+                            UNS_TESTBIT(fu[i].type, OP_IMEM + NUM_OP_TYPES) |
+                            UNS_TESTBIT(fu[i].type, OP_FMEM) |
+                            UNS_TESTBIT(fu[i].type, OP_IMEM + NUM_OP_TYPES);
+      ASSERTM(proc_id, can_take_memop,
+              "FU %d is not configured to take memop\n", i);
+      fu[i].memtype = FU_LD;
+      fprintf(stderr, "Setting FU %d to take only load\n", i);
+    }
+  }
+
+  // RBERA: configure store-only FUs
+  if(FU_ONLY_STORE) {
+    for(i = 0; i < NUM_FUS; ++i) {
+      // nothing to do if the bit is not set
+      if(!UNS_TESTBIT(FU_ONLY_STORE, i)) {
+        continue;
+      }
+      // check if can take MEM op anyway
+      Flag can_take_memop = UNS_TESTBIT(fu[i].type, OP_IMEM) |
+                            UNS_TESTBIT(fu[i].type, OP_IMEM + NUM_OP_TYPES) |
+                            UNS_TESTBIT(fu[i].type, OP_FMEM) |
+                            UNS_TESTBIT(fu[i].type, OP_IMEM + NUM_OP_TYPES);
+      ASSERTM(proc_id, can_take_memop,
+              "FU %d is not configured to take memop\n", i);
+      fu[i].memtype = FU_ST;
+      fprintf(stderr, "Setting FU %d to take only store\n", i);
+    }
+  }
 }
 
 void init_exec_ports_rs_list(uns proc_id, Reservation_Station* rs,
@@ -298,4 +338,33 @@ void init_exec_ports(uns8 proc_id, const char* name) {
 
 uns64 get_fu_type(Op_Type op_type, Flag is_simd) {
   return (1ull << op_type) << (is_simd ? NUM_OP_TYPES : 0);
+}
+
+Flag can_fu_exec_op(Op* op, Func_Unit* fu) {
+  uns64 temp = get_fu_type(op->table_info->op_type, op->table_info->is_simd) &
+               fu->type;
+
+  if(temp == 0) {
+    return FALSE;
+  }
+
+  // here means this FU can service this uop type
+  // return TRUE only if: 
+  //   1. it's not a mem op
+  //   2. it's a load op and the FU is configured to take loads
+  //   3. it's a store op and the FU is configured to take stores
+  if(op->table_info->mem_type == NOT_MEM) {
+    return TRUE;
+  }
+  if((op->table_info->mem_type == MEM_LD) &
+     (fu->memtype == FU_LD || fu->memtype == FU_LD_ST)) {
+    return TRUE;
+  }
+  if((op->table_info->mem_type == MEM_ST) &
+     (fu->memtype == FU_ST || fu->memtype == FU_LD_ST)) {
+    return TRUE;
+  }
+
+  // fall back
+  return FALSE;
 }
