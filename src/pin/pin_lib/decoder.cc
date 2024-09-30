@@ -112,7 +112,7 @@ void pin_decoder_insert_analysis_functions(const INS& ins) {
   info->instruction_addr = INS_Address(ins);
   // Note: should be overwritten for a taken control flow instruction
   info->instruction_next_addr = INS_NextAddress(ins);
-  if(INS_IsDirectControlFlow(ins)) { // RBERA: changed for PIN 3.31
+  if(INS_IsDirectControlFlow(ins)) { // RBERA: changed for PIN 3.17
     info->branch_target = INS_DirectControlFlowTargetAddress(ins);
   }
 
