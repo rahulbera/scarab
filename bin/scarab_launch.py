@@ -109,8 +109,6 @@ class Scarab:
   def __create_simdir(self):
     if not os.path.exists(args.simdir):
       os.makedirs(args.simdir)
-    else:
-      print("Using existing simdir")
       
   def __copy_params_file_to_simdir(self):
     if args.params:
