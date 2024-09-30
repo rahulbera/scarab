@@ -1,13 +1,72 @@
-diff -ruN mcpat/processor.cc ../mcpat_v1.0/processor.cc
---- mcpat/processor.cc	2013-09-03 14:56:02.000000000 -0500
-+++ ../mcpat_v1.0/processor.cc	2019-02-21 13:14:39.358458138 -0600
-@@ -493,6 +493,8 @@
+From d270262e6218ba468e9693b7b3dc4c8456211932 Mon Sep 17 00:00:00 2001
+From: Rahul Bera <rahul.bera@safari.ethz.ch>
+Date: Fri, 27 Sep 2024 23:40:06 +0200
+Subject: [PATCH] Made McPAT ready for Scarab
+
+---
+ cacti/cacti.mk | 4 ++--
+ cacti/io.cc    | 3 +--
+ mcpat.mk       | 4 ++--
+ processor.cc   | 2 ++
+ 4 files changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/cacti/cacti.mk b/cacti/cacti.mk
+index 96d4ab9..c4c4ec3 100644
+--- a/cacti/cacti.mk
++++ b/cacti/cacti.mk
+@@ -21,8 +21,8 @@ endif
+ 
+ #CXXFLAGS = -Wall -Wno-unknown-pragmas -Winline $(DBG) $(OPT) 
+ CXXFLAGS = -Wno-unknown-pragmas $(DBG) $(OPT) 
+-CXX = g++ -m32
+-CC  = gcc -m32
++CXX = g++
++CC  = gcc
+ 
+ SRCS  = area.cc bank.cc mat.cc main.cc Ucache.cc io.cc technology.cc basic_circuit.cc parameter.cc \
+ 		decoder.cc component.cc uca.cc subarray.cc wire.cc htree2.cc \
+diff --git a/cacti/io.cc b/cacti/io.cc
+index cb40e82..72e5b96 100644
+--- a/cacti/io.cc
++++ b/cacti/io.cc
+@@ -1502,8 +1502,7 @@ bool InputParameter::error_checking()
+       A = assoc;
+       if (is_pow2(A) == false)
+       {
+-        cerr << "Associativity must be a power of 2" << endl;
+-        return false;
++        cerr << "Warning: associativity is not a power of 2" << endl;
+       }
+     }
+   }
+diff --git a/mcpat.mk b/mcpat.mk
+index f2c4fd5..cfcf57b 100644
+--- a/mcpat.mk
++++ b/mcpat.mk
+@@ -22,8 +22,8 @@ endif
+ 
+ #CXXFLAGS = -Wall -Wno-unknown-pragmas -Winline $(DBG) $(OPT) 
+ CXXFLAGS = -Wno-unknown-pragmas $(DBG) $(OPT) 
+-CXX = g++ -m32
+-CC  = gcc -m32
++CXX = g++ 
++CC  = gcc 
+ 
+ VPATH = cacti
+ 
+diff --git a/processor.cc b/processor.cc
+index 2c01da5..e9761a9 100644
+--- a/processor.cc
++++ b/processor.cc
+@@ -493,6 +493,8 @@ void Processor::displayEnergy(uint32_t indent, int plevel, bool is_tdp)
      	cout <<endl;
  		cout <<"*****************************************************************************************"<<endl;
  		cout <<"Processor: "<<endl;
-+        cout << indent_str << "Frequency (MHz) = " << XML->sys.core[0].clock_rate << endl;
-+        cout << indent_str << "Voltage = " << g_tp.peri_global.Vdd << endl;
++		cout << indent_str << "Frequency (MHz) = " << XML->sys.core[0].clock_rate << endl;
++		cout << indent_str << "Voltage = " << g_tp.peri_global.Vdd << endl;
  		cout << indent_str << "Area = " << area.get_area()*1e-6<< " mm^2" << endl;
  		cout << indent_str << "Peak Power = " << power.readOp.dynamic +
  			(long_channel? power.readOp.longer_channel_leakage:power.readOp.leakage) + power.readOp.gate_leakage <<" W" << endl;
-Binary files mcpat/.processor.cc.swp and ../mcpat_v1.0/.processor.cc.swp differ
+-- 
+2.34.1
+

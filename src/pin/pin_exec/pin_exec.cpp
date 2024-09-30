@@ -134,16 +134,20 @@ void insert_checks_for_control_flow(const INS& ins) {
     INS_InsertCall(ins, IPOINT_BEFORE, AFUNPTR(check_ret_control_ins),
                    IARG_MEMORYREAD_EA, IARG_MEMORYREAD_SIZE, IARG_CONTEXT,
                    IARG_END);
-  } else if(INS_IsBranchOrCall(ins)) {
-    if(INS_IsDirectBranchOrCall(ins)) {
+  } else if(INS_IsControlFlow(ins)) {  // @RBERA: changing this call for PIN 3.31. Earlier was INS_IsBranchOrCall()
+    if(INS_IsDirectControlFlow(ins)) {  // @RBERA: changing this for PIN 3.31. Earlier was INS_IsDirectBranchOrCall()
       if(INS_Category(ins) == XED_CATEGORY_COND_BR) {
         INS_InsertCall(ins, IPOINT_BEFORE, AFUNPTR(check_nonret_control_ins),
                        IARG_BRANCH_TAKEN, IARG_ADDRINT,
-                       INS_DirectBranchOrCallTargetAddress(ins), IARG_END);
+                       INS_DirectControlFlowTargetAddress(ins),
+                       IARG_END);  // @RBERA: change for PIN 3.31. Earlier was
+                                   // INS_DirectBranchOrCallTargetAddress
       } else {
         INS_InsertCall(ins, IPOINT_BEFORE, AFUNPTR(check_nonret_control_ins),
                        IARG_BOOL, true, IARG_ADDRINT,
-                       INS_DirectBranchOrCallTargetAddress(ins), IARG_END);
+                       INS_DirectControlFlowTargetAddress(ins),
+                       IARG_END);  // @RBERA: change for PIN 3.31. Earlier was
+                                   // INS_DirectBranchOrCallTargetAddress
       }
     } else if(INS_IsMemoryRead(ins)) {
       INS_InsertCall(ins, IPOINT_BEFORE,
@@ -167,7 +171,11 @@ void insert_processing_for_nonsyscall_instructions(const INS& ins) {
     INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)before_ins_no_mem, IARG_CONTEXT,
                    IARG_END);
   } else {
-    if(INS_hasKnownMemorySize(ins)) {
+    // @RBERA: we needed a replacement for deprecated INS_hasKnownMemorySize()
+    // INS_HasMemoryVector: detects contigous vectored memory accesses (vmovaps, vmovdqu) 
+    // INS_HasScatteredMemoryAccess: detetcs non-contigous scattered
+    // memory accesses (vpgatherdd, vpscatterdq)
+    if(!INS_HasMemoryVector(ins) && !INS_HasScatteredMemoryAccess(ins)) {
       // Single memory op
       INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)before_ins_one_mem,
                      IARG_CONTEXT, IARG_MEMORYWRITE_EA, IARG_MEMORYWRITE_SIZE,
@@ -235,8 +243,8 @@ void instrumentation_func_per_instruction(INS ins, void* v) {
 
 #ifdef DEBUG_PRINT
       stringstream ss;
-      if(INS_IsDirectBranchOrCall(ins)) {
-        ss << "0x" << hex << INS_DirectBranchOrCallTargetAddress(ins);
+      if(INS_IsDirectControlFlow(ins)) {
+        ss << "0x" << hex << INS_DirectControlFlowTargetAddress(ins);
       } else {
         ss << "(not a direct branch or call)";
       }

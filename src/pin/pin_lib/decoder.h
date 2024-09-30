@@ -52,4 +52,37 @@ ctype_pin_inst create_sentinel();
 ctype_pin_inst create_dummy_jump(uint64_t eip, uint64_t tgt);
 ctype_pin_inst create_dummy_nop(uint64_t eip, Wrongpath_Nop_Mode_Reason reason);
 
+// RBERA: taking this definition straight out of PIN 3.7
+// FIXME: Register value should not be read like this
+// Support for newer advanced instructions (e.g., AMX)
+// will likely be broken. Should we assert?
+const UINT32 MAX_BYTES_PER_PIN_REG = 64;
+const UINT32 MAX_WORDS_PER_PIN_REG = (MAX_BYTES_PER_PIN_REG/2);
+const UINT32 MAX_DWORDS_PER_PIN_REG = (MAX_WORDS_PER_PIN_REG/2);
+const UINT32 MAX_QWORDS_PER_PIN_REG = (MAX_DWORDS_PER_PIN_REG/2);
+const UINT32 MAX_FLOATS_PER_PIN_REG = (MAX_BYTES_PER_PIN_REG/sizeof(float));
+const UINT32 MAX_DOUBLES_PER_PIN_REG = (MAX_BYTES_PER_PIN_REG/sizeof(double));
+
+/*! @ingroup CONTEXT_API
+ *  A container large enough to hold any architectural register.
+ *  Implemented as a union to allow viewing the value as different types (signed/unsigned integer or floating point)
+ *  and allow access in blocks of various sizes.
+ */
+union PIN_REGISTER
+{
+    UINT8  byte[MAX_BYTES_PER_PIN_REG];
+    UINT16 word[MAX_WORDS_PER_PIN_REG];
+    UINT32 dword[MAX_DWORDS_PER_PIN_REG];
+    UINT64 qword[MAX_QWORDS_PER_PIN_REG];
+
+    INT8   s_byte[MAX_BYTES_PER_PIN_REG];
+    INT16  s_word[MAX_WORDS_PER_PIN_REG];
+    INT32  s_dword[MAX_DWORDS_PER_PIN_REG];
+    INT64  s_qword[MAX_QWORDS_PER_PIN_REG];
+
+    FLT32  flt[MAX_FLOATS_PER_PIN_REG];
+    FLT64  dbl[MAX_DOUBLES_PER_PIN_REG];
+};
+
+
 #endif  // __DECODER_H__

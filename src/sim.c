@@ -274,7 +274,7 @@ static inline Counter check_forward_progress(uns8 proc_id) {
 
     if(cmp_model.node_stage[proc_id].node_head) {
       printf("What op prevents proceeding? unique: %llu, valid: %u, va: %llx, "
-             "opstate: %u, op_type: %u, mem_type: %u, req: %p proc: %u, addr: "
+             "opstate: %u, op_type: %u, mem_type: %u, name: %s, req: %p proc: %u, addr: "
              "%llu, state: %u\n",
              cmp_model.node_stage[proc_id].node_head->unique_num,
              cmp_model.node_stage[proc_id].node_head->op_pool_valid,
@@ -282,6 +282,7 @@ static inline Counter check_forward_progress(uns8 proc_id) {
              cmp_model.node_stage[proc_id].node_head->state,
              cmp_model.node_stage[proc_id].node_head->table_info->op_type,
              cmp_model.node_stage[proc_id].node_head->table_info->mem_type,
+             cmp_model.node_stage[proc_id].node_head->table_info->name,
              cmp_model.node_stage[proc_id].node_head->req ?
                cmp_model.node_stage[proc_id].node_head->req :
                0,

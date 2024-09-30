@@ -1,7 +1,33 @@
-diff -ruN cacti65/io.cc ../cacti65/io.cc
---- cacti65/io.cc	2009-12-25 10:16:58.000000000 -0600
-+++ ../cacti65/io.cc	2019-02-21 13:50:33.804812785 -0600
-@@ -1190,7 +1190,9 @@
+From e79088ddd2588a7eeee7e60321b7868b70979e86 Mon Sep 17 00:00:00 2001
+From: Rahul Bera <rahul.bera@safari.ethz.ch>
+Date: Fri, 27 Sep 2024 23:21:02 +0200
+Subject: [PATCH 1/2] Added changes for Scarab
+
+---
+ cacti.mk | 4 ++--
+ io.cc    | 4 +++-
+ 2 files changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/cacti.mk b/cacti.mk
+index b76f38f..e31fcb9 100644
+--- a/cacti.mk
++++ b/cacti.mk
+@@ -21,8 +21,8 @@ endif
+ 
+ #CXXFLAGS = -Wall -Wno-unknown-pragmas -Winline $(DBG) $(OPT) 
+ CXXFLAGS = -Wno-unknown-pragmas $(DBG) $(OPT) 
+-CXX = g++ -m32
+-CC  = gcc -m32
++CXX = g++
++CC  = gcc
+ 
+ SRCS  = area.cc bank.cc mat.cc main.cc Ucache.cc io.cc technology.cc basic_circuit.cc parameter.cc \
+ 		decoder.cc component.cc uca.cc subarray.cc wire.cc htree2.cc \
+diff --git a/io.cc b/io.cc
+index 6ad1d42..e5db6e2 100644
+--- a/io.cc
++++ b/io.cc
+@@ -1190,7 +1190,9 @@ void output_UCA(uca_org_t *fr)
    cout << "    Write ports: " <<
      g_ip->num_wr_ports << endl;;
    cout << "    Technology size (nm): " <<  
@@ -12,3 +38,31 @@ diff -ruN cacti65/io.cc ../cacti65/io.cc
  
    cout << "    Access time (ns): " << fr->access_time*1e9 << endl;
    cout << "    Cycle time (ns):  " << fr->cycle_time*1e9 << endl;
+-- 
+2.34.1
+
+
+From 0ec993943cf8c9755d23173cce9fcef6829761fb Mon Sep 17 00:00:00 2001
+From: Rahul Bera <rahul.bera@safari.ethz.ch>
+Date: Fri, 27 Sep 2024 23:22:15 +0200
+Subject: [PATCH 2/2] Added .gitignore
+
+---
+ .gitignore | 5 +++++
+ 1 file changed, 5 insertions(+)
+ create mode 100644 .gitignore
+
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..7d4aaeb
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,5 @@
++# binary
++cacti
++
++# build directory
++obj_opt/
+-- 
+2.34.1
+

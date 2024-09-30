@@ -30,6 +30,7 @@
 #define __EXEC_PORTS_H__
 
 #include "table_info.h"
+#include "exec_stage.h"
 
 /**************************************************************************************/
 /* Type Declarations */
@@ -43,5 +44,6 @@ typedef enum Power_FU_Type_enum {
 
 Power_FU_Type power_get_fu_type(Op_Type op_type, Flag is_simd);
 uns64         get_fu_type(Op_Type op_type, Flag is_simd);
+Flag          can_fu_exec_op(Op* op, Func_Unit* fu);
 
 #endif /* #ifndef __EXEC_PORTS_H__ */
