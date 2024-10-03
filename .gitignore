@@ -72,3 +72,9 @@ test_string_pinball/
 .vscode/*
 *.code-workspace
 .env
+
+# Test benches and their assembly
+test/fft
+test/fft.asm
+test/simple_array
+test/simple_array.asm
