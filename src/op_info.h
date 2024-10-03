@@ -85,9 +85,10 @@ struct Op_Info_struct {
   UQuad    new_fpcr;            // fpcr value resulting from this op
 
   // mem op fields
-  Addr va;        // virtual address for memory instructions
-  uns  mem_size;  // memory data size now became dynamic property due to REP
-                  // STRING
+  Addr  va;        // virtual address for memory instructions
+  uns   mem_size;  // memory data size now became dynamic property due to REP
+                   // STRING
+  uns64 ldval;     // data value of non-gather load, set by oracle 
 
   // all op fields
   Addr npc;  // the true next pc after the instruction

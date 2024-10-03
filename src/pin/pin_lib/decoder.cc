@@ -49,6 +49,7 @@ static ctype_pin_inst  tmp_inst_info;
 // Globals used for communication between analysis functions
 uint32_t       glb_opcode, glb_actually_taken;
 deque<ADDRINT> glb_ld_vaddrs, glb_st_vaddrs;
+deque<ADDRINT> glb_ld_vals;
 
 std::ostream*                                    glb_err_ostream;
 bool                                             glb_translate_x87_regs;
@@ -66,8 +67,8 @@ void print_err_if_invalid(ctype_pin_inst* info, const INS& ins);
 void get_opcode(UINT32 opcode);
 void get_gather_scatter_eas(bool is_gather, CONTEXT* ctxt,
                             PIN_MULTI_MEM_ACCESS_INFO* mem_access_info);
-void get_ld_ea(ADDRINT addr);
-void get_ld_ea2(ADDRINT addr1, ADDRINT addr2);
+void get_ld_ea_and_val(ADDRINT addr, UINT32 size);
+void get_ld_ea_and_val2(ADDRINT addr1, ADDRINT addr2, UINT32 size);
 void get_st_ea(ADDRINT addr);
 void get_branch_dir(bool taken);
 void create_compressed_op(ADDRINT iaddr);
@@ -207,11 +208,12 @@ void insert_analysis_functions(ctype_pin_inst* info, const INS& ins) {
   } else {
     if(INS_IsMemoryRead(ins)) {
       if(INS_HasMemoryRead2(ins)) {
-        INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)get_ld_ea2,
-                       IARG_MEMORYREAD_EA, IARG_MEMORYREAD2_EA, IARG_END);
+        INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)get_ld_ea_and_val2,
+                       IARG_MEMORYREAD_EA, IARG_MEMORYREAD2_EA, IARG_MEMORYREAD_SIZE,
+                       IARG_END);
       } else {
-        INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)get_ld_ea,
-                       IARG_MEMORYREAD_EA, IARG_END);
+        INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)get_ld_ea_and_val,
+                       IARG_MEMORYREAD_EA, IARG_MEMORYREAD_SIZE, IARG_END);
       }
     }
 
@@ -219,6 +221,8 @@ void insert_analysis_functions(ctype_pin_inst* info, const INS& ins) {
       INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)get_st_ea,
                      IARG_MEMORYWRITE_EA, IARG_END);
     }
+
+    // RBERA_TODO: add dest reg value extraction code here
   }
 
   if(info->cf_type) {
@@ -260,8 +264,14 @@ void create_compressed_op(ADDRINT iaddr) {
                                          num_lds, filled_inst_info);
     }
     assert(filled_inst_info->num_ld == num_lds);
+    // RBERA: load values are not available for gather loads yet
+    assert(filled_inst_info->num_ld == glb_ld_vals.size() ||
+           filled_inst_info->is_gather_scatter);
     for(uint ld = 0; ld < num_lds; ld++) {
       filled_inst_info->ld_vaddr[ld] = glb_ld_vaddrs[ld];
+      if(!filled_inst_info->is_gather_scatter) {
+        filled_inst_info->ld_val[ld] = glb_ld_vals[ld];
+      }
     }
 
     uint num_sts = glb_st_vaddrs.size();
@@ -279,6 +289,7 @@ void create_compressed_op(ADDRINT iaddr) {
   }
   glb_opcode = 0;
   glb_ld_vaddrs.clear();
+  glb_ld_vals.clear();
   glb_st_vaddrs.clear();
   glb_actually_taken = 0;
 
@@ -326,13 +337,25 @@ void get_opcode(UINT32 opcode) {
   glb_opcode = opcode;
 }
 
-void get_ld_ea(ADDRINT addr) {
+void get_ld_ea_and_val(ADDRINT addr, UINT32 size) {
   glb_ld_vaddrs.push_back(addr);
+  uint64_t ld_val = 0;
+  if (size <= 8) {
+    PIN_SafeCopy(&ld_val, (void*)addr, size);
+  }
+  glb_ld_vals.push_back(ld_val);
 }
 
-void get_ld_ea2(ADDRINT addr1, ADDRINT addr2) {
+void get_ld_ea_and_val2(ADDRINT addr1, ADDRINT addr2, UINT32 size) {
   glb_ld_vaddrs.push_back(addr1);
   glb_ld_vaddrs.push_back(addr2);
+  uint64_t ld_val1, ld_val2 = 0;
+  if(size <= 8) {
+    PIN_SafeCopy(&ld_val1, (void*)addr1, size);
+    PIN_SafeCopy(&ld_val2, (void*)addr2, size);
+  }
+  glb_ld_vals.push_back(ld_val1);
+  glb_ld_vals.push_back(ld_val2);
 }
 
 void get_st_ea(ADDRINT addr) {

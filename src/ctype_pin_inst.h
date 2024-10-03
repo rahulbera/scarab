@@ -101,6 +101,7 @@ typedef struct ctype_pin_inst_struct {
   uint64_t st_vaddr[MAX_ST_NUM];
   uint8_t  ld_size;
   uint8_t  st_size;
+  uint64_t ld_val[MAX_LD_NUM];
 
   uint64_t branch_target;  // not the dynamic info. static info  // 8 bytes
   uint8_t  actually_taken : 1;

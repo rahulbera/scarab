@@ -77,6 +77,7 @@ struct Trace_Uop_struct {
   Flag     actual_taken;
   Addr     va;
   uns      mem_size;  // number of bytes read/written by a memory instruction
+  uint64_t ldval; // data value of the load. Valid only for non-gather loads
   Addr     target;
   Addr     npc;
   Flag     bom;
@@ -409,7 +410,8 @@ void uop_generator_get_uop(uns proc_id, Op* op, ctype_pin_inst* inst) {
   op->oracle_info.target = convert_to_cmp_addr(0, trace_uop->target) ?
                              trace_uop->target :
                              trace_uop->npc;
-  op->oracle_info.va  = trace_uop->va;
+  op->oracle_info.va    = trace_uop->va;
+  op->oracle_info.ldval = trace_uop->ldval;
   op->oracle_info.npc = trace_uop->npc;
   if(op->proc_id)
     ASSERT(op->proc_id, op->oracle_info.npc);
@@ -433,12 +435,13 @@ void uop_generator_get_uop(uns proc_id, Op* op, ctype_pin_inst* inst) {
 
   DEBUG(proc_id,
         "op_num:%s unique_num:%s pc:0x%s npc:0x%s va:0x%s mem_type:%d "
-        "mem_size:%d cf_type:%d oracle_target:%s dir:%d\n",
+        "mem_size:%d mem_data:%s cf_type:%d oracle_target:%s dir:%d\n",
         unsstr64(op->op_num), unsstr64(op->unique_num),
         hexstr64s(op->inst_info->addr), hexstr64s(op->oracle_info.npc),
         hexstr64s(op->oracle_info.va), op->table_info->mem_type,
-        op->oracle_info.mem_size, op->table_info->cf_type,
-        hexstr64s(op->oracle_info.target), op->oracle_info.dir);
+        op->oracle_info.mem_size, hexstr64s(op->oracle_info.ldval),
+        op->table_info->cf_type, hexstr64s(op->oracle_info.target),
+        op->oracle_info.dir);
 
   for(ii = 0; ii < op->inst_info->table_info->num_src_regs; ii++) {
     DEBUG(proc_id, "op_num:%s unique_num:%s pc:0x%s npc:0x%s, src(%d/%d):%s \n",
@@ -982,12 +985,16 @@ void convert_dyn_uop(uns8 proc_id, Inst_Info* info, ctype_pin_inst* pi,
       trace_uop->load_seq_num = info->trace_info.load_seq_num;
       ASSERT(proc_id, trace_uop->load_seq_num < MAX_LD_NUM);
       trace_uop->va = pi->ld_vaddr[trace_uop->load_seq_num];
+      if(!info->table_info->is_simd) {  // RBERA: does this capture non-gather
+                                        // loads?
+        trace_uop->ldval = pi->ld_val[trace_uop->load_seq_num];
+      }
       DEBUG(proc_id,
             "Generating a load: inst @%llx opcode: %s num_ld: %i "
-            "num_st: %u va: 0x%s load size: %u\n",
+            "num_st: %u va: 0x%s load size: %u load data: %s\n",
             (long long unsigned int)pi->instruction_addr,
             Op_Type_str(pi->op_type), pi->num_ld, pi->num_st,
-            hexstr64s(trace_uop->va), pi->ld_size);
+            hexstr64s(trace_uop->va), pi->ld_size, hexstr64s(trace_uop->ldval));
       trace_uop->mem_size = mem_size;
     }
   }
