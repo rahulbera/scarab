@@ -176,15 +176,16 @@ def fix_simpoint_scripts():
             'environment variable PIN_ROOT correctly.'.format(file_path))
       sys.exit(1)
 
-    with open(file_path, 'r') as f:
-      file_lines = f.readlines()
+    # RBERA: Pinplay 3.11 has already updated its scripts to Python 3
+    # with open(file_path, 'r') as f:
+    #   file_lines = f.readlines()
 
-    if file_lines[0][0:2] == '#!':
-      file_lines[0] = '#!/usr/bin/env python2\n'
-      with open(file_path, 'w') as f:
-        f.writelines(file_lines)
-    else:
-      print('Warining: expected file at {} to start with a shebang line'.format(file_path))
+    # if file_lines[0][0:2] == '#!':
+    #   file_lines[0] = '#!/usr/bin/env python2\n'
+    #   with open(file_path, 'w') as f:
+    #     f.writelines(file_lines)
+    # else:
+    #   print('Warining: expected file at {} to start with a shebang line'.format(file_path))
 
 SIMPOINTS_RUN_CMD_TEMPLATE = (
 'export PATH=$PIN_ROOT/extras/pinplay/scripts/:$PATH\n'
