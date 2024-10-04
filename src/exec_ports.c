@@ -356,7 +356,8 @@ Flag can_fu_exec_op(Op* op, Func_Unit* fu) {
   if(op->table_info->mem_type == NOT_MEM) {
     return TRUE;
   }
-  if((op->table_info->mem_type == MEM_LD) &
+  if((op->table_info->mem_type == MEM_LD ||
+      op->table_info->mem_type == MEM_PF) &
      (fu->memtype == FU_LD || fu->memtype == FU_LD_ST)) {
     return TRUE;
   }
