@@ -76,8 +76,10 @@ def determine_frontend():
   else:
     return 'exec_driven'
 
-def get_num_cores():
+def get_num_cores(frontend):
   cores = 0
+  if frontend == 'trace':
+    cores += len(args.trace)
   if args.program:
     cores += len(args.program)
   if args.checkpoint:
@@ -127,7 +129,7 @@ class Scarab:
 
     self.cmd = "{scarab} --num_cores {num_cores} {frontend_args} --bindir {bin_dir} {additional_args}".format(
       scarab=args.scarab,
-      num_cores=get_num_cores(),
+      num_cores=get_num_cores(self.frontend),
       frontend_args=frontend_specific_args,
       bin_dir=scarab_paths.bin_dir,
       additional_args=args.scarab_args
