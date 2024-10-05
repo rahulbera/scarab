@@ -202,9 +202,9 @@ void dumpProcessInfo(FILE* out, CONTEXT* ctxt) {
   {
     DEBUG("Dumping standard streams\n");
     startChild(out, "standard_streams");
-    INLINE_CHILD(out, "stdin", "%lu", fileno(stdin));
-    INLINE_CHILD(out, "stdout", "%lu", fileno(stdout));
-    INLINE_CHILD(out, "stderr", "%lu", fileno(stderr));
+    INLINE_CHILD(out, "stdin", "%d", fileno(stdin));
+    INLINE_CHILD(out, "stdout", "%d", fileno(stdout));
+    INLINE_CHILD(out, "stderr", "%d", fileno(stderr));
     endChild(out);
   }
   dumpFDs(out, PIN_GetPid());
@@ -473,7 +473,7 @@ void dumpFDs(FILE* out, UINT pid) {
   for(int i = 0; i < numFds; ++i) {
     if(fcntl(fds[i], F_GETFL, 0) != -1) {
       // valid FD (not related to /proc/pid/fd traversal)
-      if(fileno(out) != fds[i]) {  // not the checkpoint fd
+      if((long int)fileno(out) != (long int)fds[i]) {  // not the checkpoint fd
         dumpFdInfo(out, fds[i]);
 
         // ensure the data is out to disk
@@ -636,7 +636,7 @@ void dumpFpState(FILE* out, CONTEXT* ctxt) {
   PIN_GetContextFPState(ctxt, &fpstate);
   startInlineChild(out, "FPSTATE");
   std::cout << "xsave header mask: 0x" << std::hex
-            << fpstate._xstate._extendedHeader._mask << std::endl;
+            << fpstate._xstate._extendedHeader._xstate_bv << std::endl;
   std::cout << "xsave header xcomp: 0x" << std::hex
             << fpstate._xstate._extendedHeader._xcomp_bv << std::endl;
   fprintf(out, "0x");

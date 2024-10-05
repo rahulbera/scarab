@@ -796,7 +796,7 @@ void write_data_to_regions(pid_t child_pid) {
       fatal_and_kill_child(child_pid, "dat file has too many bytes: %s",
                            memory_regions[i].data_file.c_str());
     }
-    fclose(data_file);
+    pclose(data_file);
 
     if(i == vsyscall_region_id || i == vdso_region_id || i == vvar_region_id) {
       DEBUG("asserting regions are equal: start");
