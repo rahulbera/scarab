@@ -972,6 +972,7 @@ void init_pin_opcode_convert(void) {
   iclass_to_scarab_map[XED_ICLASS_KORTESTD] = {OP_LOGIC, 2, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_KORTESTQ] = {OP_LOGIC, 8, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_KORTESTW] = {OP_LOGIC, 4, 1, NONE};
+  iclass_to_scarab_map[XED_ICLASS_KUNPCKDQ] = {OP_PIPELINED_MEDIUM, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_LDDQU]    = {OP_MOV, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_LDMXCSR]  = {OP_NOTPIPELINED_MEDIUM, -1, 1,
                                               NONE};
