@@ -78,3 +78,5 @@ test/fft
 test/fft.asm
 test/simple_array
 test/simple_array.asm
+test/fib
+test/fib.asm
