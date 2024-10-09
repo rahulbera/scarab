@@ -55,7 +55,7 @@ Flag perf_pred_started = FALSE;
 /**************************************************************************************/
 /* Global vars */
 
-Cmp_Model        cmp_model;
+Cmp_Model cmp_model;
 
 /**************************************************************************************/
 /* Static prototypes */
@@ -65,7 +65,8 @@ static void cmp_redirect(void);
 static void cmp_measure_chip_util(void);
 static void cmp_istreams(void);
 static void cmp_cores(void);
-static void warmup_uncore(uns proc_id, Addr addr, Flag write);
+static void warmup_mlc(uns proc_id, Addr addr, Flag write);
+static void warmup_l1(uns proc_id, Addr addr, Flag write);
 
 /**************************************************************************************/
 /* cmp_init */
@@ -100,7 +101,7 @@ void cmp_init(uns mode) {
 
     cmp_init_thread_data(proc_id);
 
-    if(DECOUPLED_BP){
+    if(DECOUPLED_BP) {
       init_dbp_stage(proc_id);
     }
     init_icache_stage(proc_id, "ICACHE");
@@ -149,7 +150,7 @@ void cmp_reset() {
 
   for(proc_id = 0; proc_id < NUM_CORES; proc_id++) {
     cmp_set_all_stages(proc_id);
-    if(DECOUPLED_BP){
+    if(DECOUPLED_BP) {
       reset_dbp_stage();
     }
     reset_icache_stage();
@@ -223,7 +224,7 @@ void cmp_cores(void) {
       update_map_stage(dec->last_sd);
       update_decode_stage(&ic->sd);
       update_icache_stage();
-      if(DECOUPLED_BP){
+      if(DECOUPLED_BP) {
         update_decoupled_bp();
       }
 
@@ -354,7 +355,7 @@ void cmp_recover() {
                  bp_recovery_info->recovery_inst_uid,
                  bp_recovery_info->late_bp_recovery_wrong);
 
-  if(DECOUPLED_BP){
+  if(DECOUPLED_BP) {
     recover_fetch_queue();
   }
   recover_icache_stage();
@@ -378,10 +379,9 @@ void cmp_redirect() {
   bp_recovery_info->redirect_op->oracle_info.btb_miss_resolved = TRUE;
   ASSERT_PROC_ID_IN_ADDR(bp_recovery_info->proc_id,
                          bp_recovery_info->redirect_op->oracle_info.pred_npc);
-  if(DECOUPLED_BP){
+  if(DECOUPLED_BP) {
     redirect_decoupled_bp();
-  }
-  else{
+  } else {
     redirect_icache_stage();
   }
 }
@@ -393,9 +393,28 @@ void cmp_retire_hook(Op* op) {
   free_op(op);
 }
 
-void warmup_uncore(uns proc_id, Addr addr, Flag write) {
+void warmup_mlc(uns proc_id, Addr addr, Flag write) {
   Addr dummy_line_addr;
-  ASSERTM(0, !MLC_PRESENT, "Warmup for MLC not implemented\n");
+  ASSERTM(proc_id, cmp_model.memory.uncores[proc_id].mlc, "MLC is NULL");
+  Cache*    mlc_cache = &(cmp_model.memory.uncores[proc_id].mlc->cache);
+  MLC_Data* mlc_data  = cache_access(mlc_cache, addr, &dummy_line_addr, TRUE);
+  if(mlc_data) {  // MLC hit
+    if(write) {
+      mlc_data->dirty = TRUE;
+    }
+  } else {  // MLC miss
+    warmup_l1(proc_id, addr, FALSE);
+    Addr repl_line_addr;
+    mlc_data = (MLC_Data*)cache_insert(mlc_cache, proc_id, addr,
+                                        &dummy_line_addr, &repl_line_addr);
+    if(mlc_data->dirty) {
+      warmup_l1(proc_id, repl_line_addr, TRUE);
+    }  
+  }
+}
+
+void warmup_l1(uns proc_id, Addr addr, Flag write) {
+  Addr dummy_line_addr;
 
   Cache*   l1_cache = &(cmp_model.memory.uncores[proc_id].l1->cache);
   L1_Data* l1_data  = cache_access(l1_cache, addr, &dummy_line_addr, TRUE);
@@ -435,16 +454,15 @@ void cmp_warmup(Op* op) {
   Addr dummy_line_addr;
 
   // Warmup caches for instructions
-  Icache_Stage* ic = &(cmp_model.icache_stage[proc_id]);
+  Icache_Stage* ic  = &(cmp_model.icache_stage[proc_id]);
   Decoupled_BP* dbp = NULL;
   // keep next_fetch_addr current to avoid confusing simulation mode
   if(op->eom) {
-    if(DECOUPLED_BP){
-      dbp = &(cmp_model.bp_stage[proc_id]);
+    if(DECOUPLED_BP) {
+      dbp            = &(cmp_model.bp_stage[proc_id]);
       dbp->next_addr = op->oracle_info.npc;
       ASSERT_PROC_ID_IN_ADDR(dbp->proc_id, dbp->next_addr)
-    }
-    else{
+    } else {
       ic->next_fetch_addr = op->oracle_info.npc;
       ASSERT_PROC_ID_IN_ADDR(ic->proc_id, ic->next_fetch_addr)
     }
@@ -453,7 +471,10 @@ void cmp_warmup(Op* op) {
   Inst_Info** ic_data = (Inst_Info**)cache_access(icache, ia, &dummy_line_addr,
                                                   TRUE);
   if(!ic_data) {
-    warmup_uncore(proc_id, ia, FALSE);
+    if(MLC_PRESENT)
+      warmup_mlc(proc_id, ia, FALSE);
+    else
+      warmup_l1(proc_id, ia, FALSE);
     Addr repl_line_addr;
     ic_data = (Inst_Info**)cache_insert(icache, proc_id, ia, &dummy_line_addr,
                                         &repl_line_addr);
@@ -472,12 +493,19 @@ void cmp_warmup(Op* op) {
       dc_data->read_count[0] += is_load;
       dc_data->write_count[0] += is_store;
     } else {
-      warmup_uncore(proc_id, va, FALSE);
+      if(MLC_PRESENT)
+        warmup_mlc(proc_id, va, FALSE);
+      else
+        warmup_l1(proc_id, va, FALSE);
       Addr repl_line_addr;
       dc_data = (Dcache_Data*)cache_insert(dcache, proc_id, va,
                                            &dummy_line_addr, &repl_line_addr);
-      if(dc_data->dirty)
-        warmup_uncore(proc_id, repl_line_addr, TRUE);
+      if(dc_data->dirty) {
+        if(MLC_PRESENT)
+          warmup_mlc(proc_id, repl_line_addr, TRUE);
+        else
+          warmup_l1(proc_id, repl_line_addr, TRUE);
+      }
       dc_data->dirty          = is_store;
       dc_data->read_count[0]  = is_load;
       dc_data->write_count[0] = is_store;
