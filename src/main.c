@@ -242,6 +242,14 @@ const char* scarab_art =
   "| ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ |\n"
   "+-----------------------------------------------+\n";
 
+const char* scarab_banner = 
+"███████╗ ██████╗ █████╗ ██████╗  █████╗ ██████╗ \n"
+"██╔════╝██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔══██╗\n"
+"███████╗██║     ███████║██████╔╝███████║██████╔╝\n"
+"╚════██║██║     ██╔══██║██╔══██╗██╔══██║██╔══██╗\n"
+"███████║╚██████╗██║  ██║██║  ██║██║  ██║██████╔╝\n"
+"╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝\n";
+
 /**************************************************************************************/
 
 int main(int argc, char* argv[], char* envp[]) {
@@ -254,7 +262,7 @@ int main(int argc, char* argv[], char* envp[]) {
   mystatus = NULL;
 
   /* print banner with revision info */
-  fprintf(mystdout, "%s", scarab_art);
+  fprintf(mystdout, "%s", scarab_banner);
   fprintf(mystdout, "gitrev: %s\n", version());
   fprintf(mystdout, "last compiled: %s %s\n\n", __DATE__, __TIME__);
 

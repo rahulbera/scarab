@@ -225,7 +225,6 @@ void init_exec_ports_fu_list(uns proc_id, Func_Unit* fu) {
       ASSERTM(proc_id, can_take_memop,
               "FU %d is not configured to take memop\n", i);
       fu[i].memtype = FU_LD;
-      fprintf(stderr, "Setting FU %d to take only load\n", i);
     }
   }
 
@@ -244,7 +243,6 @@ void init_exec_ports_fu_list(uns proc_id, Func_Unit* fu) {
       ASSERTM(proc_id, can_take_memop,
               "FU %d is not configured to take memop\n", i);
       fu[i].memtype = FU_ST;
-      fprintf(stderr, "Setting FU %d to take only store\n", i);
     }
   }
 }
