@@ -1204,11 +1204,14 @@ Flag is_node_table_full() {
 }
 
 Flag get_mem_ld(Op * op) {
-  return op->table_info->mem_type==MEM_LD;
+  // RBERA: software prefetch should also get categorized as load
+  return op->table_info->mem_type == MEM_LD ||
+         op->table_info->mem_type == MEM_PF;
 }
 
 Flag get_mem_st(Op * op) {
-  return op->table_info->mem_type==MEM_ST || op->table_info->mem_type==MEM_EVICT;
+  return op->table_info->mem_type == MEM_ST ||
+         op->table_info->mem_type == MEM_EVICT;
 }
 
 Flag is_lq_full()
