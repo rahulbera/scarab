@@ -176,6 +176,8 @@ void        fprint_line(FILE*);
 Stat_Enum   get_stat_idx(const char* name);
 const Stat* get_stat(uns8, const char*);
 Counter     get_accum_stat_event(Stat_Enum name);
+void        gen_toml_output_filename(char* buf, uns8 proc_id);
+void        gen_stat_section_header(char* buf, Stat* stat);
 
 
 /**************************************************************************************/

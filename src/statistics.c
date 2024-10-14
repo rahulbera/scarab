@@ -101,6 +101,34 @@ void gen_stat_output_file(char* buf, uns8 proc_id, Stat* stat) {
   strncat(buf, temp, MAX_STR_LENGTH);
 }
 
+/**************************************************************************************/
+// gen_toml_output_filename:
+
+void gen_toml_output_filename(char* buf, uns8 proc_id) {
+  char temp[MAX_STR_LENGTH + 1];
+  char temp2[16];  // assuming proc id can not be more than 15 bytes
+
+  /* prepend the stat tag, cut off the 'def' ending and add 'out' */
+  // strncpy(temp, stat->file_name, strlen(stat->file_name) - 3);
+  strncpy(temp, "statdb.", MAX_STR_LENGTH);
+  sprintf(temp2, "%u", proc_id);
+  strncat(temp, temp2, MAX_STR_LENGTH);
+  strncat(temp, ".toml", MAX_STR_LENGTH);
+  strncpy(buf, OUTPUT_DIR, MAX_STR_LENGTH);
+  strncat(buf, "/", MAX_STR_LENGTH);
+  strncat(buf, FILE_TAG, MAX_STR_LENGTH);
+  strncat(buf, temp, MAX_STR_LENGTH);
+}
+
+/**************************************************************************************/
+// gen_stat_section_header: generates the TOML header for this stat category
+
+void gen_stat_section_header(char* buf, Stat* stat) {
+  // assuming the section header cannot go beyond 127 chars
+  strncpy(buf, stat->file_name, 127);
+  buf[strlen(buf) - 9] = '\0';
+}
+
 
 /**************************************************************************************/
 /* init_stats: */
@@ -153,8 +181,20 @@ void dump_stats(uns8 proc_id, Flag final, Stat stat_array[], uns num_stats) {
       s->total_count += s->count;
   }
 
-  const char* last_file_name = NULL;
-  FILE*       file_stream    = NULL;
+  const char* last_file_name   = NULL;
+  FILE*       file_stream      = NULL;
+  FILE*       toml_stat_stream = NULL;
+
+  // RBERA_NEW: stat dump as TOML
+  // RBERA_TODO: does this support multi-phase stat printing?
+  if(DUMP_STATS_AS_TOML) {
+    ASSERT(0, !toml_stat_stream);
+    char toml_file_name[MAX_STR_LENGTH + 1];
+    gen_toml_output_filename(toml_file_name, proc_id);
+    toml_stat_stream = fopen(toml_file_name, "w");
+    ASSERTUM(0, toml_stat_stream, "Couldn't open master stats file '%s'.\n",
+             toml_file_name);
+  }
 
   for(ii = 0; ii < num_stats; ii++) {
     Stat* s = &stat_array[ii];
@@ -165,7 +205,20 @@ void dump_stats(uns8 proc_id, Flag final, Stat stat_array[], uns num_stats) {
         fprintf(file_stream, "\n\n");
         fclose(file_stream);
         file_stream = NULL;
+        if(toml_stat_stream)
+          fprintf(toml_stat_stream, "\n");
+      } else {
+          if(toml_stat_stream) {
+            fprintf(toml_stat_stream, "[general]\n");
+            fprintf(toml_stat_stream, "CUMULATIVE_CYCLES = %llu\n",
+                    cycle_count);
+            fprintf(toml_stat_stream, "INSTRUCTIONS = %llu\n",
+                    inst_count[proc_id]);
+            fprintf(toml_stat_stream, "IPC = %f\n\n",
+                    (double)inst_count[proc_id] / cycle_count);
+          }
       }
+
       last_file_name = s->file_name;
       ASSERT(0, !file_stream);
       char buf[MAX_STR_LENGTH + 1];
@@ -173,6 +226,12 @@ void dump_stats(uns8 proc_id, Flag final, Stat stat_array[], uns num_stats) {
       file_stream = fopen(buf, "w");
       ASSERTUM(0, file_stream, "Couldn't open statistic output file '%s'.\n",
                buf);
+      
+      if(toml_stat_stream){
+        char header[128]; // assuming header size will be limited to 128 characters
+        gen_stat_section_header(header, s);
+        fprintf(toml_stat_stream, "[%s]\n", header);
+      }
 
       fprintf(file_stream, "/* -*- Mode: c -*- */\n");
       fprint_line(file_stream);
@@ -193,23 +252,33 @@ void dump_stats(uns8 proc_id, Flag final, Stat stat_array[], uns num_stats) {
     }
 
     fprintf(file_stream, "%-40s ", s->name);
+    if(toml_stat_stream)
+      fprintf(toml_stat_stream, "%s = ", s->name);
 
     switch(s->type) {
       case COUNT_TYPE_STAT:
-        if(!in_dist)
+        if(!in_dist) {
           fprintf(file_stream, "%13s %13s    %13s %13s\n", unsstr64(s->count),
                   "", unsstr64(s->total_count), "");
-        else
+          if(toml_stat_stream)
+            fprintf(toml_stat_stream, "%s\n", unsstr64(s->total_count));
+        }
+        else {
           fprintf(file_stream, "%13s %12.3f%%    %13s %12.3f%%",
                   unsstr64(s->count), (double)s->count / dist_sum * 100,
                   unsstr64(s->total_count),
                   (double)s->total_count / total_dist_sum * 100);
+          if(toml_stat_stream)
+            fprintf(toml_stat_stream, "%s\n", unsstr64(s->total_count));
+        }
         break;
 
       case FLOAT_TYPE_STAT:
         ASSERTM(0, !in_dist, "Distributions not supported for float stats\n");
         fprintf(file_stream, "%13lf %13s    %13lf %13s\n", s->value, "",
                 s->total_value, "");
+        if(toml_stat_stream)
+          fprintf(toml_stat_stream, "%lf\n", s->total_value);
         break;
 
       case DIST_TYPE_STAT:
@@ -259,6 +328,9 @@ void dump_stats(uns8 proc_id, Flag final, Stat stat_array[], uns num_stats) {
                   unsstr64(s->count), (double)s->count / dist_sum * 100,
                   unsstr64(s->total_count),
                   (double)s->total_count / total_dist_sum * 100);
+
+          if(toml_stat_stream)
+            fprintf(toml_stat_stream, "%s\n", unsstr64(s->total_count));
         } else {
           in_dist = FALSE;
           fprintf(file_stream, "%13s %12.3f%%    %13s %12.3f%%\n",
@@ -277,6 +349,9 @@ void dump_stats(uns8 proc_id, Flag final, Stat stat_array[], uns num_stats) {
                   (double)dist_vtotal / dist_sum, sqrt(dist_variance),
                   (double)total_dist_vtotal / total_dist_sum,
                   sqrt(total_dist_variance));
+
+          if(toml_stat_stream)
+            fprintf(toml_stat_stream, "%s\n", unsstr64(s->total_count));
         }
         break;
 
@@ -285,6 +360,8 @@ void dump_stats(uns8 proc_id, Flag final, Stat stat_array[], uns num_stats) {
                 (double)s->count / (double)inst_count[proc_id],
                 unsstr64(s->total_count),
                 (double)s->total_count / (double)inst_count[proc_id]);
+        if(toml_stat_stream)
+          fprintf(toml_stat_stream, "%s\n", unsstr64(s->total_count));
         break;
 
       case PER_1000_INST_TYPE_STAT:
@@ -293,6 +370,8 @@ void dump_stats(uns8 proc_id, Flag final, Stat stat_array[], uns num_stats) {
                 unsstr64(s->total_count),
                 (double)1000.0 * (double)s->total_count /
                   (double)inst_count[proc_id]);
+        if(toml_stat_stream)
+          fprintf(toml_stat_stream, "%s\n", unsstr64(s->total_count));
         break;
 
       case PER_1000_PRET_INST_TYPE_STAT:
@@ -301,6 +380,8 @@ void dump_stats(uns8 proc_id, Flag final, Stat stat_array[], uns num_stats) {
           (double)1000.0 * (double)s->count / (double)pret_inst_count[proc_id],
           unsstr64(s->total_count),
           (double)1000.0 * (double)s->total_count / (double)pret_inst_count[0]);
+        if(toml_stat_stream)
+          fprintf(toml_stat_stream, "%s\n", unsstr64(s->total_count));
         break;
 
       case PER_CYCLE_TYPE_STAT:
@@ -308,6 +389,8 @@ void dump_stats(uns8 proc_id, Flag final, Stat stat_array[], uns num_stats) {
                 (double)s->count / (double)cycle_count,
                 unsstr64(s->total_count),
                 (double)s->total_count / (double)cycle_count);
+        if(toml_stat_stream)
+          fprintf(toml_stat_stream, "%s\n", unsstr64(s->total_count));
         break;
 
       case RATIO_TYPE_STAT:
@@ -316,6 +399,8 @@ void dump_stats(uns8 proc_id, Flag final, Stat stat_array[], uns num_stats) {
                 unsstr64(s->total_count),
                 (double)s->total_count /
                   (double)stat_array[s->ratio_stat].total_count);
+        if(toml_stat_stream)
+          fprintf(toml_stat_stream, "%s\n", unsstr64(s->total_count));
         break;
 
       case PERCENT_TYPE_STAT:
@@ -325,6 +410,8 @@ void dump_stats(uns8 proc_id, Flag final, Stat stat_array[], uns num_stats) {
           unsstr64(s->total_count),
           (double)s->total_count * 100 /
             (double)stat_array[s->ratio_stat].total_count);
+        if(toml_stat_stream)
+          fprintf(toml_stat_stream, "%s\n", unsstr64(s->total_count));
         break;
 
       case LINE_TYPE_STAT:
@@ -345,6 +432,13 @@ void dump_stats(uns8 proc_id, Flag final, Stat stat_array[], uns num_stats) {
     fprintf(file_stream, "\n\n");
     fclose(file_stream);
     file_stream = NULL;
+  }
+
+  if(DUMP_STATS_AS_TOML) {
+    ASSERT(0, toml_stat_stream);
+    fprintf(toml_stat_stream, "\n");
+    fclose(toml_stat_stream);
+    toml_stat_stream = NULL;
   }
 
   /* reset the interval counters */
