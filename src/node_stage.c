@@ -1006,11 +1006,14 @@ int64 find_emptiest_rs(Op* op) {
     ASSERT(node->proc_id, !rs->size || rs->rs_op_count <= rs->size);
     ASSERTM(node->proc_id, rs->size,
             "Infinite RS not suppoted by find_emptiest_rs issuer.");
+
+    Flag this_rs_fits = FALSE;
     for(uns32 i = 0; i < rs->num_fus; ++i) {
       Func_Unit* fu = rs->connected_fus[i];
 
       // This FU can execute this op
       if(can_fu_exec_op(op, fu)) {
+        this_rs_fits = TRUE;
         // Find the emptiest RS
         int32 num_empty_slots = rs->size - rs->rs_op_count;
         if(num_empty_slots != 0) {
@@ -1021,6 +1024,12 @@ int64 find_emptiest_rs(Op* op) {
           }
         }
       }
+      
+      // If this RS is already a good fit,
+      // no need to check remaining FUs
+      if(this_rs_fits)
+        break;
+
     }
   }
 
