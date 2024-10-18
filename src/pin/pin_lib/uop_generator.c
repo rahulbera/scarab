@@ -710,7 +710,15 @@ static uns generate_uops(uns8 proc_id, ctype_pin_inst* pi,
     ASSERT(proc_id, pi->op_type < NUM_OP_TYPES);
     uop->op_type = pi->op_type;
 
-    ASSERT(proc_id, uop->op_type != OP_INV);
+    // RBERA: trace-driven frontend may generate invalid
+    // uop for instructions that are not mapped properly.
+    // They are typically rare. So should be harmless
+    // to model as a NOP. Still keep a count just for sanity.
+    // ASSERT(proc_id, uop->op_type != OP_INV);
+    if(uop->op_type == OP_INV) {
+      STAT_EVENT(proc_id, CONVERTED_FAKE_NOP);
+      uop->op_type = OP_NOP;
+    }
     uop->alu_uop = TRUE;
 
     if(has_push ||
