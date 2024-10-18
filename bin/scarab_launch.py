@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 #  Copyright 2020 HPS/SAFARI Research Groups
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy of
