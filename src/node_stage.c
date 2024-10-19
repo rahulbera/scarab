@@ -553,9 +553,6 @@ void node_issue(Stage_Data* src_sd) {
 
     STAT_EVENT(node->proc_id, OP_ISSUED);
 
-    if(!node->next_op_into_rs)    /* if there are no ops waiting to enter RS */
-      node->next_op_into_rs = op; /* this will be the first one */
-
     node->node_count++;
     ASSERTM(node->proc_id, node->node_count <= NODE_TABLE_SIZE,
             "node_count: %d src_max_op_count: %d src_op_count: %d\n",
@@ -565,8 +562,14 @@ void node_issue(Stage_Data* src_sd) {
 
     DEBUG(node->proc_id, "Issuing the op op_num:%s off_path:%d\n",
           unsstr64(op->op_num), op->off_path);
-
+    
     op->state = OS_ISSUED;
+
+    if(!node->next_op_into_rs) {  /* if there are no ops waiting to enter RS */
+      node->next_op_into_rs = op; /* this will be the first one */
+      DEBUG(node->proc_id, "Next op waiting for RS: %s\n",
+            unsstr64(node->next_op_into_rs->op_num));
+    }
 
     /* always stop issuing after a synchronizing op */
     if(op->table_info->bar_type & BAR_ISSUE)
@@ -746,7 +749,7 @@ void oldest_first_sched(Op* op) {
 }
 
 /**************************************************************************************/
-/* node_sched_ops: schedule read ops (ops that are currently in the ready list).
+/* node_sched_ops: schedule ready ops (ops that are currently in the ready list).
  *   All of the scheduling algs take the ready_list as input and produce
  * node->sd as output. node->sd are the ops that are being passed to the
  * functional units. If the FUs are availible, they will grab the op and it
@@ -1049,6 +1052,11 @@ void node_fill_rs() {
   // Scan through issued nodes in node table that have not been issued to RS
   // yet.
   for(op = node->next_op_into_rs; op; op = op->next_node) {
+    // This is the max number of ops we can fill into the RS per cycle.
+    // 0 means infinite.
+    if(RS_FILL_WIDTH && (num_fill_rs == RS_FILL_WIDTH))
+      break;
+
     // Put your own issue functions here.
     if(FIND_EMPTIEST_RS) {
       rs_id = find_emptiest_rs(op);
@@ -1065,7 +1073,8 @@ void node_fill_rs() {
     ASSERTM(node->proc_id, !rs->size || rs->rs_op_count < rs->size,
             "There must be at least one free space in selected RS!\n");
 
-    ASSERT(node->proc_id, op->state == OS_ISSUED);
+    ASSERTM(node->proc_id, op->state == OS_ISSUED, "op_num: %s, op: %s\n",
+            unsstr64(op->op_num), disasm_op(op, TRUE));
     op->state = OS_IN_RS;
     op->rs_id = (Counter)rs_id;
     rs->rs_op_count++;
@@ -1077,19 +1086,17 @@ void node_fill_rs() {
       DEBUG(node->proc_id, "Adding to ready list  op_num:%s op:%s l1:%d\n",
             unsstr64(op->op_num), disasm_op(op, TRUE), op->engine_info.l1_miss);
       op->state = (cycle_count + 1 >= op->rdy_cycle ? OS_READY : OS_WAIT_FWD);
+      // RBERA_CHECK: why ready list is LIFO?
       op->next_rdy    = node->rdy_head;
       node->rdy_head  = op;
       op->in_rdy_list = TRUE;
     }
-
-    // This is the max number of ops we can fill into the RS per cycle.
-    // 0 means infinite.
-    if(RS_FILL_WIDTH && (num_fill_rs == RS_FILL_WIDTH))
-      break;
   }
 
   // had to stop issuing, this is the next node that should be issued to the RS
   node->next_op_into_rs = op;
+  DEBUG(node->proc_id, "Next_op_into_rs is pointing to %s\n",
+        node->next_op_into_rs ? unsstr64(node->next_op_into_rs->op_num) : "NULL");
 }
 
 /**************************************************************************************/
