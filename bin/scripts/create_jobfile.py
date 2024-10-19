@@ -126,8 +126,6 @@ def main():
     traces = create_traces(trace_data)
     experiments = create_experiments(exp_data)
 
-    SLURM_PREAMBLE = SLURM_PREAMBLE.replace("SLURM_PART", args.slurm_part)
-
     print(JOBFILE_PREAMBLE)
     print("# Traces:")
     for trace in traces:
@@ -146,6 +144,7 @@ def main():
         for trace in traces:
             exp_trace_combo = f"{trace.name}.{exp.name}"
             cmd = f"{SLURM_PREAMBLE} {JOB_DESC_TEMPLATE}"
+            cmd = cmd.replace("SLURM_PART", args.slurm_part)
             cmd = cmd.replace("JOBNAME", exp_trace_combo)
             cmd = cmd.replace("SCARAB_HOME", scarab_paths.sim_dir)
             cmd = cmd.replace("TRACE", trace.path)
