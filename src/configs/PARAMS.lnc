@@ -91,7 +91,7 @@
 # Max number of instructions to be fetched, decoded, renamed, and issued per cycle.
 --issue_width                   8
 
---rs_fill_width                 0
+--rs_fill_width                 8
 --rs_sizes                      114 97 62                           
                                 # {FP&VEC}-RS, INT-RS, MEM-RS
 --rs_connections                x000F x03F0 xFC00
