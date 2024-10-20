@@ -290,7 +290,7 @@ void init_exec_ports_rs_list(uns proc_id, Reservation_Station* rs,
               // set) in the bit vector.
     rs[i].connected_fus = (Func_Unit**)malloc(sizeof(Func_Unit*) * num_fus_pre);
     ASSERTM(proc_id, rs[i].connected_fus,
-            "Malloc is failing is exec_ports.c\n");
+            "Malloc is failing in exec_ports.c\n");
 
     int32 idx = __builtin_ffs(next);  // Find the first set bit
     while(idx) {                      // decode the connections bit vector
