@@ -218,6 +218,7 @@ struct Op_struct {
   struct Op_struct* next_lq_node;  // pointer to the next load in the LQ
   struct Op_struct* next_sq_node;  // pointer to the next store in the SQ
   Flag              in_node_list;  // is the op in the node list?
+  Flag              in_rs;         // is the op in the rs?
   Flag              replay;        // is the op waiting to replay?
   uns               replay_count;  // number of times the op has replayed
   Flag dont_cause_replays;  // true if the op should not cause other ops to
@@ -291,6 +292,10 @@ struct Op_struct {
   Addr pred_addr;
   Flag recovery_scheduled;
   Flag redirect_scheduled;
+  // }}}
+
+  // {{{ fields related to instruction inconsequenciality
+  
   // }}}
 };
 // }}}

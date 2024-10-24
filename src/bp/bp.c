@@ -499,10 +499,19 @@ Addr bp_predict_op(Bp_Data* bp_data, Op* op, uns br_num, Addr fetch_addr) {
   op->oracle_info.mispred = (op->oracle_info.pred != op->oracle_info.dir) &&
                             (prediction != op->oracle_info.npc);
   op->oracle_info.misfetch = !op->oracle_info.mispred &&
-                             prediction != op->oracle_info.npc;
+                            (prediction != op->oracle_info.npc);
+
+  // RBERA: if branch is not mispredicted and not misfetched
+  // its purely inconsequential
+  op->oracle_info.icql_cf = (!op->oracle_info.mispred &&
+                             !op->oracle_info.misfetch) ?
+                              TRUE : FALSE;
 
   STAT_EVENT(op->proc_id, BP_ON_PATH_CORRECT + op->oracle_info.mispred +
                             2 * op->oracle_info.misfetch + 3 * op->off_path);
+
+  STAT_EVENT(op->proc_id, ICQL_CF_ON_PATH + op->off_path);
+
   op->oracle_info.early_late_disagree = FALSE;
   op->oracle_info.early_pred = op->oracle_info.pred;
   if(USE_LATE_BP) {

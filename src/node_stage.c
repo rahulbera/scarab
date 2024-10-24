@@ -91,6 +91,7 @@ Flag get_mem_ld(Op *op);
 Flag get_mem_st(Op *op);
 Flag is_lq_full(void);
 Flag is_sq_full(void);
+Flag is_icql(Op *op);
 void collect_node_table_full_stats(Op* op);
 void collect_lsq_full_stats(Op* op);
 
@@ -255,6 +256,7 @@ void flush_window() {
       flush_ops++;
       ASSERT(node->proc_id, op->op_num > bp_recovery_info->recovery_op_num);
       op->in_node_list = FALSE;
+      op->in_rs        = FALSE;
       *last            = op->next_node;
       if(op->state == OS_IN_RS || op->state == OS_READY ||
          op->state == OS_WAIT_FWD) {
@@ -688,8 +690,9 @@ inline static void sort_node_ready_list() {
  *      +OLDEST_FIRST_SCHED: will always select the oldest ready ops to schedule
  */
 
-void oldest_first_sched(Op* op) {
+void oldest_first_sched(Op* op, Op** r_op) {
   int32 youngest_slot_op_id = -1;  //-1 means not found
+  (*r_op) = NULL;
 
   // Iterate through the FUs that this RS is connected to.
   Reservation_Station* rs = &node->rs[op->rs_id];
@@ -712,7 +715,8 @@ void oldest_first_sched(Op* op) {
         node->sd.op_count += !s_op;
         ASSERT(node->proc_id, node->sd.op_count <= node->sd.max_op_count);
         youngest_slot_op_id = -1;
-        break;
+        (*r_op) = s_op;
+        return; // RBERA: changed this from break
       } else if(op->op_num < s_op->op_num) {
         // The slot is not empty, but we are older than the op that is in the
         // slot
@@ -738,11 +742,16 @@ void oldest_first_sched(Op* op) {
           unsstr64(op->op_num), fu_id, disasm_op(op, TRUE),
           op->engine_info.l1_miss);
     ASSERT(node->proc_id, fu_id < node->sd.max_op_count);
+    // Op to be replaced
+    Op* s_op = node->sd.ops[fu_id]; 
+    ASSERT(node->proc_id, s_op);
+    // Start replacing op
     op->fu_num                 = fu_id;
     node->sd.ops[op->fu_num]   = op;
     node->last_scheduled_opnum = op->op_num;
     node->sd.op_count += 0;  // replacing an op, not adding a new one.
     ASSERT(node->proc_id, node->sd.op_count <= node->sd.max_op_count);
+    (*r_op) = s_op;
   } else {
     /*Did not find an empty slot or a slot that is younger than me, do nothing*/
   }
@@ -760,6 +769,8 @@ void oldest_first_sched(Op* op) {
 
 void node_sched_ops() {
   Op* op;
+  Op* r_op = NULL;
+  uns32 op_sched = 0, op_sched_icql = 0, op_sched_icql2 = 0;
 
   /* the next stage is supposed to clear them out, regardless of
      whether they are actually sent to a functional unit */
@@ -800,13 +811,24 @@ void node_sched_ops() {
 
       // Put your own scheduling algorithm here
       if(OLDEST_FIRST_SCHED) {
-        oldest_first_sched(op);
+        oldest_first_sched(op, &r_op);
       } else {
         // oldest first is currently the only scheduling algorithm
-        oldest_first_sched(op);
+        oldest_first_sched(op, &r_op);
+      }
+
+      op_sched++;
+      if(is_icql(op)) {
+        op_sched_icql++;
+        if(r_op && !is_icql(r_op))
+          op_sched_icql2++;
       }
     }
   }
+  
+  STAT_EVENT(node->proc_id, OP_ASSIGN_FU_0 + MIN2(op_sched, 16));
+  STAT_EVENT(node->proc_id, ICQL_ASSIGN_FU_0 + MIN2(op_sched_icql, 16));
+  STAT_EVENT(node->proc_id, ICQL_BLK_ASSIGN_FU_0 + MIN2(op_sched_icql2, 16));
 }
 
 
@@ -1048,6 +1070,7 @@ void node_fill_rs() {
   int64 rs_id;
   Op*   op          = NULL;
   uns32 num_fill_rs = 0;
+  uns32 num_icq_op_fill_rs = 0;
 
   // Scan through issued nodes in node table that have not been issued to RS
   // yet.
@@ -1065,8 +1088,10 @@ void node_fill_rs() {
       rs_id = find_emptiest_rs(op);
     }
 
-    if(rs_id == -1)
+    if(rs_id == -1) {
+      STAT_EVENT(node->proc_id, RS_FULL);
       break;
+    }
 
     Reservation_Station* rs = &node->rs[rs_id];
     ASSERT(node->proc_id, rs_id < NUM_RS);
@@ -1077,8 +1102,12 @@ void node_fill_rs() {
             unsstr64(op->op_num), disasm_op(op, TRUE));
     op->state = OS_IN_RS;
     op->rs_id = (Counter)rs_id;
+    op->in_rs = TRUE;
     rs->rs_op_count++;
     num_fill_rs++;
+    if(is_icql(op)) {
+      num_icq_op_fill_rs++;
+    }
     DEBUG(node->proc_id, "Filling %s with op_num:%s (%d)\n", rs->name,
           unsstr64(op->op_num), rs->rs_op_count);
     if(op->srcs_not_rdy_vector == 0) {
@@ -1097,6 +1126,9 @@ void node_fill_rs() {
   node->next_op_into_rs = op;
   DEBUG(node->proc_id, "Next_op_into_rs is pointing to %s\n",
         node->next_op_into_rs ? unsstr64(node->next_op_into_rs->op_num) : "NULL");
+
+  // keep ICQL RS issue stat
+  STAT_EVENT(node->proc_id, ICQL_RS_FILL_0 + MIN2(num_icq_op_fill_rs, 16));
 }
 
 /**************************************************************************************/
@@ -1117,6 +1149,7 @@ void node_handle_scheduled_ops() {
       op->in_rdy_list = FALSE;
       ASSERT(node->proc_id, node->rs[op->rs_id].rs_op_count > 0);
       node->rs[op->rs_id].rs_op_count--;
+      op->in_rs       = FALSE;
     } else {
       last = &op->next_rdy;
     }
@@ -1230,16 +1263,18 @@ Flag get_mem_st(Op * op) {
          op->table_info->mem_type == MEM_EVICT;
 }
 
-Flag is_lq_full()
-{
+Flag is_lq_full() {
   ASSERT(node->proc_id, node->num_loads <= LOAD_QUEUE_SIZE);
   return (node->num_loads == LOAD_QUEUE_SIZE);
 }
 
-Flag is_sq_full()
-{
+Flag is_sq_full() {
   ASSERT(node->proc_id, node->num_stores <= STORE_QUEUE_SIZE);
   return (node->num_stores == STORE_QUEUE_SIZE);
+}
+
+Flag is_icql(Op* op) {
+  return op->oracle_info.icql_cf || op->oracle_info.icql_df;
 }
 
 void collect_node_table_full_stats(Op* op) {

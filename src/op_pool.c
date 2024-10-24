@@ -177,6 +177,8 @@ void free_op(Op* op) {
 void op_pool_init_op(Op* op) {
   op->oracle_info.mispred  = FALSE;
   op->oracle_info.misfetch = FALSE;
+  op->oracle_info.icql_cf  = FALSE;
+  op->oracle_info.icql_df  = FALSE;
 }
 
 
@@ -221,6 +223,7 @@ void op_pool_setup_op(uns proc_id, Op* op) {
   op->exec_count          = 0;
   op->in_rdy_list         = FALSE;
   op->in_node_list        = FALSE;
+  op->in_rs               = FALSE;
 
   op->req = NULL;
 
@@ -236,6 +239,8 @@ void op_pool_setup_op(uns proc_id, Op* op) {
   op->oracle_info.mispred      = FALSE;
   op->oracle_info.misfetch     = FALSE;
   op->oracle_info.recovery_sch = FALSE;
+  op->oracle_info.icql_cf      = FALSE;
+  op->oracle_info.icql_df      = FALSE;
 
   op->oracle_cp_num                  = -1;
   op->engine_info.dcmiss             = FALSE;

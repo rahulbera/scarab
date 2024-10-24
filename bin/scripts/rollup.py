@@ -195,7 +195,7 @@ def main():
     output_data = [item for sublist in results for item in sublist]
 
     # Write results to CSV
-    output_csv_file = "output_results.csv"
+    output_csv_file = "output_results.txt"
     with open(output_csv_file, mode="w", newline="") as csv_file:
         writer = csv.writer(csv_file)
         # Write header
