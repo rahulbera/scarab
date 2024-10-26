@@ -221,8 +221,6 @@ void insert_analysis_functions(ctype_pin_inst* info, const INS& ins) {
       INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)get_st_ea,
                      IARG_MEMORYWRITE_EA, IARG_END);
     }
-
-    // RBERA_TODO: add dest reg value extraction code here
   }
 
   if(info->cf_type) {

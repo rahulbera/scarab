@@ -295,7 +295,8 @@ struct Op_struct {
   // }}}
 
   // {{{ fields related to instruction inconsequenciality
-  
+  uns sched_delay; // for ICQL headroom study: artifically delay scheduling the op
+                   // to make space for other ops 
   // }}}
 };
 // }}}

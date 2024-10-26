@@ -256,6 +256,8 @@ void op_pool_setup_op(uns proc_id, Op* op) {
 
   for(ii = 0; ii < NUM_DEP_TYPES; ii++)
     op->wake_up_signaled[ii] = FALSE;
+
+  op->sched_delay = 0;
 }
 
 

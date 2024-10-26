@@ -790,6 +790,12 @@ void node_sched_ops() {
     }
     if(op->state == OS_TENTATIVE || op->state == OS_WAIT_DCACHE)
       continue;
+    if(ICQL_HEADROOM && is_icql(op) &&
+       op->sched_delay < ICQL_HEADROOM_SCHED_DELAY) {
+      op->sched_delay++;
+      STAT_EVENT(node->proc_id, ICQL_HEADROOM_TOT_SCHED_DELAY);
+      continue;  // delay shcheduling this op
+    }
     ASSERTM(node->proc_id,
             op->state == OS_IN_RS || op->state == OS_READY ||
               op->state == OS_WAIT_FWD,

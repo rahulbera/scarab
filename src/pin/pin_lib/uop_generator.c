@@ -394,6 +394,8 @@ void uop_generator_get_uop(uns proc_id, Op* op, ctype_pin_inst* inst) {
   op->engine_info.dep_on_l1_miss     = FALSE;
   op->engine_info.was_dep_on_l1_miss = FALSE;
 
+  op->sched_delay = 0;
+
   /* multi path support */
 
   /* execute op */
