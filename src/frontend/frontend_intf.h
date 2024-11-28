@@ -68,7 +68,7 @@ typedef struct Frontend_Intf_struct {
 
 typedef enum Frontend_Id_enum {
 #define FRONTEND_IMPL(id, name, prefix) FE_##id,
-#include "frontend/frontend_table.def"
+#include "../frontend/frontend_table.def"
 #undef FRONTEND_IMPL
   NUM_FRONTENDS
 } Frontend_Id;

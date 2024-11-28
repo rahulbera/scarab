@@ -1,0 +1,3 @@
+/home/ksgoura/os_aware_memory_controller/scarab/src/_deps/spdlog-subbuild/CMakeFiles/spdlog-populate.dir
+/home/ksgoura/os_aware_memory_controller/scarab/src/_deps/spdlog-subbuild/CMakeFiles/edit_cache.dir
+/home/ksgoura/os_aware_memory_controller/scarab/src/_deps/spdlog-subbuild/CMakeFiles/rebuild_cache.dir

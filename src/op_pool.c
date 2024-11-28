@@ -46,9 +46,9 @@ allocates them once and then hands out pointers every time 'alloc_op' is called.
 #include "bp/bp.h"
 #include "bp/bp.param.h"
 
+#include "./frontend/frontend_intf.h"
+#include "./frontend/pin_trace_fe.h"
 #include "core.param.h"
-#include "frontend/frontend_intf.h"
-#include "frontend/pin_trace_fe.h"
 
 #include "sim.h"
 

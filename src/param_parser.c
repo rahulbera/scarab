@@ -48,8 +48,8 @@ the program.  This way, an exact duplicate run can be performed.
 #include "globals/global_vars.h"
 #include "globals/utils.h"
 
+#include "./frontend/frontend_intf.h"
 #include "bp/bp.h"
-#include "frontend/frontend_intf.h"
 #include "model.h"
 #include "param_parser.h"
 #include "sim.h"
@@ -77,7 +77,7 @@ the program.  This way, an exact duplicate run can be performed.
 /* Global Variables */
 
 const char* help_options[]    = {"-help", "-h", "--help",
-                              "--h"}; /* cmd-line help options strings */
+                                 "--h"}; /* cmd-line help options strings */
 const char* sim_mode_names[]  = {"uop", "full"};
 const char* exit_cond_names[] = {"last_done", "first_done"};
 
@@ -443,7 +443,7 @@ void get_strlist_param(const char* name, char*** variable) {
   static int count = 0;
 
   if(optarg) {
-    *variable            = realloc(count == 0 ? NULL : *variable,
+    *variable = realloc(count == 0 ? NULL : *variable,
                         sizeof(char*) * (count + 2));
     (*variable)[count]   = strdup(optarg);
     (*variable)[++count] = NULL;
@@ -504,10 +504,10 @@ void dump_params(char** arg_list, Param_Record used_params[], Flag exe_found) {
 }
 
 
-  /**************************************************************************************/
-  /* get_params: Parses argv and a default file for any long options and calls
-     the appropriate function when it finds one.  It also returns a pointer to
-     the start of the simulated command's argv string.  */
+/**************************************************************************************/
+/* get_params: Parses argv and a default file for any long options and calls
+   the appropriate function when it finds one.  It also returns a pointer to
+   the start of the simulated command's argv string.  */
 
 #define DEF_PARAM(name, variable, type, func, def, const)                   \
   case PARAM_ENUM_##name:                                                   \

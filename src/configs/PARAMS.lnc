@@ -198,6 +198,7 @@
 --va_page_size_bytes            4096
 --bus_width_in_bytes            8
 
+--ramulator_config_path /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/example_config.yaml
 --ramulator_standard            DDR4
 --ramulator_speed		        DDR4_2400R
 --ramulator_org 		        DDR4_8Gb_x8

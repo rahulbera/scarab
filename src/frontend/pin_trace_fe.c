@@ -36,11 +36,11 @@
 #include "bp/bp.h"
 #include "statistics.h"
 
+#include "../frontend/pin_trace_fe.h"
+#include "../frontend/pin_trace_read.h"
 #include "./pin/pin_lib/uop_generator.h"
 #include "bp/bp.param.h"
 #include "ctype_pin_inst.h"
-#include "frontend/pin_trace_fe.h"
-#include "frontend/pin_trace_read.h"
 #include "isa/isa.h"
 
 /**************************************************************************************/

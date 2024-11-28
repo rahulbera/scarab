@@ -31,14 +31,14 @@
 #include <iostream>
 #include <string>
 
-#include "frontend/pin_trace_read.h"
+#include "../frontend/pin_trace_read.h"
 #include "isa/isa.h"
 
 extern "C" {
 #include "globals/utils.h"
 }
 
-#define CMP_ADDR_MASK (((uint64_t)-1) << 58)
+#define CMP_ADDR_MASK (((uint64_t) - 1) << 58)
 
 FILE** pin_file;
 

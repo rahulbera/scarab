@@ -44,8 +44,8 @@ extern "C" {
 #include "globals/assert.h"
 #include "memory/memory.param.h"
 #include "power/power.param.h"
-#include "ramulator.h"
 #include "ramulator.param.h"
+#include "ramulator2_wrapper.h"
 #include "statistics.h"
 }
 
@@ -158,11 +158,10 @@ void power_print_system_params(std::ofstream& out) {
   ADD_XML_PARAM(out, header, "number_of_L2s", num_l2_caches,
                 "This number means how many L2 clusters in each cluster there "
                 "can be multiple banks/ports");
-  ADD_XML_PARAM(
-    out, header, "Private_L2", PRIVATE_L1,
-    "1 Private, 0 shared/coherent");  // TODO: can the Scarab:L1
-                                      // always be set to McPat:L2 by
-                                      // setting this bit?
+  ADD_XML_PARAM(out, header, "Private_L2", PRIVATE_L1,
+                "1 Private, 0 shared/coherent");  // TODO: can the Scarab:L1
+                                                  // always be set to McPat:L2
+                                                  // by setting this bit?
   ADD_XML_PARAM(out, header, "number_of_L3s", num_l3_caches,
                 "This number means how many L3 clusters");
 

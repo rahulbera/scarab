@@ -34,10 +34,10 @@
 #include "globals/global_vars.h"
 #include "globals/utils.h"
 
+#include "../../frontend/memtrace/memtrace_fe.h"
 #include "bp/bp.h"
 #include "bp/bp.param.h"
 #include "ctype_pin_inst.h"
-#include "frontend/memtrace/memtrace_fe.h"
 #include "isa/isa.h"
 #include "pin/pin_lib/uop_generator.h"
 #include "pin/pin_lib/x86_decoder.h"
@@ -45,14 +45,14 @@
 
 #define DR_DO_NOT_DEFINE_int64
 
-#include "frontend/memtrace/memtrace_trace_reader_memtrace.h"
+#include "../../frontend/memtrace/memtrace_trace_reader_memtrace.h"
 
 /**************************************************************************************/
 /* Macros */
 
 #define DEBUG(proc_id, args...) _DEBUG(proc_id, DEBUG_TRACE_READ, ##args)
 
-//#define PRINT_INSTRUCTION_INFO
+// #define PRINT_INSTRUCTION_INFO
 /**************************************************************************************/
 /* Global Variables */
 

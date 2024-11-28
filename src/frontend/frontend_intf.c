@@ -26,16 +26,16 @@
  * Description  :
  ***************************************************************************************/
 
-#include "frontend/frontend_intf.h"
+#include "../frontend/frontend_intf.h"
 #include "general.param.h"
 #include "globals/global_defs.h"
 
 /* Include headers of all the implementations here */
-#include "frontend/pin_exec_driven_fe.h"
-#include "frontend/pin_trace_fe.h"
+#include "../frontend/pin_exec_driven_fe.h"
+#include "../frontend/pin_trace_fe.h"
 
 #ifdef ENABLE_MEMTRACE
-#include "frontend/memtrace/memtrace_fe.h"
+#include "../frontend/memtrace/memtrace_fe.h"
 #endif
 
 Frontend_Impl frontend_table[] = {
@@ -47,7 +47,7 @@ Frontend_Impl frontend_table[] = {
    prefix##_redirect,                   \
    prefix##_recover,                    \
    prefix##_retire},
-#include "frontend/frontend_table.def"
+#include "../frontend/frontend_table.def"
 #undef FRONTEND_IMPL
 };
 

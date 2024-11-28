@@ -36,8 +36,8 @@
 #include "general.param.h"
 #include "power/power.param.h"
 #include "power/power_scarab_config.h"
-#include "ramulator.h"
 #include "ramulator.param.h"
+#include "ramulator2_wrapper.h"
 
 /**************************************************************************************/
 /* Enum Definitions */
@@ -132,8 +132,8 @@ void run_power_model_exec(void) {
 
   char cmd[MAX_STR_LENGTH];
   uns  len = sprintf(cmd, "python3 %s/%s %s %d %d %s", BINDIR, POWER_INTF_EXEC,
-                    ".", POWER_INTF_ENABLE_SCALING, DEBUG_POWER_UTILS,
-                    FILE_TAG);
+                     ".", POWER_INTF_ENABLE_SCALING, DEBUG_POWER_UTILS,
+                     FILE_TAG);
   ASSERT(0, len < MAX_STR_LENGTH);
 
   int rc = system(cmd);

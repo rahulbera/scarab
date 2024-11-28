@@ -40,17 +40,17 @@
 #include "op_pool.h"
 #include "statistics.h"
 
+#include "./frontend/frontend.h"
+#include "./frontend/frontend_intf.h"
 #include "freq.h"
-#include "frontend/frontend.h"
-#include "frontend/frontend_intf.h"
 #include "sim.h"
 #include "thread.h"
 
+#include "./frontend/pin_trace_fe.h"
 #include "cmp_model.h"
 #include "debug/memview.h"
 #include "debug/pipeview.h"
 #include "dumb_model.h"
-#include "frontend/pin_trace_fe.h"
 #include "model.h"
 #include "optimizer2.h"
 #include "power/power_intf.h"
@@ -62,7 +62,7 @@
 #include "debug/debug.param.h"
 #include "general.param.h"
 
-#include "ramulator.h"
+#include "ramulator2_wrapper.h"
 
 /**************************************************************************************/
 /* Macros */
@@ -109,8 +109,8 @@ int   mystatus_fd = 0; /* file descriptor pointing to the mystatus file */
 Model* model; /* pointer to the simulator model being used
        (points to an entry in the model_table array) */
 
-Thread_Data
-             single_td; /* cmp Only For single processor: backward compatibility issue*/
+Thread_Data single_td; /* cmp Only For single processor: backward compatibility
+                          issue*/
 Thread_Data* td = &single_td; /* array of tds for muti-core, all state
                                  associated with the simulated thread */
 
@@ -266,7 +266,7 @@ static inline Counter check_forward_progress(uns8 proc_id) {
        (Counter)FORWARD_PROGRESS_LIMIT)) {
     uns8 proc_id2;
     for(proc_id2 = 0; proc_id2 < NUM_CORES; proc_id2++) {
-      if(!sim_done[proc_id2]){
+      if(!sim_done[proc_id2]) {
         dump_stats(proc_id2, TRUE, global_stat_array[proc_id2],
                    NUM_GLOBAL_STATS);
       }
@@ -274,7 +274,8 @@ static inline Counter check_forward_progress(uns8 proc_id) {
 
     if(cmp_model.node_stage[proc_id].node_head) {
       printf("What op prevents proceeding? unique: %llu, valid: %u, va: %llx, "
-             "opstate: %u, op_type: %u, mem_type: %u, name: %s, req: %p proc: %u, addr: "
+             "opstate: %u, op_type: %u, mem_type: %u, name: %s, req: %p proc: "
+             "%u, addr: "
              "%llu, state: %u\n",
              cmp_model.node_stage[proc_id].node_head->unique_num,
              cmp_model.node_stage[proc_id].node_head->op_pool_valid,

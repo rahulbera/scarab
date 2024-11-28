@@ -35,7 +35,7 @@
 #include "globals/utils.h"
 #include "op_pool.h"
 
-#include "frontend/frontend.h"
+#include "./frontend/frontend.h"
 #include "thread.h"
 
 #include "core.param.h"

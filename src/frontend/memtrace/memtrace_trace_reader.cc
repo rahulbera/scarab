@@ -26,7 +26,7 @@
  * Description  :
  ***************************************************************************************/
 
-#include "frontend/memtrace/memtrace_trace_reader.h"
+#include "../../frontend/memtrace/memtrace_trace_reader.h"
 #include <algorithm>
 #include <cstring>
 #include <fcntl.h>
@@ -40,7 +40,7 @@
 
 #include "assert.h"
 #include "elf.h"
-//#include "log.h"
+// #include "log.h"
 
 #define warn(...) printf(__VA_ARGS__)
 #define panic(...) printf(__VA_ARGS__)
@@ -66,8 +66,8 @@ TraceReader::TraceReader() :
 // Trace + single binary
 TraceReader::TraceReader(const std::string& _trace, const std::string& _binary,
                          uint64_t _offset, uint32_t _buf_size) :
-    trace_ready_(false),
-    binary_ready_(true), warn_not_found_(1), skipped_(0), buf_size_(_buf_size) {
+    trace_ready_(false), binary_ready_(true), warn_not_found_(1), skipped_(0),
+    buf_size_(_buf_size) {
   binaryFileIs(_binary, _offset);
 }
 
@@ -75,9 +75,8 @@ TraceReader::TraceReader(const std::string& _trace, const std::string& _binary,
 TraceReader::TraceReader(const std::string& _trace,
                          const std::string& _binary_group_path,
                          uint32_t           _buf_size) :
-    trace_ready_(false),
-    binary_ready_(true), warn_not_found_(1), skipped_(0), buf_size_(_buf_size) {
-}
+    trace_ready_(false), binary_ready_(true), warn_not_found_(1), skipped_(0),
+    buf_size_(_buf_size) {}
 
 TraceReader::~TraceReader() {
   clearBinaries();

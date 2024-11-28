@@ -72,8 +72,13 @@ void memview_dram_crit_path(const char* from_type_str, uns from_index,
                             Counter start, Counter end);
 
 /* Record mem queue departure */
+#ifdef __cplusplus
+extern "C" {
+#endif
 void memview_memqueue(Memview_Memqueue_Event event, struct Mem_Req_struct* req);
-
+#ifdef __cplusplus
+}
+#endif
 /* Record type change in memory request */
 void memview_req_changed_type(struct Mem_Req_struct* req);
 

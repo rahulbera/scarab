@@ -28,9 +28,9 @@
 #ifndef MEMTRACE_READER_MEMTRACE_H
 #define MEMTRACE_READER_MEMTRACE_H
 
-#include "frontend/memtrace/memtrace_trace_reader.h"
+#include "../../frontend/memtrace/memtrace_trace_reader.h"
 
-//#include "instrument.h"
+// #include "instrument.h"
 #include "analyzer.h"
 #include "raw2trace.h"
 #include "raw2trace_directory.h"

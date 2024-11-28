@@ -1,0 +1,14 @@
+# Target labels
+ spdlog-populate
+# Source files and their labels
+/home/ksgoura/os_aware_memory_controller/scarab/src/_deps/spdlog-subbuild/CMakeFiles/spdlog-populate
+/home/ksgoura/os_aware_memory_controller/scarab/src/_deps/spdlog-subbuild/CMakeFiles/spdlog-populate.rule
+/home/ksgoura/os_aware_memory_controller/scarab/src/_deps/spdlog-subbuild/CMakeFiles/spdlog-populate-complete.rule
+/home/ksgoura/os_aware_memory_controller/scarab/src/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-build.rule
+/home/ksgoura/os_aware_memory_controller/scarab/src/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-configure.rule
+/home/ksgoura/os_aware_memory_controller/scarab/src/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-download.rule
+/home/ksgoura/os_aware_memory_controller/scarab/src/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-install.rule
+/home/ksgoura/os_aware_memory_controller/scarab/src/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-mkdir.rule
+/home/ksgoura/os_aware_memory_controller/scarab/src/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-patch.rule
+/home/ksgoura/os_aware_memory_controller/scarab/src/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-test.rule
+/home/ksgoura/os_aware_memory_controller/scarab/src/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-update.rule

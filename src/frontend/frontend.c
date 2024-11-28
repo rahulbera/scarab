@@ -43,7 +43,7 @@
 #include "thread.h"
 
 #ifdef ENABLE_MEMTRACE
-#include "frontend/memtrace/memtrace_fe.h"
+#include "../frontend/memtrace/memtrace_fe.h"
 #endif
 
 /**************************************************************************************/
