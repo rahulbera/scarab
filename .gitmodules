@@ -7,3 +7,13 @@
 [submodule "src/deps/dynamorio"]
 	path = src/deps/dynamorio
 	url = https://github.com/DynamoRIO/dynamorio.git
+[submodule "src/ext/argparse"]
+	path = src/ext/argparse
+	url = https://github.com/p-ranav/argparse.git
+[submodule "src/ext/spdlog"]
+	path = src/ext/spdlog
+	url = https://github.com/gabime/spdlog.git
+[submodule "src/ext/yaml-cpp"]
+	path = src/ext/yaml-cpp
+	url = https://github.com/jbeder/yaml-cpp.git
+

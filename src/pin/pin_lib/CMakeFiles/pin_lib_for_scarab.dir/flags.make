@@ -5,13 +5,13 @@
 # compile CXX with /usr/bin/c++
 C_DEFINES = 
 
-C_INCLUDES = -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/ext/yaml-cpp -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/ext/spdlog -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src -I/home/ksgoura/os_aware_memory_controller/scarab/src/scarab -I/home/ksgoura/os_aware_memory_controller/scarab/src/pin/pin_lib/../.. -I/home/ksgoura/os_aware_memory_controller/scarab/src/deps/xed/include/public/xed -I/home/ksgoura/os_aware_memory_controller/scarab/src/deps/xed/obj
+C_INCLUDES = -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/ext/yaml-cpp -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/ext/spdlog -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src -I/home/ksgoura/os_aware_memory_controller/scarab/src/pin/pin_lib/../.. -I/home/ksgoura/os_aware_memory_controller/scarab/src/deps/xed/include/public/xed -I/home/ksgoura/os_aware_memory_controller/scarab/src/deps/xed/obj
 
 C_FLAGS = -O3 -DNDEBUG -Wall -Wunused -Wno-long-long -Wpointer-arith -Werror -w -Wmissing-declarations -Wmissing-prototypes -Wimplicit -Wno-unused-but-set-variable -Wno-maybe-uninitialized -std=gnu99
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/ext/yaml-cpp -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/ext/spdlog -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src -I/home/ksgoura/os_aware_memory_controller/scarab/src/scarab -I/home/ksgoura/os_aware_memory_controller/scarab/src/pin/pin_lib/../.. -I/home/ksgoura/os_aware_memory_controller/scarab/src/deps/xed/include/public/xed -I/home/ksgoura/os_aware_memory_controller/scarab/src/deps/xed/obj
+CXX_INCLUDES = -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/ext/yaml-cpp -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/ext/spdlog -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src -I/home/ksgoura/os_aware_memory_controller/scarab/src/pin/pin_lib/../.. -I/home/ksgoura/os_aware_memory_controller/scarab/src/deps/xed/include/public/xed -I/home/ksgoura/os_aware_memory_controller/scarab/src/deps/xed/obj
 
 CXX_FLAGS = -O3 -DNDEBUG -Wall -Wunused -Wno-long-long -Wpointer-arith -Werror -w -std=gnu++17
 

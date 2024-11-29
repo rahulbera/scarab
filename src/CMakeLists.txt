@@ -45,11 +45,13 @@ include_directories(${MY_LIB_PATH}/ext/spdlog)
 
 include_directories(${MY_LIB_PATH}/src/)
 
-include_directories(scarab)
+#include_directories(scarab)
 #add_subdirectory(ramulator1)
 add_subdirectory(ramulator2)
 add_subdirectory(pin/pin_lib)
 add_subdirectory(pin/pin_exec/testing)
+#add_subdirectory(pin/pin_exec)
+
 
 
 set(scarab_dirs bp debug bp/template_lib dvfs frontend globals isa libs memory power prefetcher .)

@@ -1,0 +1,2 @@
+/home/ksgoura/os_aware_memory_controller/scarab/src/pin/pin_exec/testing/CMakeFiles/edit_cache.dir
+/home/ksgoura/os_aware_memory_controller/scarab/src/pin/pin_exec/testing/CMakeFiles/rebuild_cache.dir
