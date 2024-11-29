@@ -5,7 +5,7 @@ cd ramulator2/
 mkdir ./build
 cd build
 cmake ..
-make
+make -j 16
 cd ../../
 cd ./pin/pin_exec
 make -j 16
