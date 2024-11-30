@@ -87,11 +87,11 @@ Flag op_not_ready_for_retire(Op* op);
 Flag is_node_table_empty(void);
 void collect_not_ready_to_retire_stats(Op* op);
 Flag is_node_table_full(void);
-Flag get_mem_ld(Op *op);
-Flag get_mem_st(Op *op);
+Flag get_mem_ld(Op* op);
+Flag get_mem_st(Op* op);
 Flag is_lq_full(void);
 Flag is_sq_full(void);
-Flag is_icql(Op *op);
+Flag is_icql(Op* op);
 void collect_node_table_full_stats(Op* op);
 void collect_lsq_full_stats(Op* op);
 
@@ -139,12 +139,12 @@ void reset_node_stage() {
   node->mem_blocked          = FALSE;
   node->mem_block_length     = 0;
   node->ret_stall_length     = 0;
-  node->num_loads        = 0;
-  node->num_stores       = 0;
-  node->node_lq_head     = NULL;
-  node->node_sq_head     = NULL;
-  node->node_lq_tail     = NULL;
-  node->node_sq_tail     = NULL;
+  node->num_loads            = 0;
+  node->num_stores           = 0;
+  node->node_lq_head         = NULL;
+  node->node_sq_head         = NULL;
+  node->node_lq_tail         = NULL;
+  node->node_sq_tail         = NULL;
 }
 
 /**************************************************************************************/
@@ -245,7 +245,7 @@ void flush_window() {
   uns  flush_ops = 0;
   uns  keep_ops  = 0;
 
-  node->node_tail = NULL;
+  node->node_tail    = NULL;
   node->node_lq_tail = NULL;
   node->node_sq_tail = NULL;
   for(op = node->node_head, last = &node->node_head; op; op = *last) {
@@ -263,29 +263,29 @@ void flush_window() {
         ASSERT(op->proc_id, node->rs[op->rs_id].rs_op_count > 0);
         node->rs[op->rs_id].rs_op_count--;
       }
- 
+
       if(get_mem_ld(op)) {
         node->num_loads--;
-        if(node->node_lq_head==op) {
+        if(node->node_lq_head == op) {
           node->node_lq_head = NULL;
           node->node_lq_tail = NULL;
-        }
-        else if(node->node_lq_tail!= NULL && node->node_lq_tail->next_lq_node==op) {
+        } else if(node->node_lq_tail != NULL &&
+                  node->node_lq_tail->next_lq_node == op) {
           node->node_lq_tail->next_lq_node = NULL;
         }
       }
       if(get_mem_st(op)) {
         node->num_stores--;
-        if(node->node_sq_head==op){
+        if(node->node_sq_head == op) {
           node->node_sq_head = NULL;
           node->node_sq_tail = NULL;
-        }
-        else if(node->node_sq_tail!= NULL && node->node_sq_tail->next_sq_node==op) {
+        } else if(node->node_sq_tail != NULL &&
+                  node->node_sq_tail->next_sq_node == op) {
           node->node_sq_tail->next_sq_node = NULL;
         }
       }
-      ASSERT(node->proc_id, node->num_loads>=0);
-      ASSERT(node->proc_id, node->num_stores>=0);
+      ASSERT(node->proc_id, node->num_loads >= 0);
+      ASSERT(node->proc_id, node->num_stores >= 0);
 
       free_op(op);
     } else {
@@ -300,13 +300,17 @@ void flush_window() {
       keep_ops++;
       last            = &op->next_node;
       node->node_tail = op;
-      if(get_mem_ld(op)) node->node_lq_tail = op;
-      if(get_mem_st(op)) node->node_sq_tail = op;
+      if(get_mem_ld(op))
+        node->node_lq_tail = op;
+      if(get_mem_st(op))
+        node->node_sq_tail = op;
     }
   }
 
-  ASSERT(node->proc_id, !((node->node_lq_head==NULL) ^ (node->num_loads==0)));
-  ASSERT(node->proc_id, !((node->node_sq_head==NULL) ^ (node->num_stores==0)));
+  ASSERT(node->proc_id,
+         !((node->node_lq_head == NULL) ^ (node->num_loads == 0)));
+  ASSERT(node->proc_id,
+         !((node->node_sq_head == NULL) ^ (node->num_stores == 0)));
   ASSERT(node->proc_id, flush_ops + keep_ops == node->node_count);
   node->node_count = keep_ops;
   ASSERT(node->proc_id, node->node_count <= NODE_TABLE_SIZE);
@@ -464,31 +468,26 @@ void node_issue(Stage_Data* src_sd) {
   // Table.
   // We will stick them into the RS later
   for(ii = 0; ii < src_sd->max_op_count; ii++) {
-
     // If it is not full, issue the next op
     Op* op = src_sd->ops[ii];
     if(!op)
       continue;
-    
+
     /* if node table is full, stall */
     if(is_node_table_full()) {
       collect_node_table_full_stats(node->node_head);
       rob_block_issue_reason = ROB_BLOCK_ISSUE_FULL;
       return;
-    }
-    else if(get_mem_ld(op) && is_lq_full())
-    {
+    } else if(get_mem_ld(op) && is_lq_full()) {
       collect_lsq_full_stats(node->node_lq_head);
       rob_block_issue_reason = ROB_BLOCK_ISSUE_FULL;
       return;
-    }
-    else if(get_mem_st(op) && is_sq_full())
-    {
+    } else if(get_mem_st(op) && is_sq_full()) {
       collect_lsq_full_stats(node->node_sq_head);
       rob_block_issue_reason = ROB_BLOCK_ISSUE_FULL;
       return;
     }
-    
+
     rob_block_issue_reason = ROB_BLOCK_ISSUE_NONE;
 
     ASSERT(node->proc_id, node->proc_id == op->proc_id);
@@ -516,39 +515,31 @@ void node_issue(Stage_Data* src_sd) {
     node->node_tail  = op;
 
     // Add mem ops to load and store queues
-    if(get_mem_ld(op))
-    {
-      ASSERT(0, !((node->node_lq_head!=NULL) ^ (node->node_lq_tail!=NULL)));
+    if(get_mem_ld(op)) {
+      ASSERT(0, !((node->node_lq_head != NULL) ^ (node->node_lq_tail != NULL)));
       node->num_loads++;
       op->next_lq_node = NULL;
-      if(node->node_lq_head == NULL)
-      {
-        ASSERT(0, node->node_lq_tail==NULL);
+      if(node->node_lq_head == NULL) {
+        ASSERT(0, node->node_lq_tail == NULL);
         node->node_lq_head = op;
         node->node_lq_tail = op;
-      }
-      else
-      {
+      } else {
         node->node_lq_tail->next_lq_node = op;
-        node->node_lq_tail = op;
+        node->node_lq_tail               = op;
       }
       ASSERT(0, node->node_lq_head->op_num <= node->node_lq_tail->op_num);
     }
-    if(get_mem_st(op))
-    {
-      ASSERT(0, !((node->node_sq_head!=NULL) ^ (node->node_sq_tail!=NULL)));
+    if(get_mem_st(op)) {
+      ASSERT(0, !((node->node_sq_head != NULL) ^ (node->node_sq_tail != NULL)));
       node->num_stores++;
       op->next_sq_node = NULL;
-      if(node->node_sq_head == NULL)
-      {
-        ASSERT(0, node->node_sq_tail==NULL);
+      if(node->node_sq_head == NULL) {
+        ASSERT(0, node->node_sq_tail == NULL);
         node->node_sq_head = op;
         node->node_sq_tail = op;
-      }
-      else
-      {
+      } else {
         node->node_sq_tail->next_sq_node = op;
-        node->node_sq_tail = op;
+        node->node_sq_tail               = op;
       }
       ASSERT(0, node->node_sq_head->op_num <= node->node_sq_tail->op_num);
     }
@@ -564,7 +555,7 @@ void node_issue(Stage_Data* src_sd) {
 
     DEBUG(node->proc_id, "Issuing the op op_num:%s off_path:%d\n",
           unsstr64(op->op_num), op->off_path);
-    
+
     op->state = OS_ISSUED;
 
     if(!node->next_op_into_rs) {  /* if there are no ops waiting to enter RS */
@@ -692,7 +683,7 @@ inline static void sort_node_ready_list() {
 
 void oldest_first_sched(Op* op, Op** r_op) {
   int32 youngest_slot_op_id = -1;  //-1 means not found
-  (*r_op) = NULL;
+  (*r_op)                   = NULL;
 
   // Iterate through the FUs that this RS is connected to.
   Reservation_Station* rs = &node->rs[op->rs_id];
@@ -715,8 +706,8 @@ void oldest_first_sched(Op* op, Op** r_op) {
         node->sd.op_count += !s_op;
         ASSERT(node->proc_id, node->sd.op_count <= node->sd.max_op_count);
         youngest_slot_op_id = -1;
-        (*r_op) = s_op;
-        return; // RBERA: changed this from break
+        (*r_op)             = s_op;
+        return;  // RBERA: changed this from break
       } else if(op->op_num < s_op->op_num) {
         // The slot is not empty, but we are older than the op that is in the
         // slot
@@ -743,7 +734,7 @@ void oldest_first_sched(Op* op, Op** r_op) {
           op->engine_info.l1_miss);
     ASSERT(node->proc_id, fu_id < node->sd.max_op_count);
     // Op to be replaced
-    Op* s_op = node->sd.ops[fu_id]; 
+    Op* s_op = node->sd.ops[fu_id];
     ASSERT(node->proc_id, s_op);
     // Start replacing op
     op->fu_num                 = fu_id;
@@ -758,8 +749,8 @@ void oldest_first_sched(Op* op, Op** r_op) {
 }
 
 /**************************************************************************************/
-/* node_sched_ops: schedule ready ops (ops that are currently in the ready list).
- *   All of the scheduling algs take the ready_list as input and produce
+/* node_sched_ops: schedule ready ops (ops that are currently in the ready
+ * list). All of the scheduling algs take the ready_list as input and produce
  * node->sd as output. node->sd are the ops that are being passed to the
  * functional units. If the FUs are availible, they will grab the op and it
  * will be removed from the ready_list. If they are not available, then the op
@@ -768,8 +759,8 @@ void oldest_first_sched(Op* op, Op** r_op) {
  * the reservation stations.*/
 
 void node_sched_ops() {
-  Op* op;
-  Op* r_op = NULL;
+  Op*   op;
+  Op*   r_op     = NULL;
   uns32 op_sched = 0, op_sched_icql = 0, op_sched_icql2 = 0;
 
   /* the next stage is supposed to clear them out, regardless of
@@ -831,7 +822,7 @@ void node_sched_ops() {
       }
     }
   }
-  
+
   STAT_EVENT(node->proc_id, OP_ASSIGN_FU_0 + MIN2(op_sched, 16));
   STAT_EVENT(node->proc_id, ICQL_ASSIGN_FU_0 + MIN2(op_sched_icql, 16));
   STAT_EVENT(node->proc_id, ICQL_BLK_ASSIGN_FU_0 + MIN2(op_sched_icql2, 16));
@@ -929,35 +920,27 @@ void node_retire() {
 
     node->ret_op++;
 
-    if(get_mem_ld(op))
-    {
+    if(get_mem_ld(op)) {
       node->num_loads--;
-      ASSERT(0, node->num_loads>=0);
-      ASSERT(0, node->node_lq_head!=NULL && node->node_lq_tail!=NULL);
+      ASSERT(0, node->num_loads >= 0);
+      ASSERT(0, node->node_lq_head != NULL && node->node_lq_tail != NULL);
       ASSERT(0, node->node_lq_head->op_num <= node->node_lq_tail->op_num);
-      if(op->next_lq_node == NULL)
-      {
+      if(op->next_lq_node == NULL) {
         node->node_lq_head = NULL;
         node->node_lq_tail = NULL;
-      }
-      else
-      {
+      } else {
         node->node_lq_head = op->next_lq_node;
       }
     }
-    if(get_mem_st(op))
-    {
+    if(get_mem_st(op)) {
       node->num_stores--;
-      ASSERT(0, node->num_stores>=0);
-      ASSERT(0, node->node_sq_head!=NULL && node->node_sq_tail!=NULL);
+      ASSERT(0, node->num_stores >= 0);
+      ASSERT(0, node->node_sq_head != NULL && node->node_sq_tail != NULL);
       ASSERT(0, node->node_sq_head->op_num <= node->node_sq_tail->op_num);
-      if(op->next_sq_node == NULL)
-      {
+      if(op->next_sq_node == NULL) {
         node->node_sq_head = NULL;
         node->node_sq_tail = NULL;
-      }
-      else
-      {
+      } else {
         node->node_sq_head = op->next_sq_node;
       }
     }
@@ -1055,12 +1038,11 @@ int64 find_emptiest_rs(Op* op) {
           }
         }
       }
-      
+
       // If this RS is already a good fit,
       // no need to check remaining FUs
       if(this_rs_fits)
         break;
-
     }
   }
 
@@ -1074,8 +1056,8 @@ int64 find_emptiest_rs(Op* op) {
 
 void node_fill_rs() {
   int64 rs_id;
-  Op*   op          = NULL;
-  uns32 num_fill_rs = 0;
+  Op*   op                 = NULL;
+  uns32 num_fill_rs        = 0;
   uns32 num_icq_op_fill_rs = 0;
 
   // Scan through issued nodes in node table that have not been issued to RS
@@ -1130,8 +1112,9 @@ void node_fill_rs() {
 
   // had to stop issuing, this is the next node that should be issued to the RS
   node->next_op_into_rs = op;
-  DEBUG(node->proc_id, "Next_op_into_rs is pointing to %s\n",
-        node->next_op_into_rs ? unsstr64(node->next_op_into_rs->op_num) : "NULL");
+  DEBUG(
+    node->proc_id, "Next_op_into_rs is pointing to %s\n",
+    node->next_op_into_rs ? unsstr64(node->next_op_into_rs->op_num) : "NULL");
 
   // keep ICQL RS issue stat
   STAT_EVENT(node->proc_id, ICQL_RS_FILL_0 + MIN2(num_icq_op_fill_rs, 16));
@@ -1155,7 +1138,7 @@ void node_handle_scheduled_ops() {
       op->in_rdy_list = FALSE;
       ASSERT(node->proc_id, node->rs[op->rs_id].rs_op_count > 0);
       node->rs[op->rs_id].rs_op_count--;
-      op->in_rs       = FALSE;
+      op->in_rs = FALSE;
     } else {
       last = &op->next_rdy;
     }
@@ -1258,13 +1241,13 @@ Flag is_node_table_full() {
   return (node->node_count == NODE_TABLE_SIZE);
 }
 
-Flag get_mem_ld(Op * op) {
+Flag get_mem_ld(Op* op) {
   // RBERA: software prefetch should also get categorized as load
   return op->table_info->mem_type == MEM_LD ||
          op->table_info->mem_type == MEM_PF;
 }
 
-Flag get_mem_st(Op * op) {
+Flag get_mem_st(Op* op) {
   return op->table_info->mem_type == MEM_ST ||
          op->table_info->mem_type == MEM_EVICT;
 }
@@ -1294,8 +1277,7 @@ void collect_node_table_full_stats(Op* op) {
     } else {
       STAT_EVENT(node->proc_id, FULL_WINDOW_ROB_OTHER_OP);
     }
-  }
-  else {
+  } else {
     STAT_EVENT(node->proc_id, FULL_WINDOW_WAITING_ON_RET);
   }
 
@@ -1303,15 +1285,13 @@ void collect_node_table_full_stats(Op* op) {
 }
 
 void collect_lsq_full_stats(Op* op) {
-
   if(!(op->state == OS_DONE || OP_DONE(op))) {
     if(get_mem_ld(op)) {
       STAT_EVENT(node->proc_id, FULL_WINDOW_LQ_FULL);
     } else {
       STAT_EVENT(node->proc_id, FULL_WINDOW_SQ_FULL);
     }
-  }
-  else {
+  } else {
     STAT_EVENT(node->proc_id, FULL_WINDOW_WAITING_ON_RET);
   }
 

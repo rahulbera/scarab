@@ -113,8 +113,9 @@
 
 ### DCache
 --dcache_size 	 	            49152
---dcache_read_ports             2
---dcache_write_ports            1
+# since core has 2X load/store ports, increasing dcache ports also
+--dcache_read_ports             4
+--dcache_write_ports            2
 --dcache_banks                  1
 --dcache_assoc		            12
 --dcache_line_size              64
