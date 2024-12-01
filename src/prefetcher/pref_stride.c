@@ -153,8 +153,8 @@ void pref_stride_ul1_train(Addr lineAddr, Addr loadPC, Flag ul1_hit) {
           if(entry->num_states == 1) {
             entry->num_states = 2;
           }
-          entry->curr_state = (1 -
-                               entry->curr_state);  // change 0 to 1 or 1 to 0
+          entry->curr_state = (1 - entry->curr_state);  // change 0 to 1 or 1 to
+                                                        // 0
           if(entry->curr_state == 0) {
             entry->train_count_mode = TRUE;  // move into a checking mode
             entry->count            = 0;

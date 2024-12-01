@@ -51,7 +51,7 @@ extern Counter*    inst_limit;
 /**************************************************************************************/
 /* Prototypes */
 
-void init_global(char* [], char* []);
+void init_global(char*[], char*[]);
 void uop_sim(void);
 void monitor_sim(void);
 void sampling_sim(void);

@@ -192,8 +192,8 @@ void pref_stream_train(uns8 proc_id, Addr line_addr, Addr load_PC,
       proc_id, line_addr, TRUE, create,
       0);  // so we create on dcache misses also?
 
-    if(hit_index ==
-       -1) /* we do not have a trained buffer, nor did we create it */
+    if(hit_index == -1) /* we do not have a trained buffer, nor did we create it
+                         */
       return;
 
     Stream_Buffer* stream = &pref_stream->stream[hit_index];
@@ -238,7 +238,7 @@ void pref_stream_train(uns8 proc_id, Addr line_addr, Addr load_PC,
         } else {
           Addr line_index = stream->ep + stream->dir;
           uns  distance   = stream->dir > 0 ? line_index - stream->sp :
-                                           stream->sp - line_index;
+                                              stream->sp - line_index;
           if(!pref_addto_ul1req_queue_set(
                proc_id, line_index, pref_stream->hwp_info->id, distance,
                load_PC, global_hist, stream->buffer_full))
@@ -332,8 +332,8 @@ int pref_stream_train_create_stream_buffer(uns8 proc_id, Addr line_addr,
               stream->trained     = TRUE;
               stream->start_vline = stream->sp;
               stream->ep          = (dir > 0) ?
-                             line_index + STREAM_START_DIS :
-                             line_index - STREAM_START_DIS;  // BUG: 57
+                                      line_index + STREAM_START_DIS :
+                                      line_index - STREAM_START_DIS;  // BUG: 57
               // check for address space overflow
               if(get_proc_id_from_cmp_addr(
                    stream->ep << LOG2(DCACHE_LINE_SIZE)) != proc_id) {

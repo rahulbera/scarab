@@ -141,9 +141,9 @@ static struct {
   // Extras to cover all instructions starting with F in Pin 2.8
   {"FDISI8087_NOP", 0},
   {"FENI8087_NOP", 0},
-  {"FFREEP", +1},  // Free FP reg (pop)
-  {"FSTPNCE",
-   +1},  // Could not find description, assume it's a form of FSTP (with a pop)
+  {"FFREEP", +1},   // Free FP reg (pop)
+  {"FSTPNCE", +1},  // Could not find description, assume it's a form of FSTP
+                    // (with a pop)
   {"FWAIT", 0},
   {NULL, 0}  // this is the sentinel, must be last
 };

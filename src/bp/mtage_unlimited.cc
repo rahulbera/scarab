@@ -289,9 +289,9 @@ int VAL;
 int indexfinal;
 int LFINAL;
 int Cupdatethreshold;
-//#define LOGSIZEFINAL LOGTAB
-//#define MAXSIZEFINAL  TABSIZE
-//#define SIZEFINAL  (1<<(LOGSIZEFINAL))
+// #define LOGSIZEFINAL LOGTAB
+// #define MAXSIZEFINAL  TABSIZE
+// #define SIZEFINAL  (1<<(LOGSIZEFINAL))
 int8_t GFINAL[TABSIZE]     = {0};
 int8_t GFINALCOLT[TABSIZE] = {0};
 

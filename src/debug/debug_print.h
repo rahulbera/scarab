@@ -47,9 +47,9 @@ extern const char* const sm_state_names[];
 
 void  print_op(Op*);
 void  print_func_op(Op*);
-void  print_short_op_array(FILE*, Op* [], uns);
-void  print_op_array(FILE*, Op* [], uns, uns);
-void  print_open_op_array(FILE*, Op* [], uns, uns);
+void  print_short_op_array(FILE*, Op*[], uns);
+void  print_op_array(FILE*, Op*[], uns, uns);
+void  print_open_op_array(FILE*, Op*[], uns, uns);
 void  print_open_op_array_end(FILE*, uns);
 void  print_op_field(FILE*, Op*, uns);
 void  print_field_tail(FILE*, uns);

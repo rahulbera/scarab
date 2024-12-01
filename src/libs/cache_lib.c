@@ -491,7 +491,7 @@ void* get_next_repl_line(Cache* cache, uns8 proc_id, Addr addr,
   uns          repl_index;
   uns          set_index = cache_index(cache, addr, &line_tag, &line_addr);
   Cache_Entry* new_line  = find_repl_entry(cache, proc_id, set_index,
-                                          &repl_index);
+                                           &repl_index);
 
   *repl_line_addr = new_line->base;
   *valid          = new_line->valid;

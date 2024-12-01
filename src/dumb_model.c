@@ -107,7 +107,7 @@ void dumb_init(uns mode) {
     if(DUMB_MODEL_AVG_ROW_HITS_PER_CORE) {
       int* elems     = malloc(NUM_CORES * sizeof(uns));
       uns  num_elems = parse_int_array(elems, DUMB_MODEL_AVG_ROW_HITS_PER_CORE,
-                                      NUM_CORES);
+                                       NUM_CORES);
       ASSERT(0, num_elems == NUM_CORES);
       for(uns proc_id = 0; proc_id < NUM_CORES; proc_id++) {
         infos[proc_id].avg_row_hits = elems[proc_id];
@@ -117,7 +117,7 @@ void dumb_init(uns mode) {
     if(DUMB_MODEL_MLP_PER_CORE) {
       int* elems     = malloc(NUM_CORES * sizeof(uns));
       uns  num_elems = parse_int_array(elems, DUMB_MODEL_AVG_ROW_HITS_PER_CORE,
-                                      NUM_CORES);
+                                       NUM_CORES);
       ASSERT(0, num_elems == NUM_CORES);
       for(uns proc_id = 0; proc_id < NUM_CORES; proc_id++) {
         infos[proc_id].mlp = elems[proc_id];

@@ -457,7 +457,7 @@ void cache_part_l1_access(Mem_Req* req) {
   Proc_Info* proc_info = &proc_infos[req->proc_id];
   Addr       dummy_line_addr;
   int  pos = cache_find_pos_in_lru_stack(&proc_info->shadow_cache, req->proc_id,
-                                        req->addr, &dummy_line_addr);
+                                         req->addr, &dummy_line_addr);
   Flag miss         = (pos == -1);
   Flag untimely_hit = FALSE;
   Flag stalling     = mem_req_type_is_stalling(req->type);
@@ -493,7 +493,7 @@ void cache_part_l1_access(Mem_Req* req) {
   // update shadow tag
   if(miss) {
     L1_Data* data     = cache_insert(&proc_info->shadow_cache, req->proc_id,
-                                 req->addr, &dummy_line_addr, &dummy_line_addr);
+                                     req->addr, &dummy_line_addr, &dummy_line_addr);
     data->fetch_cycle = freq_cycle_count(FREQ_DOMAIN_L1) +
                         (stalling || req->type == MRT_WB ? 0 :
                                                            L1_PART_FILL_DELAY);
@@ -509,10 +509,10 @@ void cache_part_l1_warmup(uns proc_id, Addr addr) {
   Proc_Info* proc_info = &proc_infos[proc_id];
   Addr       dummy_line_addr;
   L1_Data*   data = (L1_Data*)cache_access(&proc_info->shadow_cache, addr,
-                                         &dummy_line_addr, TRUE);
+                                           &dummy_line_addr, TRUE);
   if(!data) {
     L1_Data* data     = cache_insert(&proc_info->shadow_cache, proc_id, addr,
-                                 &dummy_line_addr, &dummy_line_addr);
+                                     &dummy_line_addr, &dummy_line_addr);
     data->fetch_cycle = 0;
   }
 }
@@ -557,7 +557,7 @@ void cache_part_update(void) {
 Flag in_shadow_cache(Addr addr) {
   Addr dummy_addr;
   uns  set = ext_cache_index(&proc_infos[0].shadow_cache, addr, &dummy_addr,
-                            &dummy_addr);
+                             &dummy_addr);
   return set % L1_SHADOW_TAGS_MODULO == 0;
 }
 
@@ -568,11 +568,11 @@ void measure_miss_curves(void) {
   for(uns proc_id = 0; proc_id < NUM_CORES; proc_id++) {
     Proc_Info* proc_info   = &proc_infos[proc_id];
     uns        access_stat = L1_PART_USE_STALLING ? L1_SHADOW_ACCESS_STALLING :
-                                             L1_SHADOW_ACCESS_DEMAND;
-    uns pos0_hit_stat = L1_PART_USE_STALLING ? L1_SHADOW_STALLING_HIT_POS0 :
-                                               L1_SHADOW_DEMAND_HIT_POS0;
+                                                    L1_SHADOW_ACCESS_DEMAND;
+    uns     pos0_hit_stat = L1_PART_USE_STALLING ? L1_SHADOW_STALLING_HIT_POS0 :
+                                                   L1_SHADOW_DEMAND_HIT_POS0;
     Counter shadow_accesses   = stat_mon_get_count(stat_mon, proc_id,
-                                                 access_stat);
+                                                   access_stat);
     Counter shadow_misses_sum = shadow_accesses;
     for(uns ii = 0; ii < L1_ASSOC - 1; ii++) {
       Counter way_hits = stat_mon_get_count(stat_mon, proc_id,
@@ -764,8 +764,8 @@ double get_global_miss_rate(uns* partition) {
     Proc_Info* proc_info = &proc_infos[proc_id];
     Counter    accesses  = stat_mon_get_count(stat_mon, proc_id,
                                           L1_PART_USE_STALLING ?
-                                            L1_SHADOW_ACCESS_STALLING :
-                                            L1_SHADOW_ACCESS_DEMAND);
+                                                L1_SHADOW_ACCESS_STALLING :
+                                                L1_SHADOW_ACCESS_DEMAND);
     sum += proc_info->miss_rates[partition[proc_id]] * (double)accesses;
   }
   return sum;
@@ -811,7 +811,7 @@ double get_gmean_perf(uns* partition) {
     */
     Proc_Info* proc_info  = &proc_infos[proc_id];
     double     stall_frac = (double)stat_mon_get_count(stat_mon, proc_id,
-                                                   RET_BLOCKED_L1_MISS) /
+                                                       RET_BLOCKED_L1_MISS) /
                         (double)stat_mon_get_count(stat_mon, proc_id,
                                                    NODE_CYCLE);
     double miss_rate0 = proc_info->miss_rates[current_partition[proc_id]];

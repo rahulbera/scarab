@@ -119,10 +119,10 @@ Addr addr_translate(Addr virt_addr) {
   return cmp_addr;
 }
 
-  /**************************************************************************************
-   * The code below was adapted from
-   *http://www.azillionmonkeys.com/qed/hash.html
-   **************************************************************************************/
+/**************************************************************************************
+ * The code below was adapted from
+ *http://www.azillionmonkeys.com/qed/hash.html
+ **************************************************************************************/
 
 #if !defined(get16bits)
 #define get16bits(d) \

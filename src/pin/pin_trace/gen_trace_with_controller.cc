@@ -105,7 +105,7 @@ FILE* output_stream;
 
 ctype_pin_inst mailbox;
 bool           mailbox_full = false;
-static BOOL    inside_roi = FALSE;
+static BOOL    inside_roi   = FALSE;
 
 VOID Handler(EVENT_TYPE ev, VOID* v, CONTEXT* ctxt, VOID* ip, THREADID tid,
              BOOL bcast) {

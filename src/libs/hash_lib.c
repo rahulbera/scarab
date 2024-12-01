@@ -71,7 +71,7 @@ void init_complex_hash_table(Hash_Table* table, const char* name, uns buckets,
   table->data_size = data_size;
   table->count     = 0;
   table->entries   = (Hash_Table_Entry**)calloc(buckets,
-                                              sizeof(Hash_Table_Entry*));
+                                                sizeof(Hash_Table_Entry*));
   table->eq_func   = eq_func;
 }
 

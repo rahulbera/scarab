@@ -139,8 +139,8 @@ void stream_dl0_miss(Addr line_addr) /* line_addr: the first address of the
                                                              // also? -
                                                              // confusing...
 
-    if(hit_index ==
-       -1) /* we do not have a trained buffer, nor did we create it */
+    if(hit_index == -1) /* we do not have a trained buffer, nor did we create it
+                         */
       return;
 
     addto_train_stream_filter(line_index);
@@ -501,10 +501,10 @@ int train_create_stream_buffer(uns proc_id, Addr line_index, Flag train,
               dir = 1;
             stream_hwp->stream[ii].trained = TRUE;
             stream_hwp->stream[ii].ep      = (dir > 0) ?
-                                          line_index + STREAM_START_DIS :
-                                          line_index -
+                                               line_index + STREAM_START_DIS :
+                                               line_index -
                                             STREAM_START_DIS;  // BUG 57
-            stream_hwp->stream[ii].dir = dir;
+            stream_hwp->stream[ii].dir     = dir;
             DEBUG(proc_id,
                   "stream  trained stream_index:%3d sp %7s ep %7s dir %2d "
                   "miss_index %7d\n",
@@ -734,10 +734,10 @@ int train_l2hit_stream_buffer(Addr line_index, Flag hit) {
           dir = 1;
         stream_hwp->l2hit_stream[ii].trained = TRUE;
         stream_hwp->l2hit_stream[ii].ep      = (dir > 0) ?
-                                            line_index +
+                                                 line_index +
                                               L2HIT_STREAM_START_DIS :
-                                            line_index - L2HIT_STREAM_START_DIS;
-        stream_hwp->l2hit_stream[ii].dir = dir;
+                                                 line_index - L2HIT_STREAM_START_DIS;
+        stream_hwp->l2hit_stream[ii].dir     = dir;
         DEBUG(0,
               "[l2HITP**%s**]stream  trained stream_index:%3d sp 0x%7s ep "
               "0x%7s dir %2d miss_index %7s\n",

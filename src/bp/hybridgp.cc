@@ -149,11 +149,11 @@ Hybridgp_Indices cook_indices(const Addr addr, const uns32 ghist,
   const uns32 cooked_paddr = cook_addr(addr, HYBRIDP_HIST_LENGTH);
   const uns32 cooked_faddr = cook_addr(addr, FILTER_INDEX_LENGTH);
   const uns32 spht_index   = cook_gindex(cooked_ghist, cooked_saddr,
-                                       HYBRIDS_INDEX_LENGTH, 5);
+                                         HYBRIDS_INDEX_LENGTH, 5);
   const uns32 gpht_index   = cook_gindex(cooked_ghist, cooked_gaddr,
-                                       HYBRIDG_HIST_LENGTH, 5);
+                                         HYBRIDG_HIST_LENGTH, 5);
   const uns32 ppht_index   = cook_pindex(cooked_phist, cooked_paddr,
-                                       HYBRIDP_HIST_LENGTH, 2);
+                                         HYBRIDP_HIST_LENGTH, 2);
 
   return {spht_index, gpht_index, ppht_index, cooked_faddr};
 }

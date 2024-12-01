@@ -44,14 +44,14 @@ typedef struct Func_Unit_struct {
   uns  proc_id;
   char name[EXEC_PORTS_MAX_NAME_LEN]; /* unique name of the FU, from
                                          exec_ports.def */
-  uns32   fu_id; /* id of the FU, corresponds to it's slot number*/
-  uns64   type;  /* bitwise-OR of all OP_<type>_BITs that the fu can execute */
-  FU_Memtype memtype; /* distinguishes between load and store FUs */
-  Counter avail_cycle; /* cycle when the functional unit becomes available */
-  Counter
-       idle_cycle;  /* cycle when the FU becomes idle (no op in its pipeline) */
-  Flag held_by_mem; /* when true, the memory system has determined a stall for
-                       the func unit */
+  uns32 fu_id; /* id of the FU, corresponds to it's slot number*/
+  uns64 type;  /* bitwise-OR of all OP_<type>_BITs that the fu can execute */
+  FU_Memtype memtype;     /* distinguishes between load and store FUs */
+  Counter    avail_cycle; /* cycle when the functional unit becomes available */
+  Counter idle_cycle; /* cycle when the FU becomes idle (no op in its pipeline)
+                       */
+  Flag held_by_mem;   /* when true, the memory system has determined a stall for
+                         the func unit */
 } Func_Unit;
 
 

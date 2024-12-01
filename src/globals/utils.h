@@ -221,8 +221,8 @@
 
 #define NUM_ELEMENTS(arr) (sizeof(arr) / sizeof(arr[0]))
 
-#define ROUND_UP(N, ALIGN) (((N) + ((ALIGN)-1)) & ~((ALIGN)-1))
-#define ROUND_DOWN(N, ALIGN) ((N) & ~((ALIGN)-1))
+#define ROUND_UP(N, ALIGN) (((N) + ((ALIGN) - 1)) & ~((ALIGN) - 1))
+#define ROUND_DOWN(N, ALIGN) ((N) & ~((ALIGN) - 1))
 
 /* produces an integer with the N lowest-order bits set to 1's */
 #define N_BIT_MASK(N) ((0x1ULL << (N)) - 1)
@@ -255,25 +255,25 @@
      (val0) :                                                             \
      (val1))
 
-#define CIRC_INC(val, num) (((val) == ((num)-1)) ? 0 : (val) + 1)
-#define CIRC_DEC(val, num) (((val) == 0) ? (num)-1 : (val)-1)
+#define CIRC_INC(val, num) (((val) == ((num) - 1)) ? 0 : (val) + 1)
+#define CIRC_DEC(val, num) (((val) == 0) ? (num) - 1 : (val) - 1)
 
-#define CIRC_INC2(val, pow2) (((val) + 1) & ((pow2)-1))
-#define CIRC_DEC2(val, pow2) (((val)-1) & ((pow2)-1))
+#define CIRC_INC2(val, pow2) (((val) + 1) & ((pow2) - 1))
+#define CIRC_DEC2(val, pow2) (((val) - 1) & ((pow2) - 1))
 
 #define CIRC_ADD(val0, val1, num) (((val0) + (val1)) % (num))
 #define CIRC_SUB(val0, val1, num) (((num) + (val0) - (val1)) % (num))
 
-#define CIRC_ADD2(val0, val1, pow2) (((val0) + (val1)) & ((pow2)-1))
-#define CIRC_SUB2(val0, val1, pow2) (((val0) - (val1)) & ((pow2)-1))
+#define CIRC_ADD2(val0, val1, pow2) (((val0) + (val1)) & ((pow2) - 1))
+#define CIRC_SUB2(val0, val1, pow2) (((val0) - (val1)) & ((pow2) - 1))
 
 #define SAT_INC(val, max) ((val) == (max) ? (max) : (val) + 1)
-#define SAT_DEC(val, min) ((val) == (min) ? (min) : (val)-1)
+#define SAT_DEC(val, min) ((val) == (min) ? (min) : (val) - 1)
 
 #define SAT_ADD(val1, val2, max) \
   ((val1 + val2) >= (max) ? (max) : (val1 + val2))
 #define SAT_SUB(val1, val2, min) \
-  ((int)((int)(val1)-val2) < (min) ? (min) : (val1 - val2))
+  ((int)((int)(val1) - val2) < (min) ? (min) : (val1 - val2))
 
 #define MIN2(v0, v1) (((v0) < (v1)) ? (v0) : (v1))
 #define MAX2(v0, v1) (((v0) > (v1)) ? (v0) : (v1))
@@ -287,11 +287,11 @@
 // is simply the lower bits
 #define BANK(a, num, int) ((a) >> LOG2(int) & N_BIT_MASK(LOG2(num)))
 #define CHANNEL(bank, num) ((bank) >> LOG2(num))
-#define BANK_IN_CHANNEL(bank, num) ((bank)&N_BIT_MASK(LOG2(num)))
+#define BANK_IN_CHANNEL(bank, num) ((bank) & N_BIT_MASK(LOG2(num)))
 
 /* Model 32 bit wraparound while maintaining the proc_id bits */
 #define ADDR_PLUS_OFFSET(addr, offset) \
-  (((addr)&0xFFFF000000000000ULL) |    \
+  (((addr) & 0xFFFF000000000000ULL) |  \
    (((addr) + (offset)) & 0x0000FFFFFFFFFFFFULL))
 
 /* do addresses 0 and 1 overlap?  */
@@ -302,7 +302,7 @@
 #define BYTE_CONTAIN(a0, s0, a1, s1) \
   ((a1) >= (a0) && (a1) + (s1) <= (a0) + (s0))
 
-#define PCT_OF(x, y) ((float)(x)*100 / (y))
+#define PCT_OF(x, y) ((float)(x) * 100 / (y))
 #define INV_PCT_OF(x, y) (PCT_OF(y - x, y))
 
 #define ROTATE_LEFT(width, v, num) \

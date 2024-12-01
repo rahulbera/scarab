@@ -156,7 +156,7 @@ void bp_crs_recover(Bp_Data* bp_data) {
 
 void bp_crs_realistic_push(Bp_Data* bp_data, Op* op) {
   Addr       addr = ADDR_PLUS_OFFSET(op->inst_info->addr,
-                               op->inst_info->trace_info.inst_size);
+                                     op->inst_info->trace_info.inst_size);
   Crs_Entry* ent  = &bp_data->crs.entries[bp_data->crs.next];
 
   ASSERT(bp_data->proc_id, bp_data->proc_id == op->proc_id);
@@ -301,7 +301,7 @@ void bp_btb_gen_update(Bp_Data* bp_data, Op* op) {
               hexstr64s(fetch_addr), hexstr64s(op->oracle_info.target));
     STAT_EVENT(op->proc_id, BTB_ON_PATH_WRITE + op->off_path);
     btb_line  = (Addr*)cache_insert(&bp_data->btb, bp_data->proc_id, fetch_addr,
-                                   &btb_line_addr, &repl_line_addr);
+                                    &btb_line_addr, &repl_line_addr);
     *btb_line = op->oracle_info.target;
     // FIXME: the exceptions to this assert are really about x86 vs Alpha
     ASSERT(bp_data->proc_id, (fetch_addr == btb_line_addr) || TRUE);
@@ -422,8 +422,8 @@ void bp_ibtb_tc_tagless_init(Bp_Data* bp_data) {
 }
 
 
-  /**************************************************************************************/
-  /* bp_tc_tagless_pred */
+/**************************************************************************************/
+/* bp_tc_tagless_pred */
 
 #define COOK_HIST_BITS(hist, untouched) \
   ((hist) >> (32 - IBTB_HIST_LENGTH + untouched) << untouched)

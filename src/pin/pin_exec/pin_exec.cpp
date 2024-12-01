@@ -77,8 +77,8 @@ KNOB<UINT64> KnobFastForwardToStartInst(
   KNOB_MODE_WRITEONCE, "pintool", "fast_forward_to_start_inst", "0",
   "Pin skips instructions until start instruction is found");
 KNOB<bool>   KnobHeartbeatEnabled(KNOB_MODE_WRITEONCE, "pintool", "heartbeat",
-                                "false",
-                                "Periodically output heartbeat messages");
+                                  "false",
+                                  "Periodically output heartbeat messages");
 KNOB<UINT64> KnobDebugPrintStartUid(
   KNOB_MODE_WRITEONCE, "pintool", "debug_print_start_uid", "0",
   "Start printing debug prints at this UID (inclusive)");
@@ -134,8 +134,12 @@ void insert_checks_for_control_flow(const INS& ins) {
     INS_InsertCall(ins, IPOINT_BEFORE, AFUNPTR(check_ret_control_ins),
                    IARG_MEMORYREAD_EA, IARG_MEMORYREAD_SIZE, IARG_CONTEXT,
                    IARG_END);
-  } else if(INS_IsControlFlow(ins)) {  // @RBERA: changing this call for PIN 3.17. Earlier was INS_IsBranchOrCall()
-    if(INS_IsDirectControlFlow(ins)) {  // @RBERA: changing this for PIN 3.17. Earlier was INS_IsDirectBranchOrCall()
+  } else if(INS_IsControlFlow(ins)) {   // @RBERA: changing this call for
+                                        // PIN 3.17. Earlier was
+                                        // INS_IsBranchOrCall()
+    if(INS_IsDirectControlFlow(ins)) {  // @RBERA: changing this for PIN 3.17.
+                                        // Earlier was
+                                        // INS_IsDirectBranchOrCall()
       if(INS_Category(ins) == XED_CATEGORY_COND_BR) {
         INS_InsertCall(ins, IPOINT_BEFORE, AFUNPTR(check_nonret_control_ins),
                        IARG_BRANCH_TAKEN, IARG_ADDRINT,

@@ -84,7 +84,7 @@ class Message : public MessageBase {
 
   Message(const T& obj);
   Message& operator=(const T& obj);
-           operator T() const;
+  operator T() const;
 };
 
 // Special case to send vectors as messages
@@ -99,7 +99,7 @@ class Message<std::vector<T>> : public MessageBase {
 
   Message(const std::vector<T>& obj);
   Message& operator=(const std::vector<T>& obj);
-           operator std::vector<T>() const;
+  operator std::vector<T>() const;
 };
 
 // Special case to send deques as messages
@@ -114,7 +114,7 @@ class Message<std::deque<T>> : public MessageBase {
 
   Message(const std::deque<T>& obj);
   Message& operator=(const std::deque<T>& obj);
-           operator std::deque<T>() const;
+  operator std::deque<T>() const;
 };
 
 /******************************************************************************/

@@ -36,9 +36,9 @@
 #define NUM_FP_REGS 32 /* default 32 */  /* number of float registers */
 #define NUM_SPEC_REGS 8                  /* guess, may be unnecessary */
 #define NUM_SPARE_REGS 8
-#define NUM_EXTRA_REGS          \
-  (NUM_INT_REGS + NUM_FP_REGS + \
-   NUM_SPARE_REGS) /* number of extra (fake) registers */
+#define NUM_EXTRA_REGS                                                    \
+  (NUM_INT_REGS + NUM_FP_REGS + NUM_SPARE_REGS) /* number of extra (fake) \
+                                                   registers */
 #define NUM_REG_IDS \
   (NUM_INT_REGS + NUM_FP_REGS + NUM_SPEC_REGS + NUM_EXTRA_REGS)
 

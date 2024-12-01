@@ -602,7 +602,7 @@ static void process_slack_period(uns proc_id, Counter slack_period_end) {
   for(int bank = 0; bank < RAMULATOR_BANKS * RAMULATOR_CHANNELS; ++bank) {
     Bank_Info* info  = &proc->bank_infos[bank];
     Counter    slack = (info->bank_accessed_in_this_slack_period ?
-                       info->slack_in_this_slack_period +
+                          info->slack_in_this_slack_period +
                          (slack_period_end -
                           info->slack_last_update_cycle) :  // mixing
                        slack_period_end - proc->last_slack_period_start);
@@ -843,8 +843,8 @@ void perf_pred_l0_miss_start(struct Mem_Req_struct* req) {
     uns       proc_id  = req->proc_id;
     MLP_Info* mlp_info = &mlp_infos[proc_id];
 
-    if(mlp_info->num_dcache_misses >
-         0 &&  // might be zero in the first call after warmup
+    if(mlp_info->num_dcache_misses > 0 &&  // might be zero in the first call
+                                           // after warmup
        uop_count[proc_id] >= mlp_info->window_start_opnum + NODE_TABLE_SIZE) {
       collect_mlp_info_stats(proc_id);
       reset_window_info(proc_id);

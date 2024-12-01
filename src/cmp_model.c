@@ -406,10 +406,10 @@ void warmup_mlc(uns proc_id, Addr addr, Flag write) {
     warmup_l1(proc_id, addr, FALSE);
     Addr repl_line_addr;
     mlc_data = (MLC_Data*)cache_insert(mlc_cache, proc_id, addr,
-                                        &dummy_line_addr, &repl_line_addr);
+                                       &dummy_line_addr, &repl_line_addr);
     if(mlc_data->dirty) {
       warmup_l1(proc_id, repl_line_addr, TRUE);
-    }  
+    }
   }
 }
 

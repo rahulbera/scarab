@@ -37,7 +37,7 @@
 #include "core.param.h"
 #include "general.param.h"
 
-#define CMP_ADDR_MASK (((Addr)-1) << 58)
+#define CMP_ADDR_MASK (((Addr) - 1) << 58)
 /**************************************************************************************/
 /* breakpoint: A function to help debugging. */
 
@@ -91,11 +91,11 @@ uns popcount32(uns32 num) {
   return ans;
 }
 
-  /**************************************************************************************/
-  /* byte_swap: This function exists for support of big endian (ie. stupid)
-   * machines.  it will reorder the bytes of a structure given a pointer to it
-   * and its size.  If not compiled with -DBYTE_SWAP, the function is empty and
-   * does nothing.  */
+/**************************************************************************************/
+/* byte_swap: This function exists for support of big endian (ie. stupid)
+ * machines.  it will reorder the bytes of a structure given a pointer to it
+ * and its size.  If not compiled with -DBYTE_SWAP, the function is empty and
+ * does nothing.  */
 
 #ifdef BYTE_SWAP
 
@@ -208,10 +208,10 @@ char* binstr64s(uns64 value) {
 }
 
 
-  /**************************************************************************************/
-  /* print_ull_guts: Print the least significant digit at d and proceed to
-   higher significant digits lower in memory.  Return a pointer to the first
-   char of the printed value.  */
+/**************************************************************************************/
+/* print_ull_guts: Print the least significant digit at d and proceed to
+ higher significant digits lower in memory.  Return a pointer to the first
+ char of the printed value.  */
 
 #define BILLION (1000000000ULL)
 
@@ -386,23 +386,23 @@ uns log2_ctr(Counter n) {
 }
 
 
-  /**************************************************************************************
-   * cfprintf: This is a general function to print output in a "columnized"
-   *format.
-   *
-   * It expects printf-style format strings and interprets them based on
-   * a special set of cfprintf characters:
-   *
-   *     '&' - column divider (if followed immediately by a number, the
-   * 	number determines the minimum column size.  Otherwise, whitespace is
-   * 	always stripped from the beginning and end of the column.
-   *
-   *     '$'  - row terminator (ends the row and equates to a newline in the
-   *printout)
-   *
-   *     '\n' - treated as a normal character (doesn't end a row)
-   *
-   ***************************************************************************************/
+/**************************************************************************************
+ * cfprintf: This is a general function to print output in a "columnized"
+ *format.
+ *
+ * It expects printf-style format strings and interprets them based on
+ * a special set of cfprintf characters:
+ *
+ *     '&' - column divider (if followed immediately by a number, the
+ * 	number determines the minimum column size.  Otherwise, whitespace is
+ * 	always stripped from the beginning and end of the column.
+ *
+ *     '$'  - row terminator (ends the row and equates to a newline in the
+ *printout)
+ *
+ *     '\n' - treated as a normal character (doesn't end a row)
+ *
+ ***************************************************************************************/
 
 #include <stdarg.h>
 

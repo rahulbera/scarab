@@ -77,7 +77,7 @@ struct Trace_Uop_struct {
   Flag     actual_taken;
   Addr     va;
   uns      mem_size;  // number of bytes read/written by a memory instruction
-  uint64_t ldval; // data value of the load. Valid only for non-gather loads
+  uint64_t ldval;     // data value of the load. Valid only for non-gather loads
   Addr     target;
   Addr     npc;
   Flag     bom;
@@ -109,8 +109,8 @@ uns*         num_sending_uop;
 uns*         num_uops;
 Addr*        last_ga_va;
 
-Hash_Table*
-  inst_info_hash; /* hash table of all static instruction information */
+Hash_Table* inst_info_hash; /* hash table of all static instruction information
+                             */
 
 /**************************************************************************************/
 /* Local prototypes */
@@ -413,9 +413,9 @@ void uop_generator_get_uop(uns proc_id, Op* op, ctype_pin_inst* inst) {
   op->oracle_info.target = convert_to_cmp_addr(0, trace_uop->target) ?
                              trace_uop->target :
                              trace_uop->npc;
-  op->oracle_info.va    = trace_uop->va;
-  op->oracle_info.ldval = trace_uop->ldval;
-  op->oracle_info.npc = trace_uop->npc;
+  op->oracle_info.va     = trace_uop->va;
+  op->oracle_info.ldval  = trace_uop->ldval;
+  op->oracle_info.npc    = trace_uop->npc;
   if(op->proc_id)
     ASSERT(op->proc_id, op->oracle_info.npc);
   op->oracle_info.mem_size = trace_uop->mem_size;
@@ -659,12 +659,12 @@ static uns generate_uops(uns8 proc_id, ctype_pin_inst* pi,
   Flag has_control = pi->cf_type != NOT_CF;
   Flag has_alu =
     !(pi->is_move && (has_load || has_store)) &&  // not a simple LD/ST move
-    ((!has_control && !has_load &&
-      !has_store)             // not memory, not control, must be operate
-     || has_push || has_pop   // need ALU for stack address generation
-     || pi->num_dst_regs > 0  // if it writes to a registers, must be operate
-     || (has_load &&
-         has_store)  // must be read-modify-write operate (e.g. add $1, [%eax])
+    ((!has_control && !has_load && !has_store)  // not memory, not control, must
+                                                // be operate
+     || has_push || has_pop      // need ALU for stack address generation
+     || pi->num_dst_regs > 0     // if it writes to a registers, must be operate
+     || (has_load && has_store)  // must be read-modify-write operate (e.g. add
+                                 // $1, [%eax])
      || (pi->op_type >= OP_PIPELINED_FAST &&  // special instructions always
          pi->op_type <= OP_NOTPIPELINED_VERY_SLOW));  // need an alu uop
 

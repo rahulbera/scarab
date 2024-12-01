@@ -57,8 +57,8 @@
 #include "prefetcher/pref_common.h"
 #include "prefetcher/stream_pref.h"
 #include "statistics.h"
-//#include "dram.h"
-//#include "dram.param.h"
+// #include "dram.h"
+// #include "dram.param.h"
 #include "ramulator.h"
 #include "ramulator.param.h"
 
@@ -1631,7 +1631,7 @@ static Flag mem_complete_l1_access(Mem_Req*         req,
         umon_cache = &mem->umon_cache_core[req->proc_id];
 
         lru_pos   = cache_find_pos_in_lru_stack(umon_cache, req->proc_id,
-                                              conv_addr, &dummy_addr);
+                                                conv_addr, &dummy_addr);
         umon_data = (Umon_Cache_Data*)cache_access(
           umon_cache, conv_addr, &dummy_addr, TRUE);  // acces umon cache
 
@@ -1683,8 +1683,8 @@ static Flag mem_complete_l1_access(Mem_Req*         req,
   }
 
   // cmp IGNORE
-  if(L1_PREF_CACHE_ENABLE &&
-     !data) /* do not put into L2 if this is a prefetch or off-path */
+  if(L1_PREF_CACHE_ENABLE && !data) /* do not put into L2 if this is a prefetch
+                                       or off-path */
     data = l1_pref_cache_access(req);
 
   Flag access_done = TRUE;  // This flag tells whether to remove the req from
@@ -1747,8 +1747,8 @@ static Flag mem_complete_l1_access(Mem_Req*         req,
         mem->uncores[req->proc_id].num_outstanding_l1_misses++;
         mem_complete_bus_in_access(req, l1_queue_entry->priority);
         req->rdy_cycle       = cycle_count + freq_convert(FREQ_DOMAIN_MEMORY,
-                                                    MEMORY_CYCLES,
-                                                    FREQ_DOMAIN_L1);
+                                                          MEMORY_CYCLES,
+                                                          FREQ_DOMAIN_L1);
         req->mem_queue_cycle = cycle_count;
         perf_pred_mem_req_start(req);
         STAT_EVENT(req->proc_id, POWER_MEMORY_ACCESS);
@@ -1833,8 +1833,8 @@ static Flag mem_complete_l1_access(Mem_Req*         req,
       // cmp FIXME prefetchers
       if((req->type == MRT_DPRF || req->type == MRT_IPRF ||
           req->demand_match_prefetch) &&
-         req->prefetcher_id !=
-           0) {  // cmp FIXME What can I do for the prefetcher?
+         req->prefetcher_id != 0) {  // cmp FIXME What can I do for the
+                                     // prefetcher?
 
         pref_ul1sent(req->proc_id, req->addr, req->prefetcher_id);
         STAT_EVENT(req->proc_id, BUS_PREF_ACCESS);
@@ -2239,10 +2239,15 @@ static void mem_process_bus_out_reqs() {
 
       if(MEM_BUS_OUT_QUEUE_AS_FIFO) {  // Assuming bus out queue is a FIFO. The
                                        // oldest one can block others
-        if(!mem->bus_out_queue_seen_oldest_core
-              [req->proc_id]) {  // this looks at only the oldest req for each
-                                 // bus_out_queue per core (assuming
-                                 // bus_out_queue is a FIFO
+        if(!mem->bus_out_queue_seen_oldest_core[req->proc_id]) {  // this looks
+                                                                  // at only the
+                                                                  // oldest req
+                                                                  // for each
+                                                                  // bus_out_queue
+                                                                  // per core
+                                                                  // (assuming
+                                                                  // bus_out_queue
+                                                                  // is a FIFO
           ASSERT(0, mem->bus_out_queue_entry_count_core[req->proc_id]);
           mem->bus_out_queue_seen_oldest_core[req->proc_id] = TRUE;
 
@@ -2317,10 +2322,15 @@ static void mem_process_bus_out_reqs() {
         continue;
       if(MEM_BUS_OUT_QUEUE_AS_FIFO) {  // Assuming bus out queue is a FIFO. The
                                        // oldest one can block others
-        if(!mem->bus_out_queue_seen_oldest_core
-              [req->proc_id]) {  // this looks at only the oldest req for each
-                                 // bus_out_queue per core (assuming
-                                 // bus_out_queue is a FIFO
+        if(!mem->bus_out_queue_seen_oldest_core[req->proc_id]) {  // this looks
+                                                                  // at only the
+                                                                  // oldest req
+                                                                  // for each
+                                                                  // bus_out_queue
+                                                                  // per core
+                                                                  // (assuming
+                                                                  // bus_out_queue
+                                                                  // is a FIFO
           ASSERT(0, mem->bus_out_queue_entry_count_core[req->proc_id]);
           mem->bus_out_queue_seen_oldest_core[req->proc_id] = TRUE;
 
@@ -2425,9 +2435,8 @@ static void mem_process_bus_out_reqs() {
     // else
     //    mem_insert_req_into_queue (req, req->queue, ALL_FIFO_QUEUES ?
     //    mem_seq_num : 0);
-    Flag sent = ramulator_send(
-      req);  // Ramulator_note: Does ramulator need to do anything
-             // with mem_seq_num?
+    Flag sent = ramulator_send(req);  // Ramulator_note: Does ramulator need to
+                                      // do anything with mem_seq_num?
     if(sent) {
       ASSERT(req->proc_id, req->mem_queue_cycle >= req->rdy_cycle);
     }
@@ -2435,8 +2444,8 @@ static void mem_process_bus_out_reqs() {
     mem_seq_num++;  // Ramulator_note: Do we need to move this after
                     // ramulator_send()?
 
-    perf_pred_mem_req_start(
-      req);  // Ramulator_note: Do we need to call this after ramulator_send()?
+    perf_pred_mem_req_start(req);  // Ramulator_note: Do we need to call this
+                                   // after ramulator_send()?
     if(mem->uncores[req->proc_id].num_outstanding_l1_misses == 0) {
       STAT_EVENT(req->proc_id, CORE_MLP_CLUSTERS);
     }
@@ -2915,8 +2924,8 @@ static inline Mem_Req* mem_search_queue(
     src_addr       = CACHE_SIZE_ADDR(req->size, addr);
     match          = FALSE;
 
-    if((dest_addr == src_addr) &&
-       !is_final_state(req->state)) { /* address match */
+    if((dest_addr == src_addr) && !is_final_state(req->state)) { /* address
+                                                                    match */
       ASSERTM(proc_id, proc_id == get_proc_id_from_cmp_addr(addr),
               "Proc ID does not match proc ID in address!\n");
       ASSERTM(proc_id, req->proc_id == get_proc_id_from_cmp_addr(req->addr),
@@ -3179,8 +3188,8 @@ Flag mem_adjust_matching_request(Mem_Req* req, Mem_Req_Type type, Addr addr,
                                  op->op_num :
                                  req->oldest_op_op_num);
       req->oldest_op_addr   = ((op->unique_num < req->oldest_op_unique_num) ?
-                               op->inst_info->addr :
-                               req->oldest_op_addr);
+                                 op->inst_info->addr :
+                                 req->oldest_op_addr);
     } else {
       req->oldest_op_unique_num = op->unique_num;
       req->oldest_op_op_num     = op->op_num;
@@ -3209,9 +3218,9 @@ Flag mem_adjust_matching_request(Mem_Req* req, Mem_Req_Type type, Addr addr,
     op->engine_info.mlc_miss_satisfied = req->mlc_miss_satisfied ?
                                            TRUE :
                                            op->engine_info.mlc_miss_satisfied;
-    op->engine_info.l1_miss_satisfied = req->l1_miss_satisfied ?
-                                          TRUE :
-                                          op->engine_info.l1_miss_satisfied;
+    op->engine_info.l1_miss_satisfied  = req->l1_miss_satisfied ?
+                                           TRUE :
+                                           op->engine_info.l1_miss_satisfied;
 
     // cmp FIXME prefetchers
     if(demand_hit_prefetch && type != MRT_DPRF && type != MRT_IPRF) {
@@ -3221,8 +3230,8 @@ Flag mem_adjust_matching_request(Mem_Req* req, Mem_Req_Type type, Addr addr,
         STAT_EVENT(req->proc_id, L1_PREF_LATE);
         Counter l1_cycles = freq_cycle_count(FREQ_DOMAIN_L1);
         Counter diff      = l1_cycles >= req->start_cycle ?
-                         l1_cycles - req->start_cycle :
-                         0;
+                              l1_cycles - req->start_cycle :
+                              0;
         INC_STAT_EVENT(req->proc_id, L1_LATE_PREF_CYCLES, diff);
         STAT_EVENT(req->proc_id,
                    L1_LATE_PREF_CYCLES_DIST_0 + MIN2(diff / 100, 20));
@@ -3860,8 +3869,8 @@ Flag new_mem_req(Mem_Req_Type type, uns8 proc_id, Addr addr, uns size,
   Mem_Queue_Entry* queue_entry          = NULL;
   Flag             demand_hit_prefetch  = FALSE;
   Flag             demand_hit_writeback = FALSE;
-  Flag             kicked_out =
-    FALSE; /* did this request kick out another one in the queue */
+  Flag kicked_out = FALSE; /* did this request kick out another one in the queue
+                            */
   Flag    ramulator_match = FALSE;
   Counter priority_offset = freq_cycle_count(FREQ_DOMAIN_L1);
   Counter new_priority;
@@ -4001,8 +4010,8 @@ Flag new_mem_req(Mem_Req_Type type, uns8 proc_id, Addr addr, uns size,
     }
 
 
-    if(new_req ==
-       NULL) { /* Step 2.1.1: Cannot kick out anything - just return */
+    if(new_req == NULL) { /* Step 2.1.1: Cannot kick out anything - just return
+                           */
       DEBUG(proc_id,
             "Request denied in mem buffer  addr:%s rc:%d mlc:%d l1:%d bo:%d "
             "lf:%d mf:%d rf:%d\n",
@@ -4176,8 +4185,8 @@ Flag new_mem_dc_wb_req(Mem_Req_Type type, uns8 proc_id, Addr addr, uns size,
   Mem_Queue_Entry* queue_entry          = NULL;
   Flag             demand_hit_prefetch  = FALSE;
   Flag             demand_hit_writeback = FALSE;
-  Flag             kicked_out =
-    FALSE; /* did this request kick out another one in the queue */
+  Flag kicked_out = FALSE; /* did this request kick out another one in the queue
+                            */
   Flag    ramulator_match = FALSE;
   Counter priority_offset = freq_cycle_count(FREQ_DOMAIN_L1);
   Counter new_priority;
@@ -4287,8 +4296,8 @@ static Flag new_mem_mlc_wb_req(Mem_Req_Type type, uns8 proc_id, Addr addr,
   Mem_Queue_Entry* queue_entry          = NULL;
   Flag             demand_hit_prefetch  = FALSE;
   Flag             demand_hit_writeback = FALSE;
-  Flag             kicked_out =
-    FALSE; /* did this request kick out another one in the queue */
+  Flag kicked_out = FALSE; /* did this request kick out another one in the queue
+                            */
   Flag    ramulator_match = FALSE;
   Counter priority_offset = freq_cycle_count(FREQ_DOMAIN_L1);
   Counter new_priority;
@@ -4389,8 +4398,8 @@ static Flag new_mem_l1_wb_req(Mem_Req_Type type, uns8 proc_id, Addr addr,
   Mem_Queue_Entry* queue_entry          = NULL;
   Flag             demand_hit_prefetch  = FALSE;
   Flag             demand_hit_writeback = FALSE;
-  Flag             kicked_out =
-    FALSE; /* did this request kick out another one in the queue */
+  Flag kicked_out = FALSE; /* did this request kick out another one in the queue
+                            */
   Flag    ramulator_match = FALSE;
   Counter priority_offset = freq_cycle_count(FREQ_DOMAIN_L1);
   Counter new_priority;
@@ -4476,8 +4485,8 @@ static Flag new_mem_l1_wb_req(Mem_Req_Type type, uns8 proc_id, Addr addr,
           new_priority, QUEUE_L1 | QUEUE_BUS_OUT | QUEUE_MEM);
     }
 
-    if(new_req ==
-       NULL) { /* Step 2.1.1: Cannot kick out anything - just return */
+    if(new_req == NULL) { /* Step 2.1.1: Cannot kick out anything - just return
+                           */
       DEBUG(proc_id,
             "Request denied in mem buffer  addr:%s rc:%d mlc:%d l1:%d bo:%d "
             "lf:%d mf:%d rf:%d\n",
@@ -4882,8 +4891,8 @@ Flag l1_fill_line(Mem_Req* req) {
   data->offpath_op_unique              = req->oldest_op_unique_num;
   data->l0_modified_fetched_by_offpath = FALSE;
   data->l1miss_latency                 = (req->type == MRT_WB) ?
-                           0 :
-                           cycle_count - req->l1_miss_cycle;  // WB from dcache
+                                           0 :
+                                           cycle_count - req->l1_miss_cycle;  // WB from dcache
                                                               // does not need a
                                                               // memory access
   data->fetch_cycle      = cycle_count;
@@ -5131,8 +5140,8 @@ Flag mlc_fill_line(Mem_Req* req) {
   data->offpath_op_unique              = req->oldest_op_unique_num;
   data->l0_modified_fetched_by_offpath = FALSE;
   data->mlc_miss_latency               = (req->type == MRT_WB) ?
-                             0 :
-                             cycle_count -
+                                           0 :
+                                           cycle_count -
                                req->mlc_miss_cycle;  // WB from dcache does not
                                                      // need a memory access
   data->fetch_cycle      = cycle_count;

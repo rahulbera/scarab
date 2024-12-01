@@ -27,6 +27,7 @@
  ***************************************************************************************/
 
 #include "cmp_model_support.h"
+#include "bp/bp.param.h"
 #include "bp/decoupled_bp.h"
 #include "cmp_model.h"
 #include "core.param.h"
@@ -36,7 +37,6 @@
 #include "globals/utils.h"
 #include "packet_build.h"
 #include "statistics.h"
-#include "bp/bp.param.h"
 
 /**************************************************************************************/
 /* cmp_init_cmp_model  */
@@ -47,8 +47,8 @@ void cmp_init_cmp_model() {
 
   cmp_model.map_data = (Map_Data*)malloc(sizeof(Map_Data) * NUM_CORES);
 
-  cmp_model.pb_data = (Pb_Data*)malloc(sizeof(Pb_Data) *
-                                       NUM_CORES);  // packet data
+  cmp_model.pb_data = (Pb_Data*)malloc(sizeof(Pb_Data) * NUM_CORES);  // packet
+                                                                      // data
 
   cmp_model.bp_recovery_info = (Bp_Recovery_Info*)malloc(
     sizeof(Bp_Recovery_Info) * NUM_CORES);
@@ -63,8 +63,8 @@ void cmp_init_cmp_model() {
   cmp_model.dcache_stage = (Dcache_Stage*)malloc(sizeof(Dcache_Stage) *
                                                  NUM_CORES);
   if(DECOUPLED_BP)
-    cmp_model.bp_stage = (Decoupled_BP*)malloc(sizeof(Decoupled_BP) * 
-                                                 NUM_CORES);
+    cmp_model.bp_stage = (Decoupled_BP*)malloc(sizeof(Decoupled_BP) *
+                                               NUM_CORES);
 }
 
 
@@ -129,7 +129,7 @@ void cmp_init_bogus_sim(uns8 proc_id) {
   reset_all_ops_node_stage();
   reset_exec_stage();
   reset_dcache_stage();
-  if(DECOUPLED_BP){
+  if(DECOUPLED_BP) {
     ASSERT(proc_id, FALSE);
   }
 }

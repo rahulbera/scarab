@@ -78,7 +78,7 @@ extern Thread_Data* td; /* here for now, variable declared in sim.c */
 /* Prototypes */
 
 void set_thread_data(Thread_Data*);
-void init_thread(Thread_Data*, char* [], char* []);
+void init_thread(Thread_Data*, char*[], char*[]);
 void recover_thread(Thread_Data*, Addr, Counter, uns64, Flag);
 void add_to_seq_op_list(Thread_Data*, Op*);
 void remove_from_seq_op_list(Thread_Data*, Op*);

@@ -208,15 +208,14 @@ void dump_stats(uns8 proc_id, Flag final, Stat stat_array[], uns num_stats) {
         if(toml_stat_stream)
           fprintf(toml_stat_stream, "\n");
       } else {
-          if(toml_stat_stream) {
-            fprintf(toml_stat_stream, "[general]\n");
-            fprintf(toml_stat_stream, "CUMULATIVE_CYCLES = %llu\n",
-                    cycle_count);
-            fprintf(toml_stat_stream, "INSTRUCTIONS = %llu\n",
-                    inst_count[proc_id]);
-            fprintf(toml_stat_stream, "IPC = %f\n\n",
-                    (double)inst_count[proc_id] / cycle_count);
-          }
+        if(toml_stat_stream) {
+          fprintf(toml_stat_stream, "[general]\n");
+          fprintf(toml_stat_stream, "CUMULATIVE_CYCLES = %llu\n", cycle_count);
+          fprintf(toml_stat_stream, "INSTRUCTIONS = %llu\n",
+                  inst_count[proc_id]);
+          fprintf(toml_stat_stream, "IPC = %f\n\n",
+                  (double)inst_count[proc_id] / cycle_count);
+        }
       }
 
       last_file_name = s->file_name;
@@ -226,9 +225,10 @@ void dump_stats(uns8 proc_id, Flag final, Stat stat_array[], uns num_stats) {
       file_stream = fopen(buf, "w");
       ASSERTUM(0, file_stream, "Couldn't open statistic output file '%s'.\n",
                buf);
-      
-      if(toml_stat_stream){
-        char header[128]; // assuming header size will be limited to 128 characters
+
+      if(toml_stat_stream) {
+        char header[128];  // assuming header size will be limited to 128
+                           // characters
         gen_stat_section_header(header, s);
         fprintf(toml_stat_stream, "[%s]\n", header);
       }
@@ -262,8 +262,7 @@ void dump_stats(uns8 proc_id, Flag final, Stat stat_array[], uns num_stats) {
                   "", unsstr64(s->total_count), "");
           if(toml_stat_stream)
             fprintf(toml_stat_stream, "%s\n", unsstr64(s->total_count));
-        }
-        else {
+        } else {
           fprintf(file_stream, "%13s %12.3f%%    %13s %12.3f%%",
                   unsstr64(s->count), (double)s->count / dist_sum * 100,
                   unsstr64(s->total_count),

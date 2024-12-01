@@ -89,10 +89,9 @@ static int datum_read(FILE* file, char** datum, int* offset) {
             (*datum)++; /* point after the quote */
           else
             ungetc(c, file); /* put back the space */
-          return buf[0] == '"' ?
-                   buf_size - 2 :
-                   buf_size -
-                     1; /* no end quote, ignore null-terminator in count */
+          return buf[0] == '"' ? buf_size - 2 :
+                                 buf_size - 1; /* no end quote, ignore
+                                                  null-terminator in count */
         } else {
           datum_append(datum, c);
         }

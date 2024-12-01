@@ -29,8 +29,8 @@
 #ifndef __EXEC_PORTS_H__
 #define __EXEC_PORTS_H__
 
-#include "table_info.h"
 #include "exec_stage.h"
+#include "table_info.h"
 
 /**************************************************************************************/
 /* Type Declarations */

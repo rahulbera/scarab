@@ -39,7 +39,7 @@ class Long_History_Register {
   // be large enough to cover speculative branches that are not yet retired.
   Long_History_Register(int max_in_flight_branches) : history_bits_() {
     int log_buffer_size       = get_min_num_bits_to_represent(history_size +
-                                                        max_in_flight_branches);
+                                                              max_in_flight_branches);
     buffer_size_              = 1 << log_buffer_size;
     buffer_access_mask_       = (1 << log_buffer_size) - 1;
     max_num_speculative_bits_ = buffer_size_ - history_size;
@@ -373,7 +373,7 @@ class Tage {
       prediction_info->medium_confidence = std::abs(2 * longest_match_counter +
                                                     1) == 5;
       prediction_info->low_confidence    = std::abs(2 * longest_match_counter +
-                                                 1) == 1;
+                                                    1) == 1;
     }
   }
 
@@ -752,7 +752,7 @@ void Tage<TAGE_CONFIG>::fill_table_indices_tags(
                             TAGE_CONFIG::PATH_HISTORY_WIDTH) ?
                              TAGE_CONFIG::PATH_HISTORY_WIDTH :
                              tage_histories_.history_sizes_.arr[(i - 1) / 2];
-      int64_t path_hash = tage_histories_.compute_path_hash(
+      int64_t path_hash  = tage_histories_.compute_path_hash(
         tage_histories_.path_history_, max_path_width, i,
         TAGE_CONFIG::LOG_ENTRIES_PER_BANK);
       int64_t index = br_pc;

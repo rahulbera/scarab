@@ -52,7 +52,7 @@
 
 #define DEBUG(proc_id, args...) _DEBUG(proc_id, DEBUG_TRACE_READ, ##args)
 
-//#define PRINT_INSTRUCTION_INFO
+// #define PRINT_INSTRUCTION_INFO
 /**************************************************************************************/
 /* Global Variables */
 

@@ -89,8 +89,8 @@ void* smalloc(int nbytes) {
     free_wrapper(tmp);
   } else { /* need to allocate some memory */
     if(nbytes > raw_mem_size) {
-      while(raw_mem_size >=
-            sizeof(SMalloc_Entry)) { /* never can have too many wrappers */
+      while(raw_mem_size >= sizeof(SMalloc_Entry)) { /* never can have too many
+                                                        wrappers */
         tmp = (SMalloc_Entry*)raw_mem_ptr;
         free_wrapper(tmp);
         raw_mem_ptr += sizeof(SMalloc_Entry);

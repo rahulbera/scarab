@@ -94,21 +94,21 @@ struct Pb_Data_struct {
 
 // don't change this order without fixing stats in fetch.stat.def
 typedef enum Break_Reason_enum {
-  BREAK_DONT,          // don't break fetch yet
-  BREAK_ISSUE_WIDTH,   // break because it's reached maximum issue width
-  BREAK_CF,            // break because it's reached maximum control flows
-  BREAK_BTB_MISS,      // break because of a btb miss
-  BREAK_ICACHE_MISS,   // break because of icache miss
-  BREAK_LINE_END,      // break because the current cache line has ended
-  BREAK_STALL,         // break because the pipeline is stalled
-  BREAK_BARRIER,       // break because of a system call or a fetch barrier
-                       // instruction
-  BREAK_EMPTY_FETCH_QUEUE,// break because of an empty fetch queue 
-  BREAK_OFFPATH,       // break because the machine is offpath
-  BREAK_ALIGNMENT,     // break because of misaligned fetch (offpath)
-  BREAK_TAKEN,         // break because of nonsequential control flow
-  BREAK_MODEL_BEFORE,  // break because of model hook
-  BREAK_MODEL_AFTER,   // break because of model hook
+  BREAK_DONT,               // don't break fetch yet
+  BREAK_ISSUE_WIDTH,        // break because it's reached maximum issue width
+  BREAK_CF,                 // break because it's reached maximum control flows
+  BREAK_BTB_MISS,           // break because of a btb miss
+  BREAK_ICACHE_MISS,        // break because of icache miss
+  BREAK_LINE_END,           // break because the current cache line has ended
+  BREAK_STALL,              // break because the pipeline is stalled
+  BREAK_BARRIER,            // break because of a system call or a fetch barrier
+                            // instruction
+  BREAK_EMPTY_FETCH_QUEUE,  // break because of an empty fetch queue
+  BREAK_OFFPATH,            // break because the machine is offpath
+  BREAK_ALIGNMENT,          // break because of misaligned fetch (offpath)
+  BREAK_TAKEN,              // break because of nonsequential control flow
+  BREAK_MODEL_BEFORE,       // break because of model hook
+  BREAK_MODEL_AFTER,        // break because of model hook
 } Break_Reason;
 
 

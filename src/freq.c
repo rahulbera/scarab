@@ -111,7 +111,7 @@ void freq_init(void) {
   for(int proc_id = 0; proc_id < NUM_CORES; proc_id++) {
     sprintf(buf, "CORE_%d", proc_id);
     FREQ_DOMAIN_CORES[proc_id]                     = freq_domain_create(buf,
-                                                    core_cycle_times[proc_id]);
+                                                                        core_cycle_times[proc_id]);
     GET_STAT_EVENT(proc_id, PARAM_CORE_CYCLE_TIME) = core_cycle_times[proc_id];
   }
   FREQ_DOMAIN_L1 = freq_domain_create("L1", l1_cycle_time);

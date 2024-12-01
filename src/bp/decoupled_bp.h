@@ -7,7 +7,6 @@ extern "C" {
 #endif
 
 
-
 typedef enum Bp_State_enum {
   BP_NORMAL,
   BP_WAIT_TIMER,
@@ -27,46 +26,45 @@ typedef enum Bp_Break_enum {
 } Bp_Break;
 
 typedef struct Decoupled_BP_struct {
-  uns8       proc_id;
+  uns8 proc_id;
 
-  Bp_State state ; /* state that the BP is in */
-  Bp_State
-    next_state; /* state that the BP is going to be in next cycle */
+  Bp_State state;      /* state that the BP is in */
+  Bp_State next_state; /* state that the BP is going to be in next cycle */
 
   Counter inst_count; /* instruction counter used to number ops (global counter
                          is for retired ops) */
-  Addr        curr_addr;      /* address fetched */
-  Addr        next_addr; /* address to fetch */
-  Flag        off_path;        /* is the icache fetching on the correct path? */
-  Flag        off_path_btb_miss; /* is the icache off path from a btb miss */
-  Counter     oldest_btb_miss_op_num; /* uid of the oldest btb miss*/
+  Addr    curr_addr;  /* address fetched */
+  Addr    next_addr;  /* address to fetch */
+  Flag    off_path;   /* is the icache fetching on the correct path? */
+  Flag    off_path_btb_miss;      /* is the icache off path from a btb miss */
+  Counter oldest_btb_miss_op_num; /* uid of the oldest btb miss*/
   Flag back_on_path; /* did a recovery happen to put the machine back on path?
                       */
 
   Counter timer_cycle; /* cycle that the icache stall timer will have elapsed
                           and the icache can fetch again */
-  
-  //data needed to maintain the fetch queue
+
+  // data needed to maintain the fetch queue
   Counter num_branches_in_fetch_queue;
   Counter num_taken_branches_in_fetch_queue;
 } Decoupled_BP;
 
 typedef struct fetch_queue_entry {
   Flag valid;
-  Op* op;
+  Op*  op;
 } fetch_queue_entry;
 
 extern Decoupled_BP* dbp;
 
-void set_dbp_stage(Decoupled_BP* new_dbp);
-void reset_dbp_stage();
-void init_dbp_stage(uns8 proc_id);
-void update_decoupled_bp();
-void redirect_decoupled_bp();
+void     set_dbp_stage(Decoupled_BP* new_dbp);
+void     reset_dbp_stage();
+void     init_dbp_stage(uns8 proc_id);
+void     update_decoupled_bp();
+void     redirect_decoupled_bp();
 Bp_State cycle_decoupled_bp(uns proc_id);
-void recover_fetch_queue();
-Op * read_fetch_queue(uns proc_id);
-Flag pop_fetch_queue(uns proc_id);
+void     recover_fetch_queue();
+Op*      read_fetch_queue(uns proc_id);
+Flag     pop_fetch_queue(uns proc_id);
 
 #ifdef __cplusplus
 }

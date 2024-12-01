@@ -377,9 +377,9 @@ void update_dcache_stage(Stage_Data* src_sd) {
 
       if(op->table_info->mem_type == MEM_LD) {  // load request
         if(((model->mem == MODEL_MEM) &&
-            scan_stores(
-              op->oracle_info.va,
-              op->oracle_info.mem_size))) {  // scan the store forwarding buffer
+            scan_stores(op->oracle_info.va,
+                        op->oracle_info.mem_size))) {  // scan the store
+                                                       // forwarding buffer
           if(!op->off_path) {
             STAT_EVENT(op->proc_id, DCACHE_ST_BUFFER_HIT);
             STAT_EVENT(op->proc_id, DCACHE_ST_BUFFER_HIT_ONPATH);
@@ -693,12 +693,12 @@ Flag dcache_fill_line(Mem_Req* req) {
   data->misc_state         = req->off_path | req->off_path << 1;
   data->fetched_by_offpath = USE_CONFIRMED_OFF ? req->off_path_confirmed :
                                                  req->off_path;
-  data->offpath_op_addr   = req->oldest_op_addr;
-  data->offpath_op_unique = req->oldest_op_unique_num;
-  data->fetch_cycle       = cycle_count;
-  data->onpath_use_cycle  = (req->type == MRT_DPRF || req->off_path) ?
-                             0 :
-                             cycle_count;
+  data->offpath_op_addr    = req->oldest_op_addr;
+  data->offpath_op_unique  = req->oldest_op_unique_num;
+  data->fetch_cycle        = cycle_count;
+  data->onpath_use_cycle   = (req->type == MRT_DPRF || req->off_path) ?
+                               0 :
+                               cycle_count;
 
   wp_process_dcache_fill(data, req);
 

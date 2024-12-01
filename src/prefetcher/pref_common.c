@@ -110,11 +110,11 @@ int pref_compare_prefloadhash(const void* const a, const void* const b) {
 void pref_core_init(HWP_Core* pref_core) {
   // initialize queues
   pref_core->dl0req_queue   = (Pref_Mem_Req*)calloc(PREF_DL0REQ_QUEUE_SIZE,
-                                                  sizeof(Pref_Mem_Req));
+                                                    sizeof(Pref_Mem_Req));
   pref_core->umlc_req_queue = (Pref_Mem_Req*)calloc(PREF_UMLC_REQ_QUEUE_SIZE,
                                                     sizeof(Pref_Mem_Req));
   pref_core->ul1req_queue   = (Pref_Mem_Req*)calloc(PREF_UL1REQ_QUEUE_SIZE,
-                                                  sizeof(Pref_Mem_Req));
+                                                    sizeof(Pref_Mem_Req));
 
   pref_core->dl0req_queue_req_pos  = -1;
   pref_core->dl0req_queue_send_pos = 0;
@@ -918,7 +918,7 @@ inline void pref_evictline_used(uns8 proc_id, Addr addr, Addr loadPC,
                           COOK_ADDR_BITS(loadPC, PREF_HFILTER_INDEX_BITS, 0) :
                           COOK_ADDR_BITS(addr, PREF_HFILTER_INDEX_BITS,
                                          LOG2(L1_LINE_SIZE));
-    uns32 pht_index = cooked_hist ^ cooked_addr;
+    uns32 pht_index   = cooked_hist ^ cooked_addr;
 
     pref.cores[proc_id]->pref_hfilter_pht[pht_index] = SAT_DEC(
       pref.cores[proc_id]->pref_hfilter_pht[pht_index], 0);
@@ -937,7 +937,7 @@ inline void pref_evictline_notused(uns8 proc_id, Addr addr, Addr loadPC,
                           COOK_ADDR_BITS(loadPC, PREF_HFILTER_INDEX_BITS, 0) :
                           COOK_ADDR_BITS(addr, PREF_HFILTER_INDEX_BITS,
                                          LOG2(L1_LINE_SIZE));
-    uns32 pht_index = cooked_hist ^ cooked_addr;
+    uns32 pht_index   = cooked_hist ^ cooked_addr;
 
     pref.cores[proc_id]->pref_hfilter_pht[pht_index] = SAT_INC(
       pref.cores[proc_id]->pref_hfilter_pht[pht_index], 3);
@@ -957,7 +957,7 @@ inline Flag pref_hfilter_pred_useless(uns8 proc_id, Addr addr, Addr loadPC,
                         COOK_ADDR_BITS(loadPC, PREF_HFILTER_INDEX_BITS, 0) :
                         COOK_ADDR_BITS(addr, PREF_HFILTER_INDEX_BITS,
                                        LOG2(L1_LINE_SIZE));
-  uns32 pht_index = cooked_hist ^ cooked_addr;
+  uns32 pht_index   = cooked_hist ^ cooked_addr;
 
   useless = (pref.cores[proc_id]->pref_hfilter_pht[pht_index] >=
              PREF_HFILTER_PRED_USELESS_THRES);

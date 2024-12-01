@@ -37,10 +37,9 @@
 TraceReaderMemtrace::TraceReaderMemtrace(const std::string& _trace,
                                          const std::string& _binary,
                                          uint64_t _offset, uint32_t _bufsize) :
-    TraceReader(_trace, _binary, _offset, _bufsize),
-    mt_iter_(nullptr), mt_end_(nullptr), mt_state_(MTState::INST),
-    mt_mem_ops_(0), mt_seq_(0), mt_prior_isize_(0), mt_using_info_a_(true),
-    mt_warn_target_(0) {
+    TraceReader(_trace, _binary, _offset, _bufsize), mt_iter_(nullptr),
+    mt_end_(nullptr), mt_state_(MTState::INST), mt_mem_ops_(0), mt_seq_(0),
+    mt_prior_isize_(0), mt_using_info_a_(true), mt_warn_target_(0) {
   init(_trace);
 }
 
@@ -48,10 +47,9 @@ TraceReaderMemtrace::TraceReaderMemtrace(const std::string& _trace,
 TraceReaderMemtrace::TraceReaderMemtrace(const std::string& _trace,
                                          const std::string& _binary_group_path,
                                          uint32_t           _bufsize) :
-    TraceReader(_trace, _binary_group_path, _bufsize),
-    mt_iter_(nullptr), mt_end_(nullptr), mt_state_(MTState::INST),
-    mt_mem_ops_(0), mt_seq_(0), mt_prior_isize_(0), mt_using_info_a_(true),
-    mt_warn_target_(0) {
+    TraceReader(_trace, _binary_group_path, _bufsize), mt_iter_(nullptr),
+    mt_end_(nullptr), mt_state_(MTState::INST), mt_mem_ops_(0), mt_seq_(0),
+    mt_prior_isize_(0), mt_using_info_a_(true), mt_warn_target_(0) {
   binaryGroupPathIs(_binary_group_path);
   init(_trace);
 }

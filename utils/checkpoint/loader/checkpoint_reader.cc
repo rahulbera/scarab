@@ -388,7 +388,7 @@ static void read_tls() {
   const struct hconfig_t* threads_config = subconfig(process_config, "threads");
   const struct hconfig_t* thread_config  = subconfig(threads_config, "thread");
   const struct hconfig_t* tls_config     = subconfig(thread_config,
-                                                 "thread_local_storage");
+                                                     "thread_local_storage");
   if(hconfig_num_children(tls_config)) {
     fatal_and_kill_child(
       child_pid, "Checkpoint loader currently does not support thread local "
@@ -737,8 +737,8 @@ void allocate_new_regions(pid_t child_pid) {
 
 void write_data_to_regions(pid_t child_pid) {
   std::cout << "Writing data to all regions ..." << std::endl;
-  auto[sharedmem_tracer_addr, sharedmem_tracee_addr] = allocate_shared_memory(
-    child_pid);
+  auto [sharedmem_tracer_addr,
+        sharedmem_tracee_addr]        = allocate_shared_memory(child_pid);
   constexpr int INJECTION_REGION_SIZE = 4096;
   void* injection_site = execute_mmap(child_pid, NULL, INJECTION_REGION_SIZE,
                                       PROT_EXEC | PROT_READ | PROT_WRITE,

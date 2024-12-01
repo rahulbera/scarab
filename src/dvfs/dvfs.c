@@ -206,7 +206,7 @@ void init_configs_from_cmd(void) {
 
   uns  num_avail_core_cycle_times = num_configs;
   int* avail_core_cycle_times     = malloc(num_avail_core_cycle_times *
-                                       sizeof(int));
+                                           sizeof(int));
   if(DVFS_INDIVIDUAL_CORES) {
     num_configs = 1;
     for(uns i = 0; i < NUM_CORES; i++)
@@ -617,7 +617,7 @@ static void compute_bw_sharing_speedups(double* pred_speedups, Config* config) {
     Proc_Info* info         = &proc_infos[proc_id];
     Counter    core_cycles  = stat_mon_get_count(stat_mon, proc_id, NODE_CYCLE);
     Counter    stall_cycles = stat_mon_get_count(stat_mon, proc_id,
-                                              RET_BLOCKED_L1_MISS);
+                                                 RET_BLOCKED_L1_MISS);
     if(DVFS_BW_SHARING_NO_PREF_STALL) {
       Counter pref_stall_cycles = stat_mon_get_count(
         stat_mon, proc_id, RET_BLOCKED_L1_MISS_BW_PREF);
@@ -641,7 +641,7 @@ static void compute_bw_sharing_speedups(double* pred_speedups, Config* config) {
     info->perf_bw            = 1.0e99;  // infinite
     info->perf               = info->perf_lat;
     Counter mem_reqs         = stat_mon_get_count(stat_mon, proc_id,
-                                          MEM_REQ_COMPLETE_MEM);
+                                                  MEM_REQ_COMPLETE_MEM);
     total_mem_reqs += mem_reqs;
     info->r = (double)mem_reqs / (double)compute_cycles;
     DEBUG(proc_id, "%7.4f %7.4f %7.4f %7.4f %11.8f\n", info->f / orig_freq,

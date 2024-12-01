@@ -92,8 +92,8 @@ struct RegionInfo {
   RegionInfo() : range(0, 1), prot(0), offset(0) {}
   RegionInfo(ADDR _start_address, ADDR _end_address, int _prot,
              uint32_t _offset, std::string _file_name) :
-      range(_start_address, _end_address),
-      prot(_prot), offset(_offset), file_name(_file_name) {}
+      range(_start_address, _end_address), prot(_prot), offset(_offset),
+      file_name(_file_name) {}
 };
 
 inline std::ostream& operator<<(std::ostream&     os,

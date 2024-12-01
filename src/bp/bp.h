@@ -38,13 +38,13 @@
 // Branch prediction recovery information
 
 typedef struct Bp_Recovery_Info_struct {
-  uns     proc_id;
-  Counter recovery_cycle;      /* cycle that begins misprediction recovery */
-  Addr    recovery_fetch_addr; /* address to redirect the istream */
-  Counter recovery_op_num;     /* op_num of op that caused recovery */
-  Counter recovery_cf_type;    /* cf_type of op that caused recovery */
-  Recovery_Info
-             recovery_info; /* information about the op causing the recovery */
+  uns           proc_id;
+  Counter       recovery_cycle; /* cycle that begins misprediction recovery */
+  Addr          recovery_fetch_addr; /* address to redirect the istream */
+  Counter       recovery_op_num;     /* op_num of op that caused recovery */
+  Counter       recovery_cf_type;    /* cf_type of op that caused recovery */
+  Recovery_Info recovery_info; /* information about the op causing the recovery
+                                */
   Inst_Info* recovery_inst_info;  // pointer to inst causing recovery
   Flag       recovery_force_offpath;
 
@@ -222,8 +222,8 @@ typedef struct Bp_struct {
 typedef struct Bp_Btb_struct {
   Btb_Id      id;
   const char* name;
-  void (*init_func)(
-    Bp_Data*); /* called to initialize the branch target buffer */
+  void (*init_func)(Bp_Data*); /* called to initialize the branch target buffer
+                                */
   Addr* (*pred_func)(Bp_Data*, Op*);  /* called to predict the branch target */
   void (*update_func)(Bp_Data*, Op*); /* */
   void (*recover_func)(Bp_Data*, Recovery_Info*); /* */

@@ -51,7 +51,7 @@
 #define STRAND_BYTE(number) (((number) >> 3) % MAX_STRAND_BYTES)
 
 #define STRAND_BIT_IS_SET(array, index) \
-  (((array)[STRAND_BYTE((index))] & (1 << ((index)&7))) != 0)
+  (((array)[STRAND_BYTE((index))] & (1 << ((index) & 7))) != 0)
 
 // }}}
 
@@ -295,8 +295,8 @@ struct Op_struct {
   // }}}
 
   // {{{ fields related to instruction inconsequenciality
-  uns sched_delay; // for ICQL headroom study: artifically delay scheduling the op
-                   // to make space for other ops 
+  uns sched_delay;  // for ICQL headroom study: artifically delay scheduling the
+                    // op to make space for other ops
   // }}}
 };
 // }}}

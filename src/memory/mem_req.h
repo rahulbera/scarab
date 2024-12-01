@@ -174,10 +174,10 @@ struct Mem_Req_struct {
 
   uns pref_distance; /* prefetch distance (currently works for pref_stream only)
                       */
-  Addr  pref_loadPC;
-  uns32 global_hist;  // Used for perf hfilter
-  Mem_Req_Type
-               perf_pred_type; /* Req type seen by perf_pred (cannot change once set) */
+  Addr         pref_loadPC;
+  uns32        global_hist;    // Used for perf hfilter
+  Mem_Req_Type perf_pred_type; /* Req type seen by perf_pred (cannot change once
+                                  set) */
   Mem_Req_Type perf_pred_off_path_confirmed; /* off_path_confirmed seen by
                                                 perf_pred (cannot change once
                                                 set) */
@@ -190,8 +190,8 @@ struct Mem_Req_struct {
   Flag            belong_to_batch;   /* dose it belong to the current batch */
   uns8            rank;              /* the larger the high priority */
   Dram_Req_Status row_access_status; /* row hit, miss or conflict */
-  Flag
-          shadow_row_hit; /* row conflict but predicted to be row hit if run alone */
+  Flag shadow_row_hit; /* row conflict but predicted to be row hit if run alone
+                        */
   Counter dram_access_cycle; /* cycle of DRAM access (in L1 cycles) */
   Counter dram_latency;      /* DRAM latency (in L1 cycles) */
   Counter dram_core_service_cycles_at_start; /* "Virtual clock" timestamp */

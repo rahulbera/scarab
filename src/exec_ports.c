@@ -191,11 +191,11 @@ void init_exec_ports_fu_list(uns proc_id, Func_Unit* fu) {
     ASSERT(proc_id, FU_TYPE_WIDTH <= sizeof(fu[i].type) * CHAR_BIT);
     fu[i].fu_id = i;
     fu[i].type  = (next_type == 0) ? N_BIT_MASK(FU_TYPE_WIDTH) :
-                                    next_type;  // zero means all ops
+                                     next_type;  // zero means all ops
     check_fu_type |= fu[i].type;  // accumulating all types from all FUs to make
                                   // sure every op is covered
-    fu[i].memtype = FU_LD_ST;   // by default a FU can take both load and store
-                                // if a memop is mapped to it
+    fu[i].memtype = FU_LD_ST;  // by default a FU can take both load and store
+                               // if a memop is mapped to it
     ASSERTM(proc_id, tmp, "Found less FU_TYPES than expected\n");
     fu[i].proc_id = proc_id;
     ASSERTM(proc_id, i < 99999,
@@ -284,10 +284,10 @@ void init_exec_ports_rs_list(uns proc_id, Reservation_Station* rs,
             "NUM_FUS cannot exceed 64 (using a 64 bit int for bitmask)\n");
 
     int32 num_fus     = 0;
-    int32 num_fus_pre = __builtin_popcount(
-      next);  // count the number of
-              // connections (number of bits
-              // set) in the bit vector.
+    int32 num_fus_pre = __builtin_popcount(next);  // count the number of
+                                                   // connections (number of
+                                                   // bits set) in the bit
+                                                   // vector.
     rs[i].connected_fus = (Func_Unit**)malloc(sizeof(Func_Unit*) * num_fus_pre);
     ASSERTM(proc_id, rs[i].connected_fus,
             "Malloc is failing in exec_ports.c\n");
@@ -347,7 +347,7 @@ Flag can_fu_exec_op(Op* op, Func_Unit* fu) {
   }
 
   // here means this FU can service this uop type
-  // return TRUE only if: 
+  // return TRUE only if:
   //   1. it's not a mem op
   //   2. it's a load op and the FU is configured to take loads
   //   3. it's a store op and the FU is configured to take stores

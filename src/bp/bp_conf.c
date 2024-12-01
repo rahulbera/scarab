@@ -85,10 +85,10 @@ void init_bp_conf() {
 }
 
 
-  /**************************************************************************************/
-  // bp_conf_pred: called by bp_predict_op in bp.c
-  // 0: think branch will mispredict
-  // 1: confident branch will go the right direction
+/**************************************************************************************/
+// bp_conf_pred: called by bp_predict_op in bp.c
+// 0: think branch will mispredict
+// 1: confident branch will go the right direction
 
 #define COOK_HIST_BITS(hist, untouched) \
   ((uns32)(hist) >> (32 - BPC_BITS + (untouched)) << (untouched))
@@ -377,12 +377,12 @@ uns read_conf_head() {
 }
 
 
-  /**************************************************************************************/
-  /* Akkary, Haitham, et al. "Perceptron-based branch confidence estimation."
-   * 10th International Symposium on High Performance Computer Architecture
-   * (HPCA'04). IEEE, 2004.*/
-  /**************************************************************************************/
-  /* init conf_percentron */
+/**************************************************************************************/
+/* Akkary, Haitham, et al. "Perceptron-based branch confidence estimation."
+ * 10th International Symposium on High Performance Computer Architecture
+ * (HPCA'04). IEEE, 2004.*/
+/**************************************************************************************/
+/* init conf_percentron */
 
 #define CONF_PERCEPTRON_INIT_VALUE 0
 /* bp_perceptron_init: */
@@ -403,12 +403,12 @@ void conf_perceptron_init(void) {
 }
 
 
-  /**************************************************************************************/
-  /* bp_perceptron_pred: */
-  // To increase the length of history change these things
-  // uns32 hist
-  // uns32 mask
-  // mask=1<<31
+/**************************************************************************************/
+/* bp_perceptron_pred: */
+// To increase the length of history change these things
+// uns32 hist
+// uns32 mask
+// mask=1<<31
 
 #define CONF_PERCEPTRON_HASH(addr) (addr % CONF_PERCEPTRON_ENTRIES)
 #define PERCEPTRON_HIS(hist, misp_hist)                        \
@@ -536,8 +536,8 @@ void conf_perceptron_pred(Op* op) {
                             2 * pred_conf + (pred_conf != mispred));
 }
 
-  /**************************************************************************************/
-  /* bp_perceptron_update: */
+/**************************************************************************************/
+/* bp_perceptron_update: */
 
 #define CONF_PERCEPTRON_THRESHOLD                                       \
   (int32)((CONF_PERCEPTRON_THRESH_OVRD) ? CONF_PERCEPTRON_THRESH_OVRD : \

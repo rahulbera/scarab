@@ -62,8 +62,8 @@ typedef struct Model_struct {
   void (*cycle_func)(void);    /* called once each cycle */
   void (*debug_func)(void);    /* called after the cycle_func when debugging
                                   conditions are true */
-  void (*per_core_done_func)(
-    uns8); /* called simulation before stats are dumped (may be NULL) */
+  void (*per_core_done_func)(uns8); /* called simulation before stats are dumped
+                                       (may be NULL) */
   void (*done_func)(void); /* called after the main loop terminates (may be
                               NULL) */
 

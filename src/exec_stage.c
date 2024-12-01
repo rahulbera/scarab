@@ -237,9 +237,7 @@ void update_exec_stage(Stage_Data* src_sd) {
     latency = op->inst_info->latency;
     ASSERTM(exec->proc_id, OP_SRCS_RDY(op), "op_num:%s\n",
             unsstr64(op->op_num));
-    ASSERT(
-      exec->proc_id,
-      can_fu_exec_op(op, fu));
+    ASSERT(exec->proc_id, can_fu_exec_op(op, fu));
     exec_cycle      = cycle_count + MAX2(latency, -latency);
     op->sched_cycle = cycle_count;
 

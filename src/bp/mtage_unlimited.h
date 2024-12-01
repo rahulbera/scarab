@@ -126,7 +126,7 @@
 #define CTRBITS 3
 #define PATHBITS 6
 #define POSTPBITS 5
-//#define POSTPEXTRA 1
+// #define POSTPEXTRA 1
 #define ALLOCFAILMAX 511
 #define MAXALLOC 3
 #define CAPHIST 200

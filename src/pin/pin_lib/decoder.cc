@@ -113,7 +113,7 @@ void pin_decoder_insert_analysis_functions(const INS& ins) {
   info->instruction_addr = INS_Address(ins);
   // Note: should be overwritten for a taken control flow instruction
   info->instruction_next_addr = INS_NextAddress(ins);
-  if(INS_IsDirectControlFlow(ins)) { // RBERA: changed for PIN 3.17
+  if(INS_IsDirectControlFlow(ins)) {  // RBERA: changed for PIN 3.17
     info->branch_target = INS_DirectControlFlowTargetAddress(ins);
   }
 
@@ -209,8 +209,8 @@ void insert_analysis_functions(ctype_pin_inst* info, const INS& ins) {
     if(INS_IsMemoryRead(ins)) {
       if(INS_HasMemoryRead2(ins)) {
         INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)get_ld_ea_and_val2,
-                       IARG_MEMORYREAD_EA, IARG_MEMORYREAD2_EA, IARG_MEMORYREAD_SIZE,
-                       IARG_END);
+                       IARG_MEMORYREAD_EA, IARG_MEMORYREAD2_EA,
+                       IARG_MEMORYREAD_SIZE, IARG_END);
       } else {
         INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)get_ld_ea_and_val,
                        IARG_MEMORYREAD_EA, IARG_MEMORYREAD_SIZE, IARG_END);
@@ -338,7 +338,7 @@ void get_opcode(UINT32 opcode) {
 void get_ld_ea_and_val(ADDRINT addr, UINT32 size) {
   glb_ld_vaddrs.push_back(addr);
   uint64_t ld_val = 0;
-  if (size <= 8) {
+  if(size <= 8) {
     PIN_SafeCopy(&ld_val, (void*)addr, size);
   }
   glb_ld_vals.push_back(ld_val);

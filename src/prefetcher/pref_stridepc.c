@@ -132,8 +132,8 @@ void pref_stridepc_ul1_train(uns8 proc_id, Addr lineAddr, Addr loadPC,
     stridepc_hwp->stride_table[idx].train_num   = 0;
     stridepc_hwp->stride_table[idx].pref_sent   = 0;
     stridepc_hwp->stride_table[idx].last_addr   = (PREF_STRIDEPC_USELOADADDR ?
-                                                   lineAddr :
-                                                   lineIndex);
+                                                     lineAddr :
+                                                     lineIndex);
     stridepc_hwp->stride_table[idx].load_addr   = loadPC;
     stridepc_hwp->stride_table[idx].last_access = cycle_count;
     return;

@@ -93,8 +93,8 @@ struct InstInfo {
   xed_decoded_inst_get_base_reg(ins, op)
 #define XED_INS_OperandMemoryIndexReg(ins, op) \
   xed_decoded_inst_get_index_reg(ins, op)
-//#define XED_INS_OperandMemoryDisplacement(ins, op)
-// xed_operand_values_get_displacement_for_memop(ins, op)
+// #define XED_INS_OperandMemoryDisplacement(ins, op)
+//  xed_operand_values_get_displacement_for_memop(ins, op)
 #define XED_INS_OperandMemoryScale(ins, op) (XED_INS_OperandWidth(ins, op) >> 3)
 #define XED_INS_LockPrefix(ins) \
   xed_decoded_inst_get_attribute(ins, XED_ATTRIBUTE_LOCKED)
@@ -133,7 +133,9 @@ struct InstInfo {
 // TODO: Double check that below works calls and branches
 #define XED_INS_IsDirectBranchOrCall(ins) XED_INS_IsDirectBranch(ins)
 #define XED_INS_IsIndirectBranchOrCall(ins) !XED_INS_IsDirectBranchOrCall(ins)
-#define XED_INS_IsSyscall(ins) (XED_INS_Category(ins) == XED_CATEGORY_SYSCALL || XED_INS_Category(ins) == XED_CATEGORY_SYSTEM)
+#define XED_INS_IsSyscall(ins)                      \
+  (XED_INS_Category(ins) == XED_CATEGORY_SYSCALL || \
+   XED_INS_Category(ins) == XED_CATEGORY_SYSTEM)
 #define XED_INS_IsSysret(ins) (XED_INS_Category(ins) == XED_CATEGORY_SYSRET)
 #define XED_INS_IsInterrupt(ins) \
   (XED_INS_Category(ins) == XED_CATEGORY_INTERRUPT)

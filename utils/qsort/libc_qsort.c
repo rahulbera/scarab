@@ -179,11 +179,11 @@ void libc_qsort(void* const pbase, size_t total_elems, size_t size, cmp_t cmp,
     }
   }
 
-    /* Once the BASE_PTR array is partially sorted by quicksort the rest
-       is completely sorted using insertion sort, since this is efficient
-       for partitions below MAX_THRESH size. BASE_PTR points to the beginning
-       of the array to sort, and END_PTR points at the very last element in
-       the array (*not* one beyond it!). */
+  /* Once the BASE_PTR array is partially sorted by quicksort the rest
+     is completely sorted using insertion sort, since this is efficient
+     for partitions below MAX_THRESH size. BASE_PTR points to the beginning
+     of the array to sort, and END_PTR points at the very last element in
+     the array (*not* one beyond it!). */
 
 #define min(x, y) ((x) < (y) ? (x) : (y))
 

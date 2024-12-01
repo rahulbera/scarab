@@ -276,7 +276,7 @@ the macro linking to enable automatic enum element prefixing.
   static const char* Enum_Type##_names[] = {ENUM_LIST(ENUM_STR)};           \
   const char*        Enum_Type##_str(Enum_Type value) {                     \
     return enum_str(Enum_Type##_names, value, Enum_Type##_num_elems, \
-                    #Enum_Type);                                     \
+                           #Enum_Type);                                     \
   }                                                                         \
   Enum_Type Enum_Type##_parse(const char* str) {                            \
     return (Enum_Type)enum_parse(Enum_Type##_names, str,                    \

@@ -58,9 +58,9 @@ typedef struct Icache_Stage_struct {
   uns8       proc_id;
   Stage_Data sd; /* stage interface data */
 
-  Icache_State state; /* state that the ICACHE is in */
-  Icache_State
-    next_state; /* state that the ICACHE is going to be in next cycle */
+  Icache_State state;      /* state that the ICACHE is in */
+  Icache_State next_state; /* state that the ICACHE is going to be in next cycle
+                            */
 
   Counter inst_count; /* instruction counter used to number ops (global counter
                          is for retired ops) */
@@ -79,17 +79,17 @@ typedef struct Icache_Stage_struct {
 
   Cache icache;           /* the cache storage structure (caches Inst_Info *) */
   Cache icache_line_info; /* contains info about the icache lines */
-  Cache
-       pref_icache; /* Prefetcher cache storage structure (caches Inst_Info *) */
+  Cache pref_icache; /* Prefetcher cache storage structure (caches Inst_Info *)
+                      */
   char rand_wb_state[31]; /* State of random number generator for random
                              writeback */
 } Icache_Stage;
 
 typedef struct Icache_Data_struct {
-  Flag fetched_by_offpath; /* fetched by an off_path op? */
-  Addr offpath_op_addr;    /* PC of the off path op that fetched this line */
-  Counter
-       offpath_op_unique; /* unique of the off path op that fetched this line */
+  Flag    fetched_by_offpath; /* fetched by an off_path op? */
+  Addr    offpath_op_addr;    /* PC of the off path op that fetched this line */
+  Counter offpath_op_unique; /* unique of the off path op that fetched this line
+                              */
   uns  read_count[2];
   Flag HW_prefetch;
 

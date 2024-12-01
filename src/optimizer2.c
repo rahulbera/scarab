@@ -426,14 +426,14 @@ void decouple_open_files(void) {
   closedir(dir);
 
   for(int i = 0; i < num_fds; ++i) {
-    if(fcntl(fds[i], F_GETFL, 0) !=
-       -1) {  // valid FD (not related to /proc/pid/fdinfo traversal)
+    if(fcntl(fds[i], F_GETFL, 0) != -1) {  // valid FD (not related to
+                                           // /proc/pid/fdinfo traversal)
       int fd = fds[i];
       if(fd <= 2)
         continue;  // do not decouple standard input/output/error
       char fd_path[MAX_STR_LENGTH + 1];
       uns  len = snprintf(fd_path, MAX_STR_LENGTH, "/proc/%d/fd/%d", getpid(),
-                         fd);
+                          fd);
       ASSERT(0, len < MAX_STR_LENGTH);
       char path[MAX_STR_LENGTH + 1];
       uns  path_len = readlink(fd_path, path, MAX_STR_LENGTH);

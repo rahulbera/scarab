@@ -42,6 +42,7 @@
 #include "thread.h"
 
 #include "bp/bp.param.h"
+#include "bp/decoupled_bp.h"
 #include "cmp_model.h"
 #include "core.param.h"
 #include "debug/debug.param.h"
@@ -52,7 +53,6 @@
 #include "prefetcher/l2l1pref.h"
 #include "prefetcher/stream_pref.h"
 #include "statistics.h"
-#include "bp/decoupled_bp.h"
 
 
 /**************************************************************************************/
@@ -67,7 +67,7 @@
 /* Global Variables */
 
 Icache_Stage* ic = NULL;
-Pb_Data* ic_pb_data;
+Pb_Data*      ic_pb_data;
 
 extern Cmp_Model              cmp_model;
 extern Memory*                mem;
@@ -207,7 +207,7 @@ void recover_icache_stage() {
     }
   }
 
-  if(DECOUPLED_BP){
+  if(DECOUPLED_BP) {
     if(ic->next_state != IC_FILL && ic->next_state != IC_WAIT_FOR_MISS) {
       ic->next_state = IC_FETCH;
     }
@@ -318,11 +318,10 @@ void update_icache_stage() {
       reset_packet_build(ic_pb_data);  // reset packet build counters
 
       while(!break_fetch) {
-        if(DECOUPLED_BP){
-
+        if(DECOUPLED_BP) {
           Op* top_of_queue = read_fetch_queue(ic->proc_id);
-          if(top_of_queue == NULL){
-            //DEBUG(ic->proc_id, "Fetch queue empty\n");
+          if(top_of_queue == NULL) {
+            // DEBUG(ic->proc_id, "Fetch queue empty\n");
             break_fetch = BREAK_EMPTY_FETCH_QUEUE;
             return;
           }
@@ -359,8 +358,8 @@ void update_icache_stage() {
           Addr     line_addr;
           L1_Data* data;
           Cache*   l1_cache = model->mem == MODEL_MEM ?
-                              &mem->uncores[ic->proc_id].l1->cache :
-                              NULL;
+                                &mem->uncores[ic->proc_id].l1->cache :
+                                NULL;
           data = l1_cache ? (L1_Data*)cache_access(l1_cache, ic->fetch_addr,
                                                    &line_addr, TRUE) :
                             NULL;
@@ -490,20 +489,19 @@ static inline Icache_State icache_issue_ops(Break_Reason* break_fetch,
   last_icache_issue_time = cycle_count;
 
   while(1) {
-    if(DECOUPLED_BP){
+    if(DECOUPLED_BP) {
       Op* op = read_fetch_queue(ic->proc_id);
-      if(op == NULL){
-        //fetch queue empty, try again next cycle
+      if(op == NULL) {
+        // fetch queue empty, try again next cycle
         *break_fetch = BREAK_CF;
         return IC_FETCH;
-      }
-      else{
+      } else {
         ic->next_fetch_addr = op->inst_info->addr;
-        ic->fetch_addr = ic->next_fetch_addr; 
-        //ASSERTM(ic->proc_id, ic->next_fetch_addr == op->inst_info->addr,
-        //        "Fetch address 0x%llx does not match op address 0x%llx\n",
-        //        ic->next_fetch_addr, op->inst_info->addr);
-        
+        ic->fetch_addr      = ic->next_fetch_addr;
+        // ASSERTM(ic->proc_id, ic->next_fetch_addr == op->inst_info->addr,
+        //         "Fetch address 0x%llx does not match op address 0x%llx\n",
+        //         ic->next_fetch_addr, op->inst_info->addr);
+
         packet_break = packet_build(ic_pb_data, break_fetch, op, 0);
         if(packet_break == PB_BREAK_BEFORE) {
           break;
@@ -517,8 +515,7 @@ static inline Icache_State icache_issue_ops(Break_Reason* break_fetch,
         if(packet_break == PB_BREAK_AFTER)
           break;
       }
-    }
-    else {
+    } else {
       Op*        op   = alloc_op(ic->proc_id);
       Inst_Info* inst = 0;
       UNUSED(inst);
@@ -602,12 +599,13 @@ static inline Icache_State icache_issue_ops(Break_Reason* break_fetch,
       ic->sd.op_count++;
       INC_STAT_EVENT(ic->proc_id, INST_LOST_FETCH + ic->off_path, 1);
 
-      DEBUG(ic->proc_id,
-            "Fetching op from Icache addr: %s off: %d inst_info: %p ii_addr: %s "
-            "dis: %s opnum: (%s:%s)\n",
-            hexstr64s(op->inst_info->addr), op->off_path, op->inst_info,
-            hexstr64s(op->inst_info->addr), disasm_op(op, TRUE),
-            unsstr64(op->op_num), unsstr64(op->unique_num));
+      DEBUG(
+        ic->proc_id,
+        "Fetching op from Icache addr: %s off: %d inst_info: %p ii_addr: %s "
+        "dis: %s opnum: (%s:%s)\n",
+        hexstr64s(op->inst_info->addr), op->off_path, op->inst_info,
+        hexstr64s(op->inst_info->addr), disasm_op(op, TRUE),
+        unsstr64(op->op_num), unsstr64(op->unique_num));
 
       /* figure out next address after current instruction */
       if(op->table_info->cf_type) {
@@ -617,7 +615,8 @@ static inline Icache_State icache_issue_ops(Break_Reason* break_fetch,
 
         if(*break_fetch == BREAK_BARRIER) {
           // for fetch barriers (including syscalls), we do not want to do
-          // redirect/recovery, BUT we still want to update the branch predictor.
+          // redirect/recovery, BUT we still want to update the branch
+          // predictor.
           bp_predict_op(g_bp_data, op, (*cf_num)++, ic->fetch_addr);
           op->oracle_info.mispred   = 0;
           op->oracle_info.misfetch  = 0;
@@ -794,11 +793,11 @@ Flag icache_fill_line(Mem_Req* req)  // cmp FIXME maybe needed to be optimized
       line_info->fetched_by_offpath = USE_CONFIRMED_OFF ?
                                         req->off_path_confirmed :
                                         req->off_path;
-      line_info->offpath_op_addr   = req->oldest_op_addr;
-      line_info->offpath_op_unique = req->oldest_op_unique_num;
-      line_info->fetch_cycle       = cycle_count;
-      line_info->onpath_use_cycle  = req->off_path ? 0 : cycle_count;
-      line_info->HW_prefetch       = (req->type == MRT_IPRF);
+      line_info->offpath_op_addr    = req->oldest_op_addr;
+      line_info->offpath_op_unique  = req->oldest_op_unique_num;
+      line_info->fetch_cycle        = cycle_count;
+      line_info->onpath_use_cycle   = req->off_path ? 0 : cycle_count;
+      line_info->HW_prefetch        = (req->type == MRT_IPRF);
       wp_process_icache_fill(line_info, req);
     }
 
@@ -833,11 +832,11 @@ Flag icache_fill_line(Mem_Req* req)  // cmp FIXME maybe needed to be optimized
       line_info->fetched_by_offpath = USE_CONFIRMED_OFF ?
                                         req->off_path_confirmed :
                                         req->off_path;
-      line_info->offpath_op_addr   = req->oldest_op_addr;
-      line_info->offpath_op_unique = req->oldest_op_unique_num;
-      line_info->fetch_cycle       = cycle_count;
-      line_info->onpath_use_cycle  = req->off_path ? 0 : cycle_count;
-      line_info->HW_prefetch       = (req->type == MRT_IPRF);
+      line_info->offpath_op_addr    = req->oldest_op_addr;
+      line_info->offpath_op_unique  = req->oldest_op_unique_num;
+      line_info->fetch_cycle        = cycle_count;
+      line_info->onpath_use_cycle   = req->off_path ? 0 : cycle_count;
+      line_info->HW_prefetch        = (req->type == MRT_IPRF);
       wp_process_icache_fill(line_info, req);
     }
 
@@ -894,7 +893,7 @@ Inst_Info** ic_pref_cache_access(void) {
         Addr     line_addr;
         Cache*   l1_cache = &mem->uncores[ic->proc_id].l1->cache;
         L1_Data* l1_data  = (L1_Data*)cache_access(l1_cache, ic->fetch_addr,
-                                                  &line_addr, TRUE);
+                                                   &line_addr, TRUE);
         if(!l1_data) {
           Mem_Req tmp_req;
           tmp_req.addr     = ic->fetch_addr;

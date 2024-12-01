@@ -315,9 +315,9 @@ void fill_in_cf_info(ctype_pin_inst* info, const xed_decoded_inst_t* ins) {
 void print_err_if_invalid(ctype_pin_inst* info, const xed_decoded_inst_t* ins) {
   if(info->op_type == OP_INV) {
     (*dec_err_ostream)
-      << "Unmapped instruction at "
-      << "EIP: " << std::hex << info->instruction_addr
-      << ", opcode: " << XED_INS_Mnemonic(ins) << ", category: "
+      << "Unmapped instruction at " << "EIP: " << std::hex
+      << info->instruction_addr << ", opcode: " << XED_INS_Mnemonic(ins)
+      << ", category: "
       << std::string(xed_category_enum_t2str(XED_INS_Category(ins))) << std::dec
       << ", opcode index: " << XED_INS_Opcode(ins)
       << ", hasrealrep: " << (int)info->is_repeat
@@ -820,7 +820,7 @@ void init_pin_opcode_convert(void) {
   iclass_to_scarab_map[XED_ICLASS_CVTTSD2SI]       = {OP_FCVT, 8, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_CVTTSS2SI]       = {OP_FCVT, 4, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_CPUID]    = {OP_NOTPIPELINED_VERY_SLOW, -1, 1,
-                                            NONE};
+                                               NONE};
   iclass_to_scarab_map[XED_ICLASS_CQO]      = {OP_LOGIC, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_CWD]      = {OP_LOGIC, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_CWDE]     = {OP_LOGIC, -1, 1, NONE};
@@ -849,7 +849,7 @@ void init_pin_opcode_convert(void) {
   iclass_to_scarab_map[XED_ICLASS_FCOMP]    = {OP_FCMP, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_FCOMPP]   = {OP_FCMP, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_FCOS]     = {OP_NOTPIPELINED_VERY_SLOW, 8, 1,
-                                           NONE};
+                                               NONE};
   iclass_to_scarab_map[XED_ICLASS_FDISI8087_NOP] = {OP_NOP, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_FDIV]          = {OP_FDIV, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_FDIVP]         = {OP_FDIV, -1, 1, NONE};
@@ -872,22 +872,22 @@ void init_pin_opcode_convert(void) {
   iclass_to_scarab_map[XED_ICLASS_FISUB]   = {OP_FMUL, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_FISUBR]  = {OP_FMUL, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_FLD]     = {OP_MOV, -1, 1,
-                                          NONE};  // Potential FMOV
+                                              NONE};  // Potential FMOV
   iclass_to_scarab_map[XED_ICLASS_FLD1]    = {OP_MOV, -1, 1,
-                                           NONE};  // Potential FMOV
+                                              NONE};  // Potential FMOV
   iclass_to_scarab_map[XED_ICLASS_FLDCW]   = {OP_NOTPIPELINED_MEDIUM, -1, 1,
-                                            NONE};
+                                              NONE};
   iclass_to_scarab_map[XED_ICLASS_FLDENV]  = {OP_MOV, 14, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_FLDL2E]  = {OP_MOV, -1, 1,
-                                             NONE};  // Potential FMOV
+                                              NONE};  // Potential FMOV
   iclass_to_scarab_map[XED_ICLASS_FLDL2T]  = {OP_MOV, -1, 1,
-                                             NONE};  // Potential FMOV
+                                              NONE};  // Potential FMOV
   iclass_to_scarab_map[XED_ICLASS_FLDLG2]  = {OP_MOV, -1, 1,
-                                             NONE};  // Potential FMOV
+                                              NONE};  // Potential FMOV
   iclass_to_scarab_map[XED_ICLASS_FLDLN2]  = {OP_MOV, -1, 1,
-                                             NONE};  // Potential FMOV
+                                              NONE};  // Potential FMOV
   iclass_to_scarab_map[XED_ICLASS_FLDPI]   = {OP_MOV, -1, 1,
-                                            NONE};  // Potential FMOV
+                                              NONE};  // Potential FMOV
   iclass_to_scarab_map[XED_ICLASS_FLDZ]    = {OP_MOV, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_FMUL]    = {OP_FMUL, 8, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_FMULP]   = {OP_FMUL, 8, 1, NONE};
@@ -896,20 +896,20 @@ void init_pin_opcode_convert(void) {
                                              NONE};
   iclass_to_scarab_map[XED_ICLASS_FNSTENV] = {OP_MOV, 14, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_FNSTSW]  = {OP_NOTPIPELINED_MEDIUM, -1, 1,
-                                             NONE};
+                                              NONE};
   iclass_to_scarab_map[XED_ICLASS_FNOP]    = {OP_NOP, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_FPREM]   = {OP_FMUL, 8, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_FRNDINT] = {OP_FCVT, 8, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_FSETPM287_NOP] = {OP_NOP, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_FSIN]    = {OP_NOTPIPELINED_VERY_SLOW, 8, 1,
-                                           NONE};
+                                              NONE};
   iclass_to_scarab_map[XED_ICLASS_FSINCOS] = {OP_NOTPIPELINED_VERY_SLOW, 8, 1,
                                               NONE};
   iclass_to_scarab_map[XED_ICLASS_FSQRT]   = {OP_FDIV, 8, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_FST]     = {OP_MOV, -1, 1,
-                                          NONE};  // Potential FMOV
+                                              NONE};  // Potential FMOV
   iclass_to_scarab_map[XED_ICLASS_FSTP]    = {OP_MOV, -1, 1,
-                                           NONE};  // Potential FMOV
+                                              NONE};  // Potential FMOV
   iclass_to_scarab_map[XED_ICLASS_FSUB]    = {OP_FADD, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_FSUBP]   = {OP_FADD, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_FSUBR]   = {OP_FADD, -1, 1, NONE};
@@ -923,7 +923,7 @@ void init_pin_opcode_convert(void) {
   iclass_to_scarab_map[XED_ICLASS_FXAM]    = {OP_FCMP, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_FXCH]    = {OP_NOP, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_FYL2X]   = {OP_NOTPIPELINED_VERY_SLOW, 8, 1,
-                                            NONE};
+                                              NONE};
   iclass_to_scarab_map[XED_ICLASS_FYL2XP1] = {OP_NOTPIPELINED_VERY_SLOW, 8, 1,
                                               NONE};
   iclass_to_scarab_map[XED_ICLASS_IDIV]    = {OP_IDIV, -1, 1, NONE};
@@ -988,7 +988,7 @@ void init_pin_opcode_convert(void) {
   iclass_to_scarab_map[XED_ICLASS_KXORW]    = {OP_LOGIC, 4, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_LDDQU]    = {OP_MOV, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_LDMXCSR]  = {OP_NOTPIPELINED_MEDIUM, -1, 1,
-                                              NONE};
+                                               NONE};
   iclass_to_scarab_map[XED_ICLASS_LEA]      = {OP_LDA, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_LEAVE]    = {OP_IADD, -1, 1, NONE};
   // TODO: this should be a memory barrier if we want to support
@@ -1055,7 +1055,7 @@ void init_pin_opcode_convert(void) {
   // iclass_to_scarab_map[XED_ICLASS_MOV_CR] = {OP_MOV, -1, 1, NONE};
   // iclass_to_scarab_map[XED_ICLASS_MOV_DR] = {OP_MOV, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_MPSADBW]   = {OP_NOTPIPELINED_MEDIUM, 1, 16,
-                                              NONE};
+                                                NONE};
   iclass_to_scarab_map[XED_ICLASS_MUL]       = {OP_IMUL, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_MULPD]     = {OP_FMUL, 8, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_MULPS]     = {OP_FMUL, 4, -1, NONE};
@@ -1094,7 +1094,7 @@ void init_pin_opcode_convert(void) {
   iclass_to_scarab_map[XED_ICLASS_PAND]      = {OP_LOGIC, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_PANDN]     = {OP_LOGIC, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_PAUSE]     = {OP_NOTPIPELINED_VERY_SLOW, 1, 1,
-                                            NONE};
+                                                NONE};
   iclass_to_scarab_map[XED_ICLASS_PAVGB]     = {OP_LOGIC, 1, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_PAVGW]     = {OP_LOGIC, 2, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_PBLENDVB]  = {OP_CMOV, 1, -1, NONE};
@@ -1116,11 +1116,11 @@ void init_pin_opcode_convert(void) {
                                                 NONE};
   iclass_to_scarab_map[XED_ICLASS_PCMPISTRM] = {OP_NOTPIPELINED_SLOW, 1, -1,
                                                 NONE};
-                                                
-  iclass_to_scarab_map[XED_ICLASS_PEXTRB]    = {OP_PIPELINED_FAST, 1, 1, NONE};
-  iclass_to_scarab_map[XED_ICLASS_PEXTRD]    = {OP_PIPELINED_FAST, 4, 1, NONE};
-  iclass_to_scarab_map[XED_ICLASS_PEXTRQ]    = {OP_PIPELINED_FAST, 8, 1, NONE};
-  iclass_to_scarab_map[XED_ICLASS_PEXTRW]    = {OP_PIPELINED_FAST, 2, 1, NONE};
+
+  iclass_to_scarab_map[XED_ICLASS_PEXTRB] = {OP_PIPELINED_FAST, 1, 1, NONE};
+  iclass_to_scarab_map[XED_ICLASS_PEXTRD] = {OP_PIPELINED_FAST, 4, 1, NONE};
+  iclass_to_scarab_map[XED_ICLASS_PEXTRQ] = {OP_PIPELINED_FAST, 8, 1, NONE};
+  iclass_to_scarab_map[XED_ICLASS_PEXTRW] = {OP_PIPELINED_FAST, 2, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_PEXTRW_SSE4] = {OP_PIPELINED_FAST, 2, 1,
                                                   NONE};
   iclass_to_scarab_map[XED_ICLASS_PINSRB]      = {OP_MOV, 1, 1, NONE};
@@ -1315,7 +1315,7 @@ void init_pin_opcode_convert(void) {
   iclass_to_scarab_map[XED_ICLASS_SYSENTER] = {OP_IADD, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_TEST]     = {OP_LOGIC, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_TZCNT]    = {OP_NOTPIPELINED_MEDIUM, -1, 1,
-                                            NONE};
+                                               NONE};
   iclass_to_scarab_map[XED_ICLASS_UCOMISD]  = {OP_FCMP, 8, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_UCOMISS]  = {OP_FCMP, 4, -1, NONE};
   // TODO: It works only for trace front-end now
@@ -1418,7 +1418,7 @@ void init_pin_opcode_convert(void) {
   iclass_to_scarab_map[XED_ICLASS_VEXTRACTI64X2] = {OP_MOV, 16, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VEXTRACTI64X4] = {OP_MOV, 32, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VEXTRACTPS]    = {OP_PIPELINED_FAST, 4, -1,
-                                                 NONE};
+                                                    NONE};
   // FMA instructions
   iclass_to_scarab_map[XED_ICLASS_VFMADD132PD]    = {OP_FMA, 8, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VFMADD132PS]    = {OP_FMA, 4, -1, NONE};
@@ -1533,13 +1533,13 @@ void init_pin_opcode_convert(void) {
   iclass_to_scarab_map[XED_ICLASS_VINSERTI64X4] = {OP_MOV, 32, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VINSERTPS]    = {OP_MOV, 4, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VLDMXCSR]    = {OP_NOTPIPELINED_MEDIUM, -1, 1,
-                                               NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VMASKMOVDQU] = {OP_PIPELINED_FAST, 1, -1,
                                                   NONE};
   iclass_to_scarab_map[XED_ICLASS_VMASKMOVPD]  = {OP_PIPELINED_FAST, 8, -1,
-                                                 NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VMASKMOVPS]  = {OP_PIPELINED_FAST, 4, -1,
-                                                 NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VMAXPD]      = {OP_FCMP, 8, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VMAXPS]      = {OP_FCMP, 4, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VMAXSD]      = {OP_FCMP, 8, 1, NONE};
@@ -1584,7 +1584,7 @@ void init_pin_opcode_convert(void) {
   iclass_to_scarab_map[XED_ICLASS_VMOVUPD]   = {OP_PIPELINED_FAST, 8, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VMOVUPS]   = {OP_PIPELINED_FAST, 4, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VMPSADBW]  = {OP_NOTPIPELINED_MEDIUM, 1, -1,
-                                               NONE};
+                                                NONE};
   iclass_to_scarab_map[XED_ICLASS_VMULPD]    = {OP_FMUL, 8, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VMULPS]    = {OP_FMUL, 4, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VMULSD]    = {OP_FMUL, 8, 1, NONE};
@@ -1659,15 +1659,15 @@ void init_pin_opcode_convert(void) {
   iclass_to_scarab_map[XED_ICLASS_VPERM2I128] = {OP_MOV, 16, 1,
                                                  NONE};  // TODO: Move or shift?
   iclass_to_scarab_map[XED_ICLASS_VPERMB]     = {OP_MOV, 1, -1,
-                                             NONE};  // TODO: Move or shift?
+                                                 NONE};  // TODO: Move or shift?
   iclass_to_scarab_map[XED_ICLASS_VPERMD]     = {OP_MOV, 4, -1,
-                                             NONE};  // TODO: Move or shift?
+                                                 NONE};  // TODO: Move or shift?
   iclass_to_scarab_map[XED_ICLASS_VPERMQ]     = {OP_MOV, 8, -1,
-                                             NONE};  // TODO: Move or shift?
+                                                 NONE};  // TODO: Move or shift?
   iclass_to_scarab_map[XED_ICLASS_VPERMILPS]  = {OP_MOV, 8, -1,
-                                                NONE};  // TODO: Move or shift?
+                                                 NONE};  // TODO: Move or shift?
   iclass_to_scarab_map[XED_ICLASS_VPERMILPD]  = {OP_MOV, 4, -1,
-                                                NONE};  // TODO: Move or shift?
+                                                 NONE};  // TODO: Move or shift?
   iclass_to_scarab_map[XED_ICLASS_VPERMT2B]  = {OP_PIPELINED_FAST, 1, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VPERMT2D]  = {OP_PIPELINED_FAST, 4, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VPERMT2PD] = {OP_PIPELINED_FAST, 8, -1, NONE};
@@ -1675,7 +1675,7 @@ void init_pin_opcode_convert(void) {
   iclass_to_scarab_map[XED_ICLASS_VPERMT2Q]  = {OP_PIPELINED_FAST, 8, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VPERMT2W]  = {OP_PIPELINED_FAST, 2, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VPERMW]    = {OP_MOV, 2, -1,
-                                             NONE};  // TODO: Move or shift?
+                                                NONE};  // TODO: Move or shift?
   iclass_to_scarab_map[XED_ICLASS_VPERMPD]   = {OP_PIPELINED_FAST, 8, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VPERMPS]   = {OP_PIPELINED_FAST, 4, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VPERMI2W]  = {OP_MOV, 4, -1, NONE};
@@ -1808,10 +1808,10 @@ void init_pin_opcode_convert(void) {
   iclass_to_scarab_map[XED_ICLASS_VPTERNLOGD]  = {OP_LOGIC, 4, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VPTERNLOGQ]  = {OP_LOGIC, 8, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VPTEST]      = {OP_FCMP, -1, 1, NONE};
-  iclass_to_scarab_map[XED_ICLASS_VPTESTMB]      = {OP_FCMP, 1, 1, NONE};
-  iclass_to_scarab_map[XED_ICLASS_VPTESTMD]      = {OP_FCMP, 2, 1, NONE};
-  iclass_to_scarab_map[XED_ICLASS_VPTESTMQ]      = {OP_FCMP, 8, 1, NONE};
-  iclass_to_scarab_map[XED_ICLASS_VPTESTMW]      = {OP_FCMP, 4, 1, NONE};
+  iclass_to_scarab_map[XED_ICLASS_VPTESTMB]    = {OP_FCMP, 1, 1, NONE};
+  iclass_to_scarab_map[XED_ICLASS_VPTESTMD]    = {OP_FCMP, 2, 1, NONE};
+  iclass_to_scarab_map[XED_ICLASS_VPTESTMQ]    = {OP_FCMP, 8, 1, NONE};
+  iclass_to_scarab_map[XED_ICLASS_VPTESTMW]    = {OP_FCMP, 4, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VPUNPCKHBW]  = {OP_MOV, 1, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VPUNPCKHDQ]  = {OP_MOV, 4, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VPUNPCKHQDQ] = {OP_MOV, 8, -1, NONE};
@@ -1824,25 +1824,25 @@ void init_pin_opcode_convert(void) {
   iclass_to_scarab_map[XED_ICLASS_VPXORD]      = {OP_LOGIC, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VPXORQ]      = {OP_LOGIC, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VRCP14PD]    = {OP_NOTPIPELINED_MEDIUM, 8, -1,
-                                               NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VRCP14PS]    = {OP_NOTPIPELINED_MEDIUM, 4, -1,
-                                               NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VRCP14SD]    = {OP_NOTPIPELINED_MEDIUM, 8, 1,
-                                               NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VRCP14SS]    = {OP_NOTPIPELINED_MEDIUM, 4, 1,
-                                               NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VRCP28PD]    = {OP_NOTPIPELINED_MEDIUM, 8, -1,
-                                               NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VRCP28PS]    = {OP_NOTPIPELINED_MEDIUM, 4, -1,
-                                               NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VRCP28SD]    = {OP_NOTPIPELINED_MEDIUM, 8, 1,
-                                               NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VRCP28SS]    = {OP_NOTPIPELINED_MEDIUM, 4, 1,
-                                               NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VRCPPS]      = {OP_NOTPIPELINED_MEDIUM, 4, -1,
-                                             NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VRCPSS]      = {OP_NOTPIPELINED_MEDIUM, 4, 1,
-                                             NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VREDUCEPD]   = {OP_FCVT, 8, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VREDUCEPS]   = {OP_FCVT, 4, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VREDUCESD]   = {OP_FCVT, 8, 1, NONE};
@@ -1856,23 +1856,23 @@ void init_pin_opcode_convert(void) {
   iclass_to_scarab_map[XED_ICLASS_VROUNDSD]    = {OP_FCVT, 8, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VROUNDSS]    = {OP_FCVT, 4, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VRSQRT14PD]  = {OP_PIPELINED_MEDIUM, 8, -1,
-                                                 NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VRSQRT14PS]  = {OP_PIPELINED_MEDIUM, 4, -1,
-                                                 NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VRSQRT14SD]  = {OP_PIPELINED_MEDIUM, 8, 1,
-                                                 NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VRSQRT14SS]  = {OP_PIPELINED_MEDIUM, 4, 1,
-                                                 NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VRSQRT28PD]  = {OP_PIPELINED_MEDIUM, 8, -1,
-                                                 NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VRSQRT28PS]  = {OP_PIPELINED_MEDIUM, 4, -1,
-                                                 NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VRSQRT28SD]  = {OP_PIPELINED_MEDIUM, 8, 1,
-                                                 NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VRSQRT28SS]  = {OP_PIPELINED_MEDIUM, 4, 1,
-                                                 NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VRSQRTPS]    = {OP_PIPELINED_MEDIUM, 4, -1,
-                                               NONE};
+                                                  NONE};
   iclass_to_scarab_map[XED_ICLASS_VRSQRTSS] = {OP_PIPELINED_MEDIUM, 4, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VSCATTERDPD]    = {OP_SCATTER, 4, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VSCATTERDPS]    = {OP_SCATTER, 4, -1, NONE};
@@ -1894,7 +1894,7 @@ void init_pin_opcode_convert(void) {
   iclass_to_scarab_map[XED_ICLASS_VSQRTSD]        = {OP_FDIV, 8, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VSQRTSS]        = {OP_FDIV, 4, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VSTMXCSR]   = {OP_NOTPIPELINED_MEDIUM, -1, 1,
-                                               NONE};
+                                                 NONE};
   iclass_to_scarab_map[XED_ICLASS_VSUBPD]     = {OP_FADD, 8, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VSUBPS]     = {OP_FADD, 4, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_VSUBSD]     = {OP_FADD, 8, 1, NONE};
@@ -1918,9 +1918,9 @@ void init_pin_opcode_convert(void) {
   iclass_to_scarab_map[XED_ICLASS_XORPS]  = {OP_LOGIC, 4, -1, NONE};
   iclass_to_scarab_map[XED_ICLASS_XOR_LOCK] = {OP_LOGIC, -1, 1, NONE};
   iclass_to_scarab_map[XED_ICLASS_XRSTOR]   = {OP_NOTPIPELINED_VERY_SLOW, -1, 1,
-                                             NONE};
+                                               NONE};
   iclass_to_scarab_map[XED_ICLASS_XSAVE]    = {OP_NOTPIPELINED_VERY_SLOW, -1, 1,
-                                            NONE};
+                                               NONE};
   iclass_to_scarab_map[XED_ICLASS_XSAVEC]   = {OP_NOTPIPELINED_VERY_SLOW, -1, 1,
-                                             NONE};
+                                               NONE};
 }

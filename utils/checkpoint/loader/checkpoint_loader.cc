@@ -349,7 +349,7 @@ std::set<std::string> split_cpuinfo_flags(std::string all_flags) {
 void check_os_info() {
   std::string checkpoint_kernel_release, checkpoint_os_version;
   bool        os_info_exists = get_checkpoint_os_info(checkpoint_kernel_release,
-                                               checkpoint_os_version);
+                                                      checkpoint_os_version);
 
   if(os_info_exists) {
     struct utsname loader_os_info;

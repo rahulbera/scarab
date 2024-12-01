@@ -58,12 +58,12 @@ typedef struct Dcache_Stage_struct {
 
 
 typedef struct Dcache_Data_struct {
-  Flag dirty;       /* is the line dirty? */
-  Flag prefetch;    /* was the line prefetched? */
-  Flag HW_prefetch; /* was the hardware prefetcher - Be careful with this when
-                       using multiple prefetchers */
-  Flag
-      HW_prefetched; /* stick HW_prefetch - always set even if the data is used */
+  Flag dirty;         /* is the line dirty? */
+  Flag prefetch;      /* was the line prefetched? */
+  Flag HW_prefetch;   /* was the hardware prefetcher - Be careful with this when
+                         using multiple prefetchers */
+  Flag HW_prefetched; /* stick HW_prefetch - always set even if the data is used
+                       */
   uns read_count[2];  /* number of reads, including the first */
   uns write_count[2]; /* number of writes, including the first */
   uns misc_state;     /* bit 0: was line most recently accessed by off-path op?
@@ -71,8 +71,8 @@ typedef struct Dcache_Data_struct {
   Counter rdy_cycle;
   Flag    fetched_by_offpath; /* fetched by an off_path op? */
   Addr    offpath_op_addr;    /* PC of the off path op that fetched this line */
-  Counter
-    offpath_op_unique; /* unique of the off path op that fetched this line */
+  Counter offpath_op_unique; /* unique of the off path op that fetched this line
+                              */
 
   Counter fetch_cycle;      /* when was this data fetched into the cache? */
   Counter onpath_use_cycle; /* when was this data last used by correct path? */

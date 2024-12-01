@@ -71,12 +71,12 @@ typedef struct Node_Stage_struct {
   uns  mem_block_length;  // length of the current memory block
   uns  ret_stall_length;  // length of the current retirement stall
 
-  uns num_loads;      // number of inflight loads
-  uns num_stores;     // and stores allowed
-  Op * node_lq_head;  // pointers to head and tail    
-  Op * node_lq_tail;  // ops in the load and 
-  Op * node_sq_head;  // store queues
-  Op * node_sq_tail;
+  uns num_loads;     // number of inflight loads
+  uns num_stores;    // and stores allowed
+  Op* node_lq_head;  // pointers to head and tail
+  Op* node_lq_tail;  // ops in the load and
+  Op* node_sq_head;  // store queues
+  Op* node_sq_tail;
 
 } Node_Stage;
 

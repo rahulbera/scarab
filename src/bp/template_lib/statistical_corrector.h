@@ -272,7 +272,7 @@ class Statistical_Corrector {
     second_local_history_table_;
   Local_History_Table<CONFIG::SC::THIRD_LOCAL_HISTORY_LOG_TABLE_SIZE,
                       CONFIG::SC::THIRD_LOCAL_HISTORY_SHIFT>
-                                                            third_local_history_table_;
+    third_local_history_table_;
   Saturating_Counter<CONFIG::SC::IMLI_COUNTER_WIDTH, false> imli_counter_;
   int64_t imli_table_[CONFIG::SC::IMLI_TABLE_SIZE];
 
@@ -540,7 +540,7 @@ void Statistical_Corrector<CONFIG>::commit_state(
 
     // update biases.
     int bias_table_index    = get_bias_table_index(br_pc, tage_prediction_info,
-                                                tage_or_loop_prediction);
+                                                   tage_or_loop_prediction);
     int bias_sk_table_index = get_bias_sk_table_index(
       br_pc, tage_prediction_info, tage_or_loop_prediction);
     int bias_bank_table_index = get_bias_bank_table_index(

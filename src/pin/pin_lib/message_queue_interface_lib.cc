@@ -33,7 +33,7 @@ extern "C" {}
     perror(error_message);                                              \
     exit(1);                                                            \
   }
-//#define MQ_NON_BLOCKING 1
+// #define MQ_NON_BLOCKING 1
 
 void assertm(bool p, const char* msg) {
   if(!p) {
@@ -102,8 +102,8 @@ void TCPSocket::send(SocketDescriptor         socket,
                      const std::vector<char>* message) {
   uint32_t total_bytes_sent = 0;
   int32_t  failure;
-  char*    buffer = (char*)&(
-    *message)[0]; /*CPP guuarantees vector stored in contiguous memory*/
+  char*    buffer = (char*)&(*message)[0]; /*CPP guuarantees vector stored in
+                                              contiguous memory*/
   assertm(message->size() <= RECEIVE_BUFFER_MAX_SIZE,
           "Need to allocation more space in the send buffer");
 

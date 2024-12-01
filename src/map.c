@@ -397,9 +397,9 @@ static inline void mem_map_entry_traversal_next(Mem_Map_Traversal* traversal) {
 }
 
 static inline void mem_map_byte_traversal_init(Mem_Map_Traversal* traversal) {
-  traversal->byte = traversal->entry_addr == traversal->first_entry_addr ?
-                      traversal->first_entry_first_byte :
-                      0;
+  traversal->byte      = traversal->entry_addr == traversal->first_entry_addr ?
+                           traversal->first_entry_first_byte :
+                           0;
   traversal->last_byte = traversal->entry_addr == traversal->last_entry_addr ?
                            traversal->last_entry_last_byte :
                            MEM_MAP_ENTRY_SIZE - 1;
@@ -491,8 +491,8 @@ static inline Op* add_store_deps(Op* op) {
         STAT_EVENT(op->proc_id, FORWARDED_LD);
       }
       if(!last_src_op ||
-         last_src_op->op_num <
-           src_op->op_num) { /* take latest store dependency only */
+         last_src_op->op_num < src_op->op_num) { /* take latest store dependency
+                                                    only */
         last_src_op = src_op;
       }
     }

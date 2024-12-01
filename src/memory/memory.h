@@ -39,32 +39,32 @@
 #include "libs/port_lib.h"
 #include "memory/mem_req.h"
 #include "op_info.h"
-//#include "dram.h"
+// #include "dram.h"
 
 /**************************************************************************************/
 /* Defines */
 
-//#define MAX_OPS_PER_REQ    2048
+// #define MAX_OPS_PER_REQ    2048
 
 
 /**************************************************************************************/
 /* Types */
 
 typedef struct L1_Data_struct {
-  uns8  proc_id;       /* processor id that generated this miss */
-  Flag  dirty;         /* is the line dirty? */
-  Flag  prefetch;      /* was the line prefetched? */
-  Flag  seen_prefetch; /* have we counted this prefetch earlier */
-  uns   pref_distance;
-  Addr  pref_loadPC;
-  uns32 global_hist;   /* used for prefetch hfilter */
-  uns8  prefetcher_id; /* which Prefetcher sent this prefetch */
-  Flag  dcache_touch;  /* does dcache touch? for measuring useless prefetch */
-  Flag  fetched_by_offpath;             /* fetched by an off_path op? */
-  Flag  l0_modified_fetched_by_offpath; /* fetched by an off_path op? */
-  Addr  offpath_op_addr; /* PC of the off path op that fetched this line */
-  Counter
-    offpath_op_unique; /* unique of the off path op that fetched this line */
+  uns8    proc_id;       /* processor id that generated this miss */
+  Flag    dirty;         /* is the line dirty? */
+  Flag    prefetch;      /* was the line prefetched? */
+  Flag    seen_prefetch; /* have we counted this prefetch earlier */
+  uns     pref_distance;
+  Addr    pref_loadPC;
+  uns32   global_hist;   /* used for prefetch hfilter */
+  uns8    prefetcher_id; /* which Prefetcher sent this prefetch */
+  Flag    dcache_touch;  /* does dcache touch? for measuring useless prefetch */
+  Flag    fetched_by_offpath;             /* fetched by an off_path op? */
+  Flag    l0_modified_fetched_by_offpath; /* fetched by an off_path op? */
+  Addr    offpath_op_addr;   /* PC of the off path op that fetched this line */
+  Counter offpath_op_unique; /* unique of the off path op that fetched this line
+                              */
 
   Counter mlc_miss_latency; /* memory latency the request for this line
                                experienced */
