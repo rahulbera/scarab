@@ -13,6 +13,7 @@ target_sources(
   impl/bh_dram_controller.cpp
   impl/dummy_controller.cpp
   impl/generic_dram_controller.cpp
+  impl/optimal_dram_controller.cpp
   impl/prac_dram_controller.cpp
   
   impl/scheduler/bh_scheduler.cpp
@@ -20,6 +21,7 @@ target_sources(
   impl/scheduler/generic_scheduler.cpp
   impl/scheduler/bliss_scheduler.cpp
   impl/scheduler/prac_scheduler.cpp
+  impl/scheduler/FCFS_scheduler.cpp
 
   impl/refresh/all_bank_refresh.cpp
   

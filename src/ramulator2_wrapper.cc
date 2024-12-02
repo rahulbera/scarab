@@ -20,10 +20,12 @@ std::map<long, std::list<Mem_Req*>>   inflight_read_reqs;
 std::deque<std::pair<long, Mem_Req*>> resp_queue;  // completed read request
                                                    // that need
 YAML::Node config;
-long       number_of_sends = 0;
+long       number_of_sends     = 0;
+long       number_of_callbacks = 0;
 // std::map<long, Mem_Req*> inflight_read_reqs;
 void ramulator_callback(Ramulator::Request req) {
-  // std::cout << "Ramulator Callback()\n";
+  // std::cout << "Ramulator Callback()" << req.addr << "\n";
+  number_of_callbacks++;
   auto it_scarab_req = inflight_read_reqs.find(req.addr);
   for(auto req : it_scarab_req->second)
     resp_queue.push_back(std::make_pair(it_scarab_req->first, req));
@@ -64,12 +66,16 @@ void    ramulator_init() {
   ramulator2_memorysystem->connect_frontend(ramulator2_frontend);
 }
 int try_completing_request(Mem_Req* req) {
-  // std::cout << "Why is it not emptying re: " <<
-  // mem->l1fill_queue.entry_count<< "\n";
+  // std::cout << "Why is it not emptying re: " << mem->l1fill_queue.entry_count
+  //           << "\n";
   if((unsigned int)mem->l1fill_queue.entry_count < 32) {
     mem_complete_bus_in_access(
       req, 0 /*mem->mem_queue.base[ii].priority*/);  // TODO_hasan: how do
     // mem->mem_queue.base[ii].priority=Mem_Req_Priority_Offset[MRT_MIN_PRIORITY];
+    // mem_queue_removal_count++;
+    // l1fill_queue_insertion_count++;
+    // mem->mem_queue.base[ii].priority =
+    //   Mem_Req_Priority_Offset[MRT_MIN_PRIORITY];
     memview_memqueue(MEMVIEW_MEMQUEUE_DEPART, req);
 
 
@@ -98,13 +104,17 @@ void ramulator_finish() {
 }
 
 int ramulator_send(Mem_Req* scarab_req) {
-  // std::cout << "Ramulator send with addr : " << scarab_req->phys_addr << "
-  // "<< scarab_req->addr << "\n";
-  bool enqueue_success = false;
-  auto it_req          = inflight_read_reqs.find(scarab_req->phys_addr);
+  // std::cout << "Ramulator send with addr : " << scarab_req->phys_addr << " "
+  //  << scarab_req->addr << "\n";
+  number_of_sends++;
+  bool                enqueue_success = false;
+  auto                it_req  = inflight_read_reqs.find(scarab_req->phys_addr);
+  Ramulator::Request* req_ram = new Ramulator::Request(
+    scarab_req->addr, Ramulator::Request::Type::Read);
 
-  // Search request queue
-
+  to_ramulator_req(scarab_req, req_ram);
+  //   if(scarab_req->phys_addr == 169025721946813184)
+  //     std::cout << "It happened reeee\n";
   if(it_req != inflight_read_reqs.end() &&
      (scarab_req->type == MRT_DFETCH || scarab_req->type == MRT_DSTORE ||
       scarab_req->type == MRT_IFETCH || scarab_req->type == MRT_IPRF ||
@@ -114,9 +124,10 @@ int ramulator_send(Mem_Req* scarab_req) {
     // std::cout << "We are here\n";
     return 1;
   }
-  number_of_sends++;
+
   enqueue_success = ramulator2_frontend->receive_external_requests(
-    0, scarab_req->phys_addr, scarab_req->proc_id, ramulator_callback);
+    req_ram->type_id, scarab_req->phys_addr, scarab_req->proc_id,
+    ramulator_callback);
 
   if(enqueue_success) {
     if(scarab_req->type == MRT_DFETCH || scarab_req->type == MRT_DSTORE ||
@@ -130,10 +141,11 @@ int ramulator_send(Mem_Req* scarab_req) {
         inflight_read_reqs.insert({scarab_req->phys_addr, temp_list});
       }
     }
+    scarab_req->mem_queue_cycle = cycle_count;
   }
   // if(scarab_req->type == Mem_Req_Type::MRT_DFETCH) {
 
-  scarab_req->mem_queue_cycle = cycle_count;
+
   return enqueue_success;
   //}
   // return 1;
@@ -163,8 +175,9 @@ int ramulator_get_chip_row_buffer_size() {
 }
 
 Mem_Req* ramulator_search_queue(long phys_addr, Mem_Req_Type type) {
-  // std::cout << "Ramulator Search queue() with addr : " << phys_addr <<
-  // "\n";
+  //   if(phys_addr == 169025721946813184)
+  //     std::cout << "Ramulator Search queue() with addr : " << phys_addr <<
+  //     "\n";
   auto it_req = inflight_read_reqs.find(phys_addr);
 
   // Search request queue
@@ -202,6 +215,11 @@ Mem_Req* ramulator_search_queue(long phys_addr, Mem_Req_Type type) {
       }
     }
   }
-  // std::cout << "Returned here " << __LINE__ << "\n";
+  //   if(phys_addr == 169025721946813184)
+  //     std::cout << "Returned here " << __LINE__ << " "
+  //               << inflight_read_reqs.size() << " " << resp_queue.size() << "
+  //               "
+  //               << number_of_sends << " " << number_of_callbacks << " "
+  //               << cycle_count << "\n";
   return NULL;
 }

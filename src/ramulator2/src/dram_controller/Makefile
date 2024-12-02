@@ -268,6 +268,30 @@ impl/generic_dram_controller.cpp.s:
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src && $(MAKE) $(MAKESILENT) -f ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/build.make ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/generic_dram_controller.cpp.s
 .PHONY : impl/generic_dram_controller.cpp.s
 
+impl/optimal_dram_controller.o: impl/optimal_dram_controller.cpp.o
+.PHONY : impl/optimal_dram_controller.o
+
+# target to build an object file
+impl/optimal_dram_controller.cpp.o:
+	cd /home/ksgoura/os_aware_memory_controller/scarab/src && $(MAKE) $(MAKESILENT) -f ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/build.make ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/optimal_dram_controller.cpp.o
+.PHONY : impl/optimal_dram_controller.cpp.o
+
+impl/optimal_dram_controller.i: impl/optimal_dram_controller.cpp.i
+.PHONY : impl/optimal_dram_controller.i
+
+# target to preprocess a source file
+impl/optimal_dram_controller.cpp.i:
+	cd /home/ksgoura/os_aware_memory_controller/scarab/src && $(MAKE) $(MAKESILENT) -f ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/build.make ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/optimal_dram_controller.cpp.i
+.PHONY : impl/optimal_dram_controller.cpp.i
+
+impl/optimal_dram_controller.s: impl/optimal_dram_controller.cpp.s
+.PHONY : impl/optimal_dram_controller.s
+
+# target to generate assembly for a file
+impl/optimal_dram_controller.cpp.s:
+	cd /home/ksgoura/os_aware_memory_controller/scarab/src && $(MAKE) $(MAKESILENT) -f ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/build.make ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/optimal_dram_controller.cpp.s
+.PHONY : impl/optimal_dram_controller.cpp.s
+
 impl/plugin/aqua.o: impl/plugin/aqua.cpp.o
 .PHONY : impl/plugin/aqua.o
 
@@ -676,6 +700,30 @@ impl/rowpolicy/basic_rowpolicies.cpp.s:
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src && $(MAKE) $(MAKESILENT) -f ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/build.make ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/rowpolicy/basic_rowpolicies.cpp.s
 .PHONY : impl/rowpolicy/basic_rowpolicies.cpp.s
 
+impl/scheduler/FCFS_scheduler.o: impl/scheduler/FCFS_scheduler.cpp.o
+.PHONY : impl/scheduler/FCFS_scheduler.o
+
+# target to build an object file
+impl/scheduler/FCFS_scheduler.cpp.o:
+	cd /home/ksgoura/os_aware_memory_controller/scarab/src && $(MAKE) $(MAKESILENT) -f ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/build.make ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/FCFS_scheduler.cpp.o
+.PHONY : impl/scheduler/FCFS_scheduler.cpp.o
+
+impl/scheduler/FCFS_scheduler.i: impl/scheduler/FCFS_scheduler.cpp.i
+.PHONY : impl/scheduler/FCFS_scheduler.i
+
+# target to preprocess a source file
+impl/scheduler/FCFS_scheduler.cpp.i:
+	cd /home/ksgoura/os_aware_memory_controller/scarab/src && $(MAKE) $(MAKESILENT) -f ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/build.make ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/FCFS_scheduler.cpp.i
+.PHONY : impl/scheduler/FCFS_scheduler.cpp.i
+
+impl/scheduler/FCFS_scheduler.s: impl/scheduler/FCFS_scheduler.cpp.s
+.PHONY : impl/scheduler/FCFS_scheduler.s
+
+# target to generate assembly for a file
+impl/scheduler/FCFS_scheduler.cpp.s:
+	cd /home/ksgoura/os_aware_memory_controller/scarab/src && $(MAKE) $(MAKESILENT) -f ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/build.make ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/FCFS_scheduler.cpp.s
+.PHONY : impl/scheduler/FCFS_scheduler.cpp.s
+
 impl/scheduler/bh_scheduler.o: impl/scheduler/bh_scheduler.cpp.o
 .PHONY : impl/scheduler/bh_scheduler.o
 
@@ -820,6 +868,9 @@ help:
 	@echo "... impl/generic_dram_controller.o"
 	@echo "... impl/generic_dram_controller.i"
 	@echo "... impl/generic_dram_controller.s"
+	@echo "... impl/optimal_dram_controller.o"
+	@echo "... impl/optimal_dram_controller.i"
+	@echo "... impl/optimal_dram_controller.s"
 	@echo "... impl/plugin/aqua.o"
 	@echo "... impl/plugin/aqua.i"
 	@echo "... impl/plugin/aqua.s"
@@ -871,6 +922,9 @@ help:
 	@echo "... impl/rowpolicy/basic_rowpolicies.o"
 	@echo "... impl/rowpolicy/basic_rowpolicies.i"
 	@echo "... impl/rowpolicy/basic_rowpolicies.s"
+	@echo "... impl/scheduler/FCFS_scheduler.o"
+	@echo "... impl/scheduler/FCFS_scheduler.i"
+	@echo "... impl/scheduler/FCFS_scheduler.s"
 	@echo "... impl/scheduler/bh_scheduler.o"
 	@echo "... impl/scheduler/bh_scheduler.i"
 	@echo "... impl/scheduler/bh_scheduler.s"

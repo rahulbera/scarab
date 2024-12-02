@@ -3,10 +3,10 @@
 
 namespace Ramulator {
 
-class GenericDRAMController final : public IDRAMController,
+class OptimalDRAMController final : public IDRAMController,
                                     public Implementation {
-  RAMULATOR_REGISTER_IMPLEMENTATION(IDRAMController, GenericDRAMController,
-                                    "Generic", "A generic DRAM controller.");
+  RAMULATOR_REGISTER_IMPLEMENTATION(IDRAMController, OptimalDRAMController,
+                                    "Optimal", "An optimal DRAM controller.");
 
  private:
   std::deque<Request> pending;  // A queue for read requests that are about to
@@ -185,7 +185,7 @@ class GenericDRAMController final : public IDRAMController,
     req.final_command = m_dram->m_request_translations(req.type_id);
 
     bool is_success = true;
-    // is_success = m_priority_buffer.enqueue(req);
+    // is_success      = m_priority_buffer.enqueue(req);
     return is_success;
   }
 
@@ -236,10 +236,10 @@ class GenericDRAMController final : public IDRAMController,
         }
         buffer->remove(req_it);
       } else {
-        if(m_dram->m_command_meta(req_it->command).is_opening) {
-          m_active_buffer.enqueue(*req_it);
-          buffer->remove(req_it);
-        }
+        // if(m_dram->m_command_meta(req_it->command).is_opening) {
+        //   m_active_buffer.enqueue(*req_it);
+        //   buffer->remove(req_it);
+        // }
       }
     }
   };
@@ -363,13 +363,13 @@ class GenericDRAMController final : public IDRAMController,
     bool request_found = false;
     // 2.1    First, check the act buffer to serve requests that are already
     // activating (avoid useless ACTs)
-    if(req_it = m_scheduler->get_best_request(m_active_buffer);
-       req_it != m_active_buffer.end()) {
-      if(m_dram->check_ready(req_it->command, req_it->addr_vec)) {
-        request_found = true;
-        req_buffer    = &m_active_buffer;
-      }
-    }
+    // if(req_it = m_scheduler->get_best_request(m_active_buffer);
+    //    req_it != m_active_buffer.end()) {
+    //   if(m_dram->check_ready(req_it->command, req_it->addr_vec)) {
+    //     request_found = true;
+    //     req_buffer    = &m_active_buffer;
+    //   }
+    // }
 
     // 2.2    If no requests can be scheduled from the act buffer, check the
     // rest of the buffers

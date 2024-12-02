@@ -731,6 +731,11 @@
 },
 {
   "directory": "/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller",
+  "command": "/usr/bin/c++  -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/ext/yaml-cpp -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/ext/spdlog -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src -I/home/ksgoura/os_aware_memory_controller/scarab/src/ext/yaml-cpp/include -I/home/ksgoura/os_aware_memory_controller/scarab/src/ext/spdlog/include -I/home/ksgoura/os_aware_memory_controller/scarab/src/ext/argparse/include -I/home/ksgoura/os_aware_memory_controller/scarab/src/src -O3 -DNDEBUG -fPIC -Wall -Wunused -Wno-long-long -Wpointer-arith -Werror -w -std=c++20 -o CMakeFiles/ramulator-controller.dir/impl/optimal_dram_controller.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/optimal_dram_controller.cpp",
+  "file": "/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/optimal_dram_controller.cpp"
+},
+{
+  "directory": "/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller",
   "command": "/usr/bin/c++  -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/ext/yaml-cpp -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/ext/spdlog -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src -I/home/ksgoura/os_aware_memory_controller/scarab/src/ext/yaml-cpp/include -I/home/ksgoura/os_aware_memory_controller/scarab/src/ext/spdlog/include -I/home/ksgoura/os_aware_memory_controller/scarab/src/ext/argparse/include -I/home/ksgoura/os_aware_memory_controller/scarab/src/src -O3 -DNDEBUG -fPIC -Wall -Wunused -Wno-long-long -Wpointer-arith -Werror -w -std=c++20 -o CMakeFiles/ramulator-controller.dir/impl/prac_dram_controller.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/prac_dram_controller.cpp",
   "file": "/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/prac_dram_controller.cpp"
 },
@@ -758,6 +763,11 @@
   "directory": "/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller",
   "command": "/usr/bin/c++  -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/ext/yaml-cpp -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/ext/spdlog -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src -I/home/ksgoura/os_aware_memory_controller/scarab/src/ext/yaml-cpp/include -I/home/ksgoura/os_aware_memory_controller/scarab/src/ext/spdlog/include -I/home/ksgoura/os_aware_memory_controller/scarab/src/ext/argparse/include -I/home/ksgoura/os_aware_memory_controller/scarab/src/src -O3 -DNDEBUG -fPIC -Wall -Wunused -Wno-long-long -Wpointer-arith -Werror -w -std=c++20 -o CMakeFiles/ramulator-controller.dir/impl/scheduler/prac_scheduler.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/scheduler/prac_scheduler.cpp",
   "file": "/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/scheduler/prac_scheduler.cpp"
+},
+{
+  "directory": "/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller",
+  "command": "/usr/bin/c++  -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/ext/yaml-cpp -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/ext/spdlog -I/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src -I/home/ksgoura/os_aware_memory_controller/scarab/src/ext/yaml-cpp/include -I/home/ksgoura/os_aware_memory_controller/scarab/src/ext/spdlog/include -I/home/ksgoura/os_aware_memory_controller/scarab/src/ext/argparse/include -I/home/ksgoura/os_aware_memory_controller/scarab/src/src -O3 -DNDEBUG -fPIC -Wall -Wunused -Wno-long-long -Wpointer-arith -Werror -w -std=c++20 -o CMakeFiles/ramulator-controller.dir/impl/scheduler/FCFS_scheduler.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/scheduler/FCFS_scheduler.cpp",
+  "file": "/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/scheduler/FCFS_scheduler.cpp"
 },
 {
   "directory": "/home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller",

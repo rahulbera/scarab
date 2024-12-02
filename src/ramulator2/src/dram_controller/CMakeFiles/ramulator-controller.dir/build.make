@@ -111,10 +111,24 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/generic_
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ramulator-controller.dir/impl/generic_dram_controller.cpp.s"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/generic_dram_controller.cpp -o CMakeFiles/ramulator-controller.dir/impl/generic_dram_controller.cpp.s
 
+ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/optimal_dram_controller.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
+ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/optimal_dram_controller.cpp.o: ramulator2/src/dram_controller/impl/optimal_dram_controller.cpp
+ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/optimal_dram_controller.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/optimal_dram_controller.cpp.o"
+	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/optimal_dram_controller.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/optimal_dram_controller.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/optimal_dram_controller.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/optimal_dram_controller.cpp
+
+ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/optimal_dram_controller.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ramulator-controller.dir/impl/optimal_dram_controller.cpp.i"
+	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/optimal_dram_controller.cpp > CMakeFiles/ramulator-controller.dir/impl/optimal_dram_controller.cpp.i
+
+ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/optimal_dram_controller.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ramulator-controller.dir/impl/optimal_dram_controller.cpp.s"
+	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/optimal_dram_controller.cpp -o CMakeFiles/ramulator-controller.dir/impl/optimal_dram_controller.cpp.s
+
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/prac_dram_controller.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/prac_dram_controller.cpp.o: ramulator2/src/dram_controller/impl/prac_dram_controller.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/prac_dram_controller.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/prac_dram_controller.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/prac_dram_controller.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/prac_dram_controller.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/prac_dram_controller.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/prac_dram_controller.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/prac_dram_controller.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/prac_dram_controller.cpp.i: cmake_force
@@ -128,7 +142,7 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/prac_dra
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/bh_scheduler.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/bh_scheduler.cpp.o: ramulator2/src/dram_controller/impl/scheduler/bh_scheduler.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/bh_scheduler.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/bh_scheduler.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/bh_scheduler.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/bh_scheduler.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/scheduler/bh_scheduler.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/scheduler/bh_scheduler.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/scheduler/bh_scheduler.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/bh_scheduler.cpp.i: cmake_force
@@ -142,7 +156,7 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/schedule
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/blocking_scheduler.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/blocking_scheduler.cpp.o: ramulator2/src/dram_controller/impl/scheduler/blocking_scheduler.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/blocking_scheduler.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/blocking_scheduler.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/blocking_scheduler.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/blocking_scheduler.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/scheduler/blocking_scheduler.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/scheduler/blocking_scheduler.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/scheduler/blocking_scheduler.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/blocking_scheduler.cpp.i: cmake_force
@@ -156,7 +170,7 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/schedule
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/generic_scheduler.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/generic_scheduler.cpp.o: ramulator2/src/dram_controller/impl/scheduler/generic_scheduler.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/generic_scheduler.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/generic_scheduler.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/generic_scheduler.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/generic_scheduler.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/scheduler/generic_scheduler.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/scheduler/generic_scheduler.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/scheduler/generic_scheduler.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/generic_scheduler.cpp.i: cmake_force
@@ -170,7 +184,7 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/schedule
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/bliss_scheduler.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/bliss_scheduler.cpp.o: ramulator2/src/dram_controller/impl/scheduler/bliss_scheduler.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/bliss_scheduler.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/bliss_scheduler.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/bliss_scheduler.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/bliss_scheduler.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/scheduler/bliss_scheduler.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/scheduler/bliss_scheduler.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/scheduler/bliss_scheduler.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/bliss_scheduler.cpp.i: cmake_force
@@ -184,7 +198,7 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/schedule
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/prac_scheduler.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/prac_scheduler.cpp.o: ramulator2/src/dram_controller/impl/scheduler/prac_scheduler.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/prac_scheduler.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/prac_scheduler.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/prac_scheduler.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/prac_scheduler.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/scheduler/prac_scheduler.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/scheduler/prac_scheduler.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/scheduler/prac_scheduler.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/prac_scheduler.cpp.i: cmake_force
@@ -195,10 +209,24 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/schedule
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ramulator-controller.dir/impl/scheduler/prac_scheduler.cpp.s"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/scheduler/prac_scheduler.cpp -o CMakeFiles/ramulator-controller.dir/impl/scheduler/prac_scheduler.cpp.s
 
+ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/FCFS_scheduler.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
+ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/FCFS_scheduler.cpp.o: ramulator2/src/dram_controller/impl/scheduler/FCFS_scheduler.cpp
+ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/FCFS_scheduler.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/FCFS_scheduler.cpp.o"
+	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/FCFS_scheduler.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/scheduler/FCFS_scheduler.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/scheduler/FCFS_scheduler.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/scheduler/FCFS_scheduler.cpp
+
+ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/FCFS_scheduler.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ramulator-controller.dir/impl/scheduler/FCFS_scheduler.cpp.i"
+	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/scheduler/FCFS_scheduler.cpp > CMakeFiles/ramulator-controller.dir/impl/scheduler/FCFS_scheduler.cpp.i
+
+ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/FCFS_scheduler.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ramulator-controller.dir/impl/scheduler/FCFS_scheduler.cpp.s"
+	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/scheduler/FCFS_scheduler.cpp -o CMakeFiles/ramulator-controller.dir/impl/scheduler/FCFS_scheduler.cpp.s
+
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/refresh/all_bank_refresh.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/refresh/all_bank_refresh.cpp.o: ramulator2/src/dram_controller/impl/refresh/all_bank_refresh.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/refresh/all_bank_refresh.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/refresh/all_bank_refresh.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/refresh/all_bank_refresh.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/refresh/all_bank_refresh.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/refresh/all_bank_refresh.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/refresh/all_bank_refresh.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/refresh/all_bank_refresh.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/refresh/all_bank_refresh.cpp.i: cmake_force
@@ -212,7 +240,7 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/refresh/
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/rowpolicy/basic_rowpolicies.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/rowpolicy/basic_rowpolicies.cpp.o: ramulator2/src/dram_controller/impl/rowpolicy/basic_rowpolicies.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/rowpolicy/basic_rowpolicies.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/rowpolicy/basic_rowpolicies.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/rowpolicy/basic_rowpolicies.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/rowpolicy/basic_rowpolicies.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/rowpolicy/basic_rowpolicies.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/rowpolicy/basic_rowpolicies.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/rowpolicy/basic_rowpolicies.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/rowpolicy/basic_rowpolicies.cpp.i: cmake_force
@@ -226,7 +254,7 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/rowpolic
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/trace_recorder.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/trace_recorder.cpp.o: ramulator2/src/dram_controller/impl/plugin/trace_recorder.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/trace_recorder.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/trace_recorder.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/trace_recorder.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/trace_recorder.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/plugin/trace_recorder.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/plugin/trace_recorder.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/plugin/trace_recorder.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/trace_recorder.cpp.i: cmake_force
@@ -240,7 +268,7 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/t
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/cmd_counter.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/cmd_counter.cpp.o: ramulator2/src/dram_controller/impl/plugin/cmd_counter.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/cmd_counter.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/cmd_counter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/cmd_counter.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/cmd_counter.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/plugin/cmd_counter.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/plugin/cmd_counter.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/plugin/cmd_counter.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/cmd_counter.cpp.i: cmake_force
@@ -254,7 +282,7 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/c
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/para.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/para.cpp.o: ramulator2/src/dram_controller/impl/plugin/para.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/para.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/para.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/para.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/para.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/plugin/para.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/plugin/para.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/plugin/para.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/para.cpp.i: cmake_force
@@ -268,7 +296,7 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/p
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/graphene.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/graphene.cpp.o: ramulator2/src/dram_controller/impl/plugin/graphene.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/graphene.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/graphene.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/graphene.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/graphene.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/plugin/graphene.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/plugin/graphene.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/plugin/graphene.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/graphene.cpp.i: cmake_force
@@ -282,7 +310,7 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/g
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/oracle_rh.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/oracle_rh.cpp.o: ramulator2/src/dram_controller/impl/plugin/oracle_rh.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/oracle_rh.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/oracle_rh.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/oracle_rh.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/oracle_rh.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/plugin/oracle_rh.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/plugin/oracle_rh.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/plugin/oracle_rh.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/oracle_rh.cpp.i: cmake_force
@@ -296,7 +324,7 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/o
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/twice.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/twice.cpp.o: ramulator2/src/dram_controller/impl/plugin/twice.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/twice.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/twice.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/twice.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/twice.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/plugin/twice.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/plugin/twice.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/plugin/twice.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/twice.cpp.i: cmake_force
@@ -310,7 +338,7 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/t
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/hydra.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/hydra.cpp.o: ramulator2/src/dram_controller/impl/plugin/hydra.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/hydra.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/hydra.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/hydra.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/hydra.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/plugin/hydra.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/plugin/hydra.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/plugin/hydra.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/hydra.cpp.i: cmake_force
@@ -324,7 +352,7 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/h
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/rrs.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/rrs.cpp.o: ramulator2/src/dram_controller/impl/plugin/rrs.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/rrs.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/rrs.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/rrs.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/rrs.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/plugin/rrs.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/plugin/rrs.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/plugin/rrs.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/rrs.cpp.i: cmake_force
@@ -338,7 +366,7 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/r
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/aqua.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/aqua.cpp.o: ramulator2/src/dram_controller/impl/plugin/aqua.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/aqua.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/aqua.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/aqua.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/aqua.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/plugin/aqua.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/plugin/aqua.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/plugin/aqua.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/aqua.cpp.i: cmake_force
@@ -352,7 +380,7 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/a
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/rfm_manager.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/rfm_manager.cpp.o: ramulator2/src/dram_controller/impl/plugin/rfm_manager.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/rfm_manager.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/rfm_manager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/rfm_manager.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/rfm_manager.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/plugin/rfm_manager.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/plugin/rfm_manager.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/plugin/rfm_manager.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/rfm_manager.cpp.i: cmake_force
@@ -366,7 +394,7 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/r
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/blockhammer/blockhammer.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/blockhammer/blockhammer.cpp.o: ramulator2/src/dram_controller/impl/plugin/blockhammer/blockhammer.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/blockhammer/blockhammer.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/blockhammer/blockhammer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/blockhammer/blockhammer.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/blockhammer/blockhammer.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/plugin/blockhammer/blockhammer.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/plugin/blockhammer/blockhammer.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/plugin/blockhammer/blockhammer.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/blockhammer/blockhammer.cpp.i: cmake_force
@@ -380,7 +408,7 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/b
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/device_config/device_config.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/device_config/device_config.cpp.o: ramulator2/src/dram_controller/impl/plugin/device_config/device_config.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/device_config/device_config.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/device_config/device_config.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/device_config/device_config.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/device_config/device_config.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/plugin/device_config/device_config.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/plugin/device_config/device_config.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/plugin/device_config/device_config.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/device_config/device_config.cpp.i: cmake_force
@@ -394,7 +422,7 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/d
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/bliss/bliss.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/bliss/bliss.cpp.o: ramulator2/src/dram_controller/impl/plugin/bliss/bliss.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/bliss/bliss.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/bliss/bliss.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/bliss/bliss.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/bliss/bliss.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/plugin/bliss/bliss.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/plugin/bliss/bliss.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/plugin/bliss/bliss.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/bliss/bliss.cpp.i: cmake_force
@@ -408,7 +436,7 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/b
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/prac/prac.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/flags.make
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/prac/prac.cpp.o: ramulator2/src/dram_controller/impl/plugin/prac/prac.cpp
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/prac/prac.cpp.o: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/prac/prac.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ksgoura/os_aware_memory_controller/scarab/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/prac/prac.cpp.o"
 	cd /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/prac/prac.cpp.o -MF CMakeFiles/ramulator-controller.dir/impl/plugin/prac/prac.cpp.o.d -o CMakeFiles/ramulator-controller.dir/impl/plugin/prac/prac.cpp.o -c /home/ksgoura/os_aware_memory_controller/scarab/src/ramulator2/src/dram_controller/impl/plugin/prac/prac.cpp
 
 ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/prac/prac.cpp.i: cmake_force
@@ -422,12 +450,14 @@ ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/p
 ramulator-controller: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/bh_dram_controller.cpp.o
 ramulator-controller: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/dummy_controller.cpp.o
 ramulator-controller: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/generic_dram_controller.cpp.o
+ramulator-controller: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/optimal_dram_controller.cpp.o
 ramulator-controller: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/prac_dram_controller.cpp.o
 ramulator-controller: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/bh_scheduler.cpp.o
 ramulator-controller: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/blocking_scheduler.cpp.o
 ramulator-controller: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/generic_scheduler.cpp.o
 ramulator-controller: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/bliss_scheduler.cpp.o
 ramulator-controller: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/prac_scheduler.cpp.o
+ramulator-controller: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/scheduler/FCFS_scheduler.cpp.o
 ramulator-controller: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/refresh/all_bank_refresh.cpp.o
 ramulator-controller: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/rowpolicy/basic_rowpolicies.cpp.o
 ramulator-controller: ramulator2/src/dram_controller/CMakeFiles/ramulator-controller.dir/impl/plugin/trace_recorder.cpp.o

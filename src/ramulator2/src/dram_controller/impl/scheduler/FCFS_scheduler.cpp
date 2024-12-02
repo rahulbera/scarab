@@ -6,9 +6,9 @@
 
 namespace Ramulator {
 
-class FRFCFS : public IScheduler, public Implementation {
-  RAMULATOR_REGISTER_IMPLEMENTATION(IScheduler, FRFCFS, "FRFCFS",
-                                    "FRFCFS DRAM Scheduler.")
+class FCFS : public IScheduler, public Implementation {
+  RAMULATOR_REGISTER_IMPLEMENTATION(IScheduler, FCFS, "FCFS",
+                                    "FCFS DRAM Scheduler.")
  private:
   IDRAM* m_dram;
 
@@ -25,13 +25,6 @@ class FRFCFS : public IScheduler, public Implementation {
     bool ready1 = m_dram->check_ready(req1->command, req1->addr_vec);
     bool ready2 = m_dram->check_ready(req2->command, req2->addr_vec);
 
-    if(ready1 ^ ready2) {
-      if(ready1) {
-        return req1;
-      } else {
-        return req2;
-      }
-    }
 
     // Fallback to FCFS
     if(req1->arrive <= req2->arrive) {
