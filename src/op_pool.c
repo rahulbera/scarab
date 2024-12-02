@@ -198,6 +198,7 @@ void op_pool_setup_op(uns proc_id, Op* op) {
   op->sources_addr_reg        = 0;
   op->sched_info              = NULL;
   op->marked                  = FALSE;
+  op->vp                      = FALSE;
 
   op->op_num              = op_count[proc_id];
   op->unique_num          = unique_count;

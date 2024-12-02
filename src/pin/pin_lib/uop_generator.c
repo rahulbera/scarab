@@ -380,6 +380,7 @@ void uop_generator_get_uop(uns proc_id, Op* op, ctype_pin_inst* inst) {
 
   op->req    = NULL;
   op->marked = FALSE;
+  op->vp     = FALSE;
 
   /* pipelined scheduler fields */
   op->chkpt_num = MAX_CTR;

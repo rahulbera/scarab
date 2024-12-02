@@ -245,6 +245,8 @@ struct Op_struct {
 
   Flag marked;  // for algorithms that mark already seen ops
 
+  Flag vp;  // marked true for value-predicted ops
+
   /*------------------------------------------------------------------------------------*/
   // FIELDS BELOW THIS POINT SHOULD BE MOVED INTO OTHER HEADERS
   // (along with any related structs above)

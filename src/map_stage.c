@@ -213,6 +213,13 @@ void update_map_stage(Stage_Data* src_sd) {
 /* map_process_op: */
 
 static inline void stage_process_op(Op* op) {
+  /* RBERA: load value prediction at rename stage */
+  if(op->table_info->mem_type == MEM_LD) {
+    if(PERFECT_VP) {
+      op->vp = TRUE;
+    }
+  }
+
   /* the map stage is currently responsible only for setting wake up lists */
   add_to_wake_up_lists(op, &op->oracle_info, model->wake_hook);
 }

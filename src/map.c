@@ -685,6 +685,12 @@ void add_to_wake_up_lists(Op* op, Op_Info* op_info,
         wake_action(src_op, op, ii);
       }
 
+      // RBERA: if the src_op is VPed, break dependency
+      if(src_op->vp) {
+        clear_not_rdy_bit(op, ii);
+        wake_action(src_op, op, ii);
+      }
+
       DEBUG(op->proc_id,
             "Added to wake up list  op_num:%s  src_op_num:%s type:%s\n",
             unsstr64(op->op_num), unsstr64(src_op->op_num),
