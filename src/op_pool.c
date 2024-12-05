@@ -175,10 +175,12 @@ void free_op(Op* op) {
    should be for things that never change. */
 
 void op_pool_init_op(Op* op) {
-  op->oracle_info.mispred  = FALSE;
-  op->oracle_info.misfetch = FALSE;
-  op->oracle_info.icql_cf  = FALSE;
-  op->oracle_info.icql_df  = FALSE;
+  op->oracle_info.mispred   = FALSE;
+  op->oracle_info.misfetch  = FALSE;
+  op->oracle_info.icql_cf   = FALSE;
+  op->oracle_info.icql_df   = FALSE;
+  op->oracle_info.vpval     = 0;
+  op->oracle_info.vpmispred = FALSE;
 }
 
 
@@ -242,6 +244,8 @@ void op_pool_setup_op(uns proc_id, Op* op) {
   op->oracle_info.recovery_sch = FALSE;
   op->oracle_info.icql_cf      = FALSE;
   op->oracle_info.icql_df      = FALSE;
+  op->oracle_info.vpval        = 0;
+  op->oracle_info.vpmispred    = FALSE;
 
   op->oracle_cp_num                  = -1;
   op->engine_info.dcmiss             = FALSE;

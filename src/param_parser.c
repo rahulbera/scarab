@@ -54,6 +54,7 @@ the program.  This way, an exact duplicate run can be performed.
 #include "param_parser.h"
 #include "sim.h"
 #include "stat_trace.h"
+#include "vp/vp.h"
 
 /**************************************************************************************/
 /* Macros */
@@ -250,6 +251,25 @@ void get_conf_mech_param(const char* name, uns* variable) {
 
     for(ii = 0; br_conf_table[ii].name; ii++)
       if(strncmp(optarg, br_conf_table[ii].name, MAX_STR_LENGTH) == 0) {
+        *variable = ii;
+        return;
+      }
+    FATAL_ERROR(0, "Invalid value ('%s') for parameter '%s' --- Ignored.\n",
+                optarg, name);
+  } else
+    FATAL_ERROR(0, "Parameter '%s' missing value --- Ignored.\n", name);
+}
+
+/**************************************************************************************/
+/* get_vp_mech: Converts the optarg into a number by looking it up in the
+ * vp_table. */
+
+void get_vp_mech_param(const char* name, uns* variable) {
+  if(optarg) {
+    uns ii;
+
+    for(ii = 0; vp_table[ii].name; ii++)
+      if(strncmp(optarg, vp_table[ii].name, MAX_STR_LENGTH) == 0) {
         *variable = ii;
         return;
       }

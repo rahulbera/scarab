@@ -245,7 +245,12 @@ struct Op_struct {
 
   Flag marked;  // for algorithms that mark already seen ops
 
-  Flag vp;  // marked true for value-predicted ops
+  // {{{ VP and MRN specific fields
+  Flag vp;  // marked true if value predictor is confident enough to use
+            // the speculated value to break dependency
+            // the predicted value and misprediction flag are stored in
+            // oracle_info
+  // }}}
 
   /*------------------------------------------------------------------------------------*/
   // FIELDS BELOW THIS POINT SHOULD BE MOVED INTO OTHER HEADERS

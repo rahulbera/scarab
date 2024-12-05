@@ -20,46 +20,26 @@
  */
 
 /***************************************************************************************
- * File         : param_parser.h
- * Author       : HPS Research Group
- * Date         : 1/30/1998
- * Description  : Header for parameters.c
+ * File         : vp/vp.param.h
+ * Author       : Rahul Bera, SAFARI Research Group (write2bera@gmail.com)
+ * Date         : 02/DEC/2024
+ * Description  :
  ***************************************************************************************/
 
-#ifndef __PARAM_PARSER_H__
-#define __PARAM_PARSER_H__
+#ifndef __VP_PARAM_H__
+#define __VP_PARAM_H__
+
+#include "globals/global_types.h"
 
 
 /**************************************************************************************/
-/* Global Variables */
+/* extern all of the variables defined in core.param.def */
 
-extern const char* sim_mode_names[];
-
-
-/**************************************************************************************/
-/* Prototypes */
-
-char** get_params(int, char*[]);
-void   get_bp_mech_param(const char*, uns*);
-void   get_btb_mech_param(const char*, uns*);
-void   get_ibtb_mech_param(const char*, uns*);
-void   get_conf_mech_param(const char*, uns*);
-void   get_vp_mech_param(const char*, uns*);
-void   get_sim_mode_param(const char*, Generic_Enum*);
-void   get_exit_cond_param(const char*, Generic_Enum*);
-void   get_sim_model_param(const char*, uns*);
-void   get_frontend_param(const char*, uns*);
-// void get_dram_sched_param(const char *, uns *); // Ramulator_remove
-void get_float_param(const char*, float*);
-void get_int_param(const char*, int*);
-void get_uns_param(const char*, uns*);
-void get_uns8_param(const char*, uns8*);
-void get_Flag_param(const char*, uns8*);
-void get_string_param(const char*, char**);
-void get_strlist_param(const char*, char***);
-void get_uns64_param(const char*, uns64*);
-
+#define DEF_PARAM(name, variable, type, func, def, const) \
+  extern const type variable;
+#include "vp/vp.param.def"
+#undef DEF_PARAM
 
 /**************************************************************************************/
 
-#endif /* #ifndef __PARAM_PARSER_H__ */
+#endif /* #ifndef __VP.PARAM_H__ */

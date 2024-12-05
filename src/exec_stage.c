@@ -372,9 +372,13 @@ void update_exec_stage(Stage_Data* src_sd) {
     }
     // }}}
 
-    /* value prediction recovery/resolution code  */  // if we know the value at
-                                                      // this point if not ?
-                                                      // then we need to wait.
+    /* value prediction recovery/resolution code  */
+    // if we know the value at this point if not ? then we need to wait.
+    //---------------------------------------------//
+    // RBERA: moved value prediction resolution code
+    // inside wake_up_ops to ensure properly training
+    // VP for both non-load or and load uops.
+    //---------------------------------------------//
   }
   // }}}
 

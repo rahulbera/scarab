@@ -22,9 +22,9 @@
 /* -*- Mode: c -*- */
 /***************************************************************************************
 * File         : param_files.def
-* Author       : HPS Research Group 
-* Date         : 2/15/1998
-* Description :  This file should contains only the includes for the various
+* Author       : HPS Research Group & SAFARI Research Group 
+* Date         : 02/DEC/2024
+* Description :  This file should contain only the includes for the various
   ".param.def" files.
 ***************************************************************************************/
 
@@ -35,6 +35,7 @@
 #include "core.param.def"
 #include "debug/debug.param.def"
 #include "bp/bp.param.def"
+#include "vp/vp.param.def"
 #include "packet_build.param.def"
 #include "power/power.param.def"
 #include "prefetcher//stream.param.def"

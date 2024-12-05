@@ -19,23 +19,19 @@
  * SOFTWARE.
  */
 
-/* -*- Mode: c -*- */
 /***************************************************************************************
-* File         : stat_files.def
-* Author       : HPS and SAFARI Research Groups 
-* Date         : 05/DEC/2024
-* Description  : This file should contains only the includes for the various
-  ".stat.def" files.
+* File         : vp/vp_table.def
+* Author       : Rahul Bera, SAFARI Research Group (write2bera@gmail.com)
+* Date         : 02/DEC/2024
+* Description  : 
 ***************************************************************************************/
 
-#include "fetch.stat.def"
-#include "bp/bp.stat.def"
-#include "vp/vp.stat.def"
-#include "memory/memory.stat.def"
-#include "core.stat.def"
-#include "inst.stat.def"
-#include "prefetcher/stream.stat.def"
-#include "prefetcher/l2l1pref.stat.def" 
-#include "power/power.stat.def"
-#include "prefetcher/pref.stat.def"
 
+Vp vp_table [] = {
+    /* Enum           Name           init                 pred                 update                 retire                 recover               */
+    /* ------------------------------------------------------------------------------------------------------------------------------------------- */
+    { NO_VP,          "novp",        vp_novp_init,        vp_novp_pred,        vp_novp_update,        vp_novp_retire,        vp_novp_recover       },
+    { LAST_VAL_VP,    "last_val",    vp_last_val_init,    vp_last_val_pred,    vp_last_val_update,    vp_last_val_retire,    vp_last_val_recover   },
+    { NUM_VP,         0,             NULL,                NULL,                NULL,                  NULL,                  NULL                  }
+    
+};

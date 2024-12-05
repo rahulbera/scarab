@@ -122,6 +122,9 @@ struct Op_Info_struct {
   Flag  recovery_sch;  // true if this op has scheduled a recovery
   uns32 pred_global_hist;  // global history used to predict the branch
 
+  // VP & MRN fields
+  uns64 vpval;      // the predicted value
+  Flag  vpmispred;  // true only if VP was confident yet predicted a wrong value
 
   uns64 pred_perceptron_global_hist;  // Only for perceptron, global history
                                       // used to predict the branch

@@ -122,6 +122,7 @@ void cmp_init(uns mode) {
     /* initialize the common data structures */
     init_bp_recovery_info(proc_id, &cmp_model.bp_recovery_info[proc_id]);
     init_bp_data(proc_id, &cmp_model.bp_data[proc_id]);
+    init_vp_data(proc_id, &cmp_model.vp_data[proc_id]);
   }
 
   cmp_model.window_size = NODE_TABLE_SIZE;

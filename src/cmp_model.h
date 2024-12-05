@@ -42,6 +42,7 @@
 #include "memory/memory.h"
 #include "node_stage.h"
 #include "thread.h"
+#include "vp/vp.h"
 
 /**************************************************************************************/
 /* cmp model data  */
@@ -55,6 +56,7 @@ typedef struct Cmp_Model_struct {
   Map_Data*         map_data;
   Bp_Recovery_Info* bp_recovery_info;
   Bp_Data*          bp_data;
+  Vp_Data*          vp_data;
 
   Memory memory;
 

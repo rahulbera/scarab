@@ -45,6 +45,8 @@
 #include "core.param.h"
 #include "debug/debug.param.h"
 #include "statistics.h"
+#include "vp/vp.h"
+#include "vp/vp.param.h"
 
 /**************************************************************************************/
 /* Macros */
@@ -214,10 +216,8 @@ void update_map_stage(Stage_Data* src_sd) {
 
 static inline void stage_process_op(Op* op) {
   /* RBERA: load value prediction at rename stage */
-  if(op->table_info->mem_type == MEM_LD) {
-    if(PERFECT_VP) {
-      op->vp = TRUE;
-    }
+  if(op_vp_eligible(op)) {
+    vp_predict_op(g_vp_data, op);
   }
 
   /* the map stage is currently responsible only for setting wake up lists */

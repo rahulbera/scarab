@@ -53,6 +53,7 @@ void cmp_init_cmp_model() {
   cmp_model.bp_recovery_info = (Bp_Recovery_Info*)malloc(
     sizeof(Bp_Recovery_Info) * NUM_CORES);
   cmp_model.bp_data      = (Bp_Data*)malloc(sizeof(Bp_Data) * NUM_CORES);
+  cmp_model.vp_data      = (Vp_Data*)malloc(sizeof(Vp_Data) * NUM_CORES);
   cmp_model.icache_stage = (Icache_Stage*)malloc(sizeof(Icache_Stage) *
                                                  NUM_CORES);
   cmp_model.decode_stage = (Decode_Stage*)malloc(sizeof(Decode_Stage) *
@@ -92,6 +93,7 @@ void cmp_set_all_stages(uns8 proc_id) {
   set_dcache_stage(&cmp_model.dcache_stage[proc_id]);
   if(DECOUPLED_BP)
     set_dbp_stage(&cmp_model.bp_stage[proc_id]);
+  set_vp_data(&cmp_model.vp_data[proc_id]);
 }
 
 /**************************************************************************************/

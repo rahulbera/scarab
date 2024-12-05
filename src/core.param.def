@@ -305,9 +305,6 @@ DEF_PARAM(memtrace_modules_log, MEMTRACE_MODULES_LOG, char*, string, NULL, )
 DEF_PARAM(dumb_core_on, DUMB_CORE_ON, Flag, Flag, FALSE, )
 DEF_PARAM(dumb_core, DUMB_CORE, uns, uns, 1, )
 
-/* Value prediction */
-DEF_PARAM(perfect_vp, PERFECT_VP, Flag, Flag, FALSE, )
-
 /* inconsequential headroom modeling params */
 DEF_PARAM(icql_headroom, ICQL_HEADROOM, Flag, Flag, FALSE, )
 DEF_PARAM(icql_headroom_sched_delay, ICQL_HEADROOM_SCHED_DELAY, uns, uns, 0, )

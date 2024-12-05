@@ -45,6 +45,7 @@
 #include "cmp_model.h"
 #include "libs/hash_lib.h"
 #include "statistics.h"
+#include "vp/vp.h"
 
 /**************************************************************************************/
 /* Macros */
@@ -560,7 +561,6 @@ static inline void update_store_hash(Op* op) {
 void wake_up_ops(Op* op, Dep_Type type, void (*wake_action)(Op*, Op*, uns8)) {
   Wake_Up_Entry* temp;
 
-
   _DEBUG(op->proc_id, DEBUG_REPLAY,
          "Waking up ops from src_op:%s unique:%s type:%s\n",
          unsstr64(op->op_num), unsstr64(op->unique_num), dep_type_names[type]);
@@ -569,6 +569,13 @@ void wake_up_ops(Op* op, Dep_Type type, void (*wake_action)(Op*, Op*, uns8)) {
           op->off_path);
 
   ASSERT(op->proc_id, wake_action);
+
+  // RBERA: train VP
+  if(op_vp_eligible(op)) {
+    vp_resolve_op(g_vp_data, op);
+  }
+
+  // Wake up dependents
   for(temp = op->wake_up_head; temp; temp = temp->next) {
     Op*     dep_op         = temp->op;
     Counter dep_unique_num = temp->unique_num;
@@ -685,7 +692,9 @@ void add_to_wake_up_lists(Op* op, Op_Info* op_info,
         wake_action(src_op, op, ii);
       }
 
-      // RBERA: if the src_op is VPed, break dependency
+      // RBERA: if the src_op is VPed, break dependency.
+      // Note that: src_op would still have op in its wakeup list,
+      // but op won't have its dependency bit set.
       if(src_op->vp) {
         clear_not_rdy_bit(op, ii);
         wake_action(src_op, op, ii);
