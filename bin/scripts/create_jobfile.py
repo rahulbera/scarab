@@ -140,8 +140,8 @@ def main():
         )
     print("#\n#\n#")
     
-    for exp in experiments:
-        for trace in traces:
+    for trace in traces:
+        for exp in experiments:
             exp_trace_combo = f"{trace.name}.{exp.name}"
             cmd = f"{SLURM_PREAMBLE} {JOB_DESC_TEMPLATE}"
             cmd = cmd.replace("SLURM_PART", args.slurm_part)
